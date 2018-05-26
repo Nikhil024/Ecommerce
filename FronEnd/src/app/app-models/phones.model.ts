@@ -1,4 +1,4 @@
-export class Devices {
+export interface Devices {
   id: number;
   code: string;
   description: string;

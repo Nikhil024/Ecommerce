@@ -19,10 +19,30 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "assets/styles/bootstrap4/bootstrap.min.css",
+        "assets/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css",
+        "assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css",
+        "assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css",
+        "assets/plugins/OwlCarousel2-2.2.1/animate.css",
+        "assets/plugins/slick-1.8.0/slick.css",
+        "assets/styles/main_styles.css",
+        "assets/styles/responsive.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/jquery-3.3.1.min.js",
+        "assets/styles/bootstrap4/popper.js",
+        "assets/styles/bootstrap4/bootstrap.min.js",
+        "assets/plugins/greensock/TweenMax.min.js",
+        "assets/plugins/greensock/TimelineMax.min.js",
+        "assets/plugins/scrollmagic/ScrollMagic.min.js",
+        "assets/plugins/greensock/animation.gsap.min.js",
+        "assets/plugins/greensock/ScrollToPlugin.min.js",
+        "assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js",
+        "assets/plugins/slick-1.8.0/slick.js",
+        "assets/plugins/easing/easing.js",
+        "assets/js/custom.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -37,11 +57,11 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
+      "project": "tsconfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "src/tsconfig.spec.json",
+      "project": "tsconfig.spec.json",
       "exclude": "**/node_modules/**"
     },
     {
