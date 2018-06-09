@@ -16,7 +16,5 @@ export class AppComponent implements OnInit {
     this.deviceService.getAllDevicesList().subscribe(
       data => this.dev = data
     );
-
-
   }
 }
