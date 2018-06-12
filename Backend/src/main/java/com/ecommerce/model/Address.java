@@ -8,9 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
+
+import com.ecommerce.enumaration.AddressType;
 
 import lombok.Data;
 import lombok.ToString;
@@ -30,8 +34,12 @@ public class Address {
 	@NotNull
 	private String address;
 	@NotNull
+	private AddressType type;
+	@NotNull
 	private Integer postalCode;
 	@NotNull
+	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
 	@Column(name = "created_date")
 	private LocalDateTime createdOn;
