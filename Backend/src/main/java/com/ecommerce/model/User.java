@@ -43,7 +43,8 @@ public class User implements UserDetails, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String name;
+	private String username;
+	private String firstName;
 	@NotNull
 	private String password;
 	@Transient

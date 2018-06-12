@@ -1,6 +1,8 @@
 package com.ecommerce.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ecommerce.dao.repository.ProductRepository;
+import com.ecommerce.configuration.SecurityUtility;
 import com.ecommerce.model.Product;
+import com.ecommerce.model.Role;
+import com.ecommerce.model.User;
+import com.ecommerce.model.UserRole;
+import com.ecommerce.repository.ProductRepository;
+import com.ecommerce.repository.UserRepository;
 
 /**
  * Handles requests for the application home page.
@@ -27,9 +34,24 @@ public class ProductsController {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@GetMapping("/")
 	public @ResponseBody String demo() {
+		
+		User user = new User();
+		
+		user.setUsername("nikhil");
+		user.setPassword(SecurityUtility.passwordEncoder().encode("admin"));
+		user.setFirstName("Nikhil Mohandas");
+		Set<UserRole> userRoles = new HashSet<>();
+		Role role= new Role();
+		user.setUserRoles(userRoles);
+		
+		userRepository.save(user);
+		
+		
 		return "asdas";
 	}
 	

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.dao.repository.UserRepository;
 import com.ecommerce.model.User;
+import com.ecommerce.repository.UserRepository;
 import com.ecommerce.services.UserService;
 
 @Service
