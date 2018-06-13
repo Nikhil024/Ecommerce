@@ -1,9 +1,6 @@
 package com.ecommerce.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,15 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ecommerce.enumaration.UserType;
-
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@ToString(includeFieldNames = true)
 @Table(name = "user_role")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,5 +38,4 @@ public class UserRole implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id")
 	private Role role;
-
 }

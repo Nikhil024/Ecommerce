@@ -1,7 +1,6 @@
 package com.ecommerce.model;
 
 import java.io.Serializable;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
@@ -30,13 +29,15 @@ import com.ecommerce.configuration.Authority;
 import com.ecommerce.enumaration.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@ToString(includeFieldNames = true)
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
 public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,10 +52,9 @@ public class User implements UserDetails, Serializable {
 	private String confirmPassword;
 	private String email;
 	@Column(name = "user_type")
-	@NotNull
 	private Enum<UserType> userType;
 
-	@OneToMany(mappedBy="user" ,targetEntity = Order.class)
+	@OneToMany(mappedBy="user")
 	private List<Order> order;
 
 	@OneToMany(mappedBy="user")
@@ -71,7 +71,6 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "lastupdate_date")
 	private LocalDateTime lastUpdatedOn;
 
-	
 	@PrePersist
 	public void setCreatedOn() {
 		this.createdOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
@@ -92,13 +91,13 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.username;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -14,11 +15,11 @@ import javax.persistence.PreUpdate;
 import lombok.Data;
 import lombok.ToString;
 
-@Data
-@ToString(includeFieldNames = true)
 @Entity
-public class Offers {
+public class Offers implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

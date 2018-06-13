@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -16,14 +17,16 @@ import javax.validation.constraints.NotNull;
 
 import com.ecommerce.enumaration.AddressType;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@ToString(includeFieldNames=true)
 @Entity
-public class Address {
+@Getter @Setter @NoArgsConstructor
+public class Address implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

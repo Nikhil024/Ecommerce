@@ -21,6 +21,9 @@ import com.ecommerce.model.User;
 import com.ecommerce.model.UserRole;
 import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.repository.UserRepository;
+import com.ecommerce.services.UserService;
+
+import lombok.extern.java.Log;
 
 /**
  * Handles requests for the application home page.
@@ -28,53 +31,60 @@ import com.ecommerce.repository.UserRepository;
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductsController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
-	
+
+	private static final Logger LOG = LoggerFactory.getLogger(ProductsController.class);
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
+	@Autowired
+	private UserService userService;
+
 	@GetMapping("/")
-	public @ResponseBody String demo() {
-		
+	public @ResponseBody User demo() {
+
 		User user = new User();
-		
 		user.setUsername("nikhil");
-		user.setPassword(SecurityUtility.passwordEncoder().encode("admin"));
+		user.setPassword(SecurityUtility.passwordEncoder().encode("p"));
 		user.setFirstName("Nikhil Mohandas");
 		Set<UserRole> userRoles = new HashSet<>();
-		Role role= new Role();
-		user.setUserRoles(userRoles);
-		
-		userRepository.save(user);
-		
-		
-		return "asdas";
+		Role role = new Role();
+		role.setRoleId(1);
+		role.setName("ROLE_ADMIN");
+
+		userRoles.add(new UserRole(user, role));
+		LOG.info(user.toString());
+		LOG.info(role.toString());
+		userService.createUser(user, userRoles);
+
+		userRoles.clear();
+
+		return user;
 	}
-	
-	@RequestMapping(value = "/getAllProduct",method = RequestMethod.GET)
-	public @ResponseBody List<Product> getAllProduct(){
+
+	@RequestMapping(value = "/getAllProduct", method = RequestMethod.GET)
+	public @ResponseBody List<Product> getAllProduct() {
 		return productRepository.findAll();
 	}
-	
-	@RequestMapping(value = "/getProduct",method = RequestMethod.GET)
-	public @ResponseBody List<Product> getProduct(){
+
+	@RequestMapping(value = "/getProduct", method = RequestMethod.GET)
+	public @ResponseBody List<Product> getProduct() {
 		return productRepository.findAll();
 	}
-	
-	@RequestMapping(value = "/saveAllProduct",method = RequestMethod.POST)
-	public @ResponseBody List<Product> saveAllProduct(List<Product> product){
+
+	@RequestMapping(value = "/saveAllProduct", method = RequestMethod.POST)
+	public @ResponseBody List<Product> saveAllProduct(List<Product> product) {
 		productRepository.saveAll(product);
 		return productRepository.findAll();
 	}
-	
-	@RequestMapping(value = "/saveProduct",method = RequestMethod.POST)
-	public @ResponseBody List<Product> saveProduct(Product product){
+
+	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
+	public @ResponseBody List<Product> saveProduct(Product product) {
 		productRepository.save(product);
 		return productRepository.findAll();
 	}
-	
+
 }
