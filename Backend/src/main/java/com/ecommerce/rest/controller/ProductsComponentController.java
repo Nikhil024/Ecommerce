@@ -1,4 +1,4 @@
-package com.ecommerce.controller;
+package com.ecommerce.rest.controller;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,9 +30,9 @@ import lombok.extern.java.Log;
  */
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-public class ProductsController {
+public class ProductsComponentController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ProductsController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ProductsComponentController.class);
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -56,8 +56,6 @@ public class ProductsController {
 		role.setName("ROLE_ADMIN");
 
 		userRoles.add(new UserRole(user, role));
-		LOG.info(user.toString());
-		LOG.info(role.toString());
 		userService.createUser(user, userRoles);
 
 		userRoles.clear();

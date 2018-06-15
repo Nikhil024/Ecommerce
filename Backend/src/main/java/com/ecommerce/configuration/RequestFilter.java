@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RequestFilter implements Filter{
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -42,7 +43,8 @@ public class RequestFilter implements Filter{
 		}
 	}
 	
+	@Override
 	public void init(FilterConfig filterConfig) {}
-	
+	@Override
 	public void destroy() {}
 }

@@ -26,12 +26,7 @@ public class UserSecurityService implements UserDetailsService{
 			LOG.warn("Username {} not found",username);
 			throw new UsernameNotFoundException("Username "+username+" not found");
 		}
-		LOG.info("User name Found and is {} ",user.getUsername());
+		LOG.info("User name Found and is {} ",user.getUsername());	
 		return user;
 	}
-
-
 }
-
-
-	
