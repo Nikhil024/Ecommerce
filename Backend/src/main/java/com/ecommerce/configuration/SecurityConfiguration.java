@@ -14,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
+import com.ecommerce.handlers.AuthenticationFailureHandler;
+import com.ecommerce.handlers.AuthenticationSuccessHandler;
+import com.ecommerce.handlers.UnauthorizedEntryPointHandler;
 import com.ecommerce.services.impl.UserSecurityService;
 
 @Configuration
@@ -27,6 +30,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserSecurityService userSecurityService;
+	
+	@Autowired
+	private AuthenticationSuccessHandler authSuccessHandler;
+	
+	@Autowired
+	private AuthenticationFailureHandler authFailureHandler;
+	
+	@Autowired
+	private UnauthorizedEntryPointHandler unauthorizedHandler;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,8 +53,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
-				.permitAll().anyRequest().authenticated();
+
+		http
+			.csrf().disable()
+			.cors().disable()
+			.exceptionHandling()
+				.authenticationEntryPoint(unauthorizedHandler)
+			.and()
+			.formLogin()
+				.successHandler(authSuccessHandler)
+				.failureHandler(authFailureHandler)
+				.and()
+			.authorizeRequests()
+			.antMatchers("/token").authenticated();
+		
 	}
 
 	@Bean
