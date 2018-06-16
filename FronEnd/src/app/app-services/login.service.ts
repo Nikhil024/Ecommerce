@@ -1,9 +1,9 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ApplicationProperties} from '../properties/applicationproperties';
 
 @Injectable()
 export class LoginService implements OnInit {
-  private url;
   private encodedCredentials;
   private basicHeader;
   private headers;
@@ -13,41 +13,42 @@ export class LoginService implements OnInit {
   constructor(private httpClient: HttpClient) {}
 
   login (username: string, password: string) {
-    this.url = 'http://localhost:8080/personal/login';
+    const url = ApplicationProperties.BackendRestUrl + 'login';
     this.encodedCredentials = btoa(username + ':' + password);
     this.basicHeader = 'Basic ' + this.encodedCredentials;
     this.headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-    return this.httpClient.post(this.url , 'username=' + username + '&password=' + password, { headers: this.headers});
+    return this.httpClient.post(url , 'username=' + username + '&password=' + password, { headers: this.headers});
   }
 
   getToken (username: string, password: string) {
-    this.url = 'http://localhost:8080/personal/token';
+    const url = ApplicationProperties.BackendRestUrl + 'token';
     this.encodedCredentials = btoa(username + ':' + password);
     this.basicHeader = 'Basic ' + this.encodedCredentials;
     this.headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': this.basicHeader
     });
-    return this.httpClient.get(this.url , {headers: this.headers});
+    return this.httpClient.get(url , {headers: this.headers});
   }
 
 
   checkSession () {
-    this.url = 'http://localhost:8080/personal/token';
+    const url = ApplicationProperties.BackendRestUrl + 'token';
     this.headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    return this.httpClient.get(this.url , {headers: this.headers});
+    return this.httpClient.get(url , {headers: this.headers});
   }
 
   logout() {
     this.headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    this.url = 'http://localhost:8080/personal/logouts';
-    return this.httpClient.post(this.url, {headers: this.headers});
+    const url =  ApplicationProperties.BackendRestUrl + 'userLogout';
+    return this.httpClient.post(url, {headers: this.headers});
   }
+
 
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.services.UserService;
@@ -41,14 +41,15 @@ public class LoginComponentController {
 	}
 	
 	@GetMapping("/checkSession")
-	public ResponseEntity checkSession() {
-		return new ResponseEntity("Session Active!",HttpStatus.OK);
+	public ResponseEntity<String> checkSession() {
+		return new ResponseEntity<String>("Session Active!",HttpStatus.OK);
 	}
 	
-	@RequestMapping(name = "/logouts", method = RequestMethod.POST)
-	public ResponseEntity logout() {
+	@PostMapping("/userLogout")
+	public ResponseEntity<String> logout(HttpServletResponse response) {
 		SecurityContextHolder.clearContext();
-		return new ResponseEntity("Logout Success!",HttpStatus.OK);
+		response.setStatus(HttpServletResponse.SC_OK);
+		return new ResponseEntity<String>("Logout Success!",HttpStatus.OK);
 	}
 	
 }

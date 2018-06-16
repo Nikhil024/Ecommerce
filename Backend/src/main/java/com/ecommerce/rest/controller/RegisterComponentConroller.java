@@ -16,7 +16,7 @@ public class RegisterComponentConroller {
 	@PostMapping("/register")
 	public User register() {
 		
-		/*userService.createUser(user, userRole);*/
+		
 		return null;
 	}
 	

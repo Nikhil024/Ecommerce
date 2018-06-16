@@ -43,7 +43,9 @@ $(document).ready(function()
 
 	setHeader();
 
-	initCustomDropdown();
+	/*if(window.href.indexOf('/login') > -1) {
+    initCustomDropdown();
+  }*/
 	initPageMenu();
 	initDealsSlider();
 	initTabLines();

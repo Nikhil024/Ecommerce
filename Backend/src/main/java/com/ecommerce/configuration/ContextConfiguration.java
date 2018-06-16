@@ -62,7 +62,7 @@ public class ContextConfiguration implements WebMvcConfigurer {
 
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+	/*	hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");*/
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		hibernateProperties.put("hibernate.show_sql", "true");
 		hibernateProperties.put("hibernate.format_sql", "true");
