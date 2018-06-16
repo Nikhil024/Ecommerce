@@ -72,7 +72,7 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	@Bean
 	public LettuceConnectionFactory connectionFactory() {
 		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory();
-		lettuceConnectionFactory.setHostName("192.168.0.158");
+		lettuceConnectionFactory.setHostName("localhost");
 		lettuceConnectionFactory.setPort(6379);
 		return lettuceConnectionFactory;
 	}

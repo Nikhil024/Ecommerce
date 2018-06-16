@@ -65,7 +65,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.failureHandler(authFailureHandler)
 				.and()
 			.authorizeRequests()
-			.antMatchers("/token").authenticated();
+				.antMatchers(PUBLIC_MATCHERS)
+					.permitAll()
+						.anyRequest()
+							.authenticated();
 		
 	}
 

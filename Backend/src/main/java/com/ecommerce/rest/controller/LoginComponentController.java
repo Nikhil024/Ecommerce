@@ -45,7 +45,7 @@ public class LoginComponentController {
 		return new ResponseEntity("Session Active!",HttpStatus.OK);
 	}
 	
-	@RequestMapping(name = "/logout", method = RequestMethod.POST)
+	@RequestMapping(name = "/logouts", method = RequestMethod.POST)
 	public ResponseEntity logout() {
 		SecurityContextHolder.clearContext();
 		return new ResponseEntity("Logout Success!",HttpStatus.OK);
