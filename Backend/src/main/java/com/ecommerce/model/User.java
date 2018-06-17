@@ -51,8 +51,6 @@ public class User implements UserDetails, Serializable {
 	@Transient
 	private String confirmPassword;
 	private String email;
-	@Column(name = "user_type")
-	private Enum<UserType> userType;
 
 	@OneToMany(mappedBy="user")
 	private List<Order> order;

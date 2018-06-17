@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgModel} from '@angular/forms';
+import {RegisterService} from '../app-services/register.service';
+import {User} from '../app-models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -7,16 +9,16 @@ import {NgModel} from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
+  private user: User;
+  constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
   }
 
   register(form: NgModel) {
-    const username = form.value.username;
-    const password = form.value.password;
-    const confirmPassword = form.value.confirmPassword;
-
+    const user = new User(form.value.username, form.value.password, form.value.confirmPassword);
+    this.registerService.register(user).subscribe(
+      response => { console.log('success ' + JSON.stringify(response)); }
+    );
   }
 }
