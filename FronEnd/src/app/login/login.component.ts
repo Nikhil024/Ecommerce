@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         );
       },
       error => {
-        console.log('error:: ' + JSON.stringify(error));
+        alert('error:: ' + error['text']);
       }
     );
   }

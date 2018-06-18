@@ -7,7 +7,7 @@ import {LoginService} from '../app-services/login.service';
 })
 export class ProductListingComponent implements OnInit {
 
-  loggedIn = false;
+  loggedIn = true;
 
   constructor(private loginService: LoginService) { }
 

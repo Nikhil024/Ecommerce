@@ -10,7 +10,6 @@ export class RegisterService {
 
   register(user: User) {
     const url = ApplicationProperties.BackendRestUrl + 'register';
-    console.log('user::::: ' + user.username + ' :::: ' + user.password + ' ::: ' + user.confirmPassword);
-    return this.httpClient.post<User>(url, user);
+    return this.httpClient.post<string>(url, user);
   }
 }
