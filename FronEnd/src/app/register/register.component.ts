@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
   register(form: NgModel) {
     const user = new User(form.value.username, form.value.password, form.value.confirmPassword);
     this.registerService.register(user).subscribe(
-      response => { console.log('success ' + JSON.stringify(response)); }
+      response => { console.log('success ' + JSON.stringify(response)); },
+      error => { console.log('error ' + JSON.stringify(error)); }
     );
   }
 }

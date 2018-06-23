@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return SecurityUtility.passwordEncoder();
 	}
 
-	private static final String[] PUBLIC_MATCHERS = { "/", "/register", "/css/**", "/js/**", "/image/**", "/book/**", "/user/**", };
+	private static final String[] PUBLIC_MATCHERS = { "/", "/register", "/getAllProducts", "/getAllCategories" , "/unknownUserAddCart", "/addExistingCart" ,"/getCart"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

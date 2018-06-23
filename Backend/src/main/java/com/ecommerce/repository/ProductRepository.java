@@ -10,4 +10,5 @@ import com.ecommerce.model.Product;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 	List<Product> findAll();
+	Product findByCode(String code);
 }

@@ -53,9 +53,11 @@ public class User implements UserDetails, Serializable {
 	private String email;
 
 	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	private List<Order> order;
 
 	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	private List<Address> adress;
 	
 	private boolean enabled = true;

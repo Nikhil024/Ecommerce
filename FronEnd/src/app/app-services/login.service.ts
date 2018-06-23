@@ -4,51 +4,47 @@ import {ApplicationProperties} from '../properties/applicationproperties';
 
 @Injectable()
 export class LoginService implements OnInit {
-  private encodedCredentials;
-  private basicHeader;
-  private headers;
+  private loginUrl = ApplicationProperties.BackendRestUrl + 'login';
+  private tokenUrl = ApplicationProperties.BackendRestUrl + 'token';
+  private checkSessionUrl = ApplicationProperties.BackendRestUrl + 'token';
+  private logoutUrl =  ApplicationProperties.BackendRestUrl + 'userLogout';
 
   ngOnInit() { }
 
   constructor(private httpClient: HttpClient) {}
 
   login (username: string, password: string) {
-    const url = ApplicationProperties.BackendRestUrl + 'login';
-    this.encodedCredentials = btoa(username + ':' + password);
-    this.basicHeader = 'Basic ' + this.encodedCredentials;
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+    const encodedCredentials = btoa(username + ':' + password);
+    const basicHeader = 'Basic ' + encodedCredentials;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': basicHeader
     });
-    return this.httpClient.post(url , 'username=' + username + '&password=' + password, { headers: this.headers});
+    return this.httpClient.post(this.loginUrl , 'username=' + username + '&password=' + password, { headers: headers});
   }
 
   getToken (username: string, password: string) {
-    const url = ApplicationProperties.BackendRestUrl + 'token';
-    this.encodedCredentials = btoa(username + ':' + password);
-    this.basicHeader = 'Basic ' + this.encodedCredentials;
-    this.headers = new HttpHeaders({
+    const encodedCredentials = btoa(username + ':' + password);
+    const basicHeader = 'Basic ' + encodedCredentials;
+    const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': this.basicHeader
+      'Authorization': basicHeader
     });
-    return this.httpClient.get(url , {headers: this.headers});
+    return this.httpClient.get(this.tokenUrl , {headers: headers});
   }
 
 
   checkSession () {
-    const url = ApplicationProperties.BackendRestUrl + 'token';
-    this.headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    return this.httpClient.get(url , {headers: this.headers});
+    return this.httpClient.get(this.checkSessionUrl , {headers: headers});
   }
 
   logout() {
-    this.headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    const url =  ApplicationProperties.BackendRestUrl + 'userLogout';
-    return this.httpClient.post(url, {headers: this.headers});
+    return this.httpClient.post(this.logoutUrl, {headers: headers});
   }
-
-
 }

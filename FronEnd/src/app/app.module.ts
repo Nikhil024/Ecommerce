@@ -15,6 +15,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {ApplicationRoutes} from './application-routes.module';
+import {CategoryListingComponent} from './category-listing/category-listing.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {ApplicationRoutes} from './application-routes.module';
     ProductConfirmationComponent,
     LoginComponent,
     RegisterComponent,
+    CategoryListingComponent,
     PageNotFoundComponent
   ],
   imports: [

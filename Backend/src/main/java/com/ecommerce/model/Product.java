@@ -10,18 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,14 +27,18 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotNull
+	@Column(unique = true)
 	private String code;
 	private String description;
 	@NotNull
 	private Integer stock;
 	@NotNull
 	private Double price;
+	private Double offerPrice;
+	
+	@OneToOne
 	@NotNull
-	private String type;
+	private ProductCategory category;
 	private Blob image;
 	
 	@Column(name = "created_date")

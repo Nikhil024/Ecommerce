@@ -9,14 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Entity
-public class Offers implements Serializable{
+@Table(name = "product_category")
+@Data
+public class ProductCategory implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,7 +27,6 @@ public class Offers implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String type;
-	private Double price;
 	
 	@Column(name = "created_date")
 	private LocalDateTime createdOn;

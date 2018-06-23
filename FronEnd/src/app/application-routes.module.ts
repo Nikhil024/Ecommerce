@@ -9,6 +9,7 @@ import {AddressComponent} from './address/address.component';
 import {SummaryComponent} from './summary/summary.component';
 import {ProductConfirmationComponent} from './product-confirmation/product-confirmation.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {CategoryListingComponent} from './category-listing/category-listing.component';
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   {path: 'address', component: AddressComponent},
   {path: 'summary', component: SummaryComponent},
   {path: 'confirm', component: ProductConfirmationComponent},
+  { path: 'categories', component: CategoryListingComponent},
   { path: 'not-found', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},
 ];

@@ -4,7 +4,7 @@ export interface Product {
   description: string;
   stock: number;
   price: number;
-  type: string;
+  offerPrice: number;
   image: Blob;
   createdOn: string;
   lastUpdatedOn: string;
