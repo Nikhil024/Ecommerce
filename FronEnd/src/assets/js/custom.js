@@ -28,7 +28,7 @@
 
 ******************************/
 
-$(document).ready(function()
+$(document).on('load',function()
 {
 	"use strict";
 

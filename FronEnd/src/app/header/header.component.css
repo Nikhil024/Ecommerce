@@ -1,0 +1,22 @@
+.cart {
+  height: 29px;
+  width: 26px;
+  margin-bottom: -8px;
+  margin-top: -18px;
+}
+
+.dot {
+  margin-left: -14px;
+  margin-bottom: -5px;
+  height: 20px;
+  width: 20px;
+  background-color: #0e8ce4;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.cart_count {
+  font-size: 14px;
+  margin-left: -22px;
+  margin-right: 6px;
+}

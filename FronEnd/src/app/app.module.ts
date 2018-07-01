@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {ApplicationRoutes} from './application-routes.module';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
+import {HeaderComponent} from './header/header.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {CategoryListingComponent} from './category-listing/category-listing.comp
     LoginComponent,
     RegisterComponent,
     CategoryListingComponent,
+    HeaderComponent,
     PageNotFoundComponent
   ],
   imports: [

@@ -6,7 +6,6 @@ import {ProductCategory} from '../app-models/productCategory.model';
 import {Product} from '../app-models/product.model';
 import {ProductService} from '../app-services/product.service';
 import {ProductCategoryService} from '../app-services/product.category.service';
-import {forEach} from '@angular/router/src/utils/collection';
 import {CartService} from '../app-services/cart.service';
 import {Cart} from '../app-models/cart.model';
 
@@ -16,8 +15,8 @@ import {Cart} from '../app-models/cart.model';
 })
 export class ProductListingComponent implements OnInit {
   public user = new User('', '' , '');
-  public productCategory: ProductCategory[];
-  product: Product[];
+  public productCategories: ProductCategory[];
+  products: Product[];
   public cart = new Cart();
   public totalCartCount = 0;
   public totalCartCost = 0;
@@ -32,7 +31,7 @@ export class ProductListingComponent implements OnInit {
   ngOnInit() {
     this.getAllProducts();
     this.getAllProductCategories();
-    if (localStorage.getItem('cartId') != null && this.cart != null) {
+    if (localStorage.getItem('cartId') != null && this.cart != null && this.cart.product != null) {
       this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
         response => {
           this.cart = response;
@@ -47,7 +46,7 @@ export class ProductListingComponent implements OnInit {
       );
     }
 
-
+/*
     if (!this.loggedIn) {
       this.loginService.checkSession().subscribe(
         response => {
@@ -59,7 +58,7 @@ export class ProductListingComponent implements OnInit {
           // localStorage.clear();
         }
       );
-    }
+    }*/
   }
   logout() {
     this.loginService.logout().subscribe(
@@ -84,7 +83,7 @@ export class ProductListingComponent implements OnInit {
   getAllProducts() {
     this.productService.getAllProducts().subscribe(
       response => {
-        this.product = response;
+        this.products = response;
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
@@ -95,7 +94,7 @@ export class ProductListingComponent implements OnInit {
   getAllProductCategories() {
     this.productCategoryService.getAllProductCategories().subscribe(
       response => {
-        this.productCategory = response;
+        this.productCategories = response;
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
@@ -108,7 +107,7 @@ export class ProductListingComponent implements OnInit {
       this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
         response => {
           this.cart = response;
-          console.log(JSON.stringify(response));
+          this.cartService.cart.next(response);
         },
         error => {
           console.log(JSON.stringify(error));
@@ -117,7 +116,7 @@ export class ProductListingComponent implements OnInit {
     } else {
       this.cartService.addCart(product.code).subscribe(
         response => {
-          console.log(JSON.stringify(response));
+          this.cartService.cart.next(response);
           this.cart = response;
           localStorage.setItem('cartId', this.cart.id.toString());
         },

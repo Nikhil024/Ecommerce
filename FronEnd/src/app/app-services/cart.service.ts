@@ -2,6 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApplicationProperties} from '../properties/applicationproperties';
 import {Cart} from '../app-models/cart.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CartService {
@@ -9,7 +10,7 @@ export class CartService {
   private addUnknownUserCartUrl = ApplicationProperties.BackendRestUrl + 'unknownUserAddCart';
   private addExistingCartUrl = ApplicationProperties.BackendRestUrl + 'addExistingCart';
   private getCartUrl = ApplicationProperties.BackendRestUrl + 'getCart';
-  cartChanged = new EventEmitter<Cart>();
+  public cart = new Subject();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -46,7 +47,6 @@ export class CartService {
       });
       return this.httpClient.post<Cart>(this.getCartUrl, cartId, {headers: headers});
     } else {
-      this.cartChanged.emit();
       return this.httpClient.post<Cart>(this.getCartUrl, cartId);
     }
   }
