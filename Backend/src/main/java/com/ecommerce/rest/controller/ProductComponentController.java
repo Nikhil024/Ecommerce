@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.configuration.SecurityUtility;
@@ -34,6 +36,13 @@ public class ProductComponentController {
 	@GetMapping("/getAllProducts")
 	public List<Product> getallProducts() {
 		return productService.getAllProducts();
+	}
+	
+	
+	@PostMapping("/getProductFromCategory")
+	public List<Product> getProductFromCategory(@RequestBody ProductCategory productCategoryId) {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA::: "+productCategoryId);
+		return productService.getProductFromCategory(productCategoryId);
 	}
 
 	@GetMapping("/getAllCategories")

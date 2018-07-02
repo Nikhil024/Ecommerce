@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.model.Product;
+import com.ecommerce.model.ProductCategory;
 import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.services.ProductService;
 
@@ -28,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product getProduct(String productCode) {
 		return productRepository.findByCode(productCode);
+	}
+
+	@Override
+	public List<Product> getProductFromCategory(ProductCategory productCategoryId) {
+		return productRepository.findByCategory(productCategoryId);
 	}
 
 }

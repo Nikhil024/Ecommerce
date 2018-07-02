@@ -13,14 +13,14 @@ import {CategoryListingComponent} from './category-listing/category-listing.comp
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
-  {path: 'phones/{device_code}', component: ProductDetailsComponent},
+  {path: 'categories/:categoryType/:productCode', component: ProductDetailsComponent},
+  {path: 'categories/:categoryType', component: CategoryListingComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: ShoppingCartComponent},
   {path: 'address', component: AddressComponent},
   {path: 'summary', component: SummaryComponent},
   {path: 'confirm', component: ProductConfirmationComponent},
-  { path: 'categories', component: CategoryListingComponent},
   { path: 'not-found', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},
 ];

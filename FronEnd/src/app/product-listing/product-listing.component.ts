@@ -46,7 +46,6 @@ export class ProductListingComponent implements OnInit {
       );
     }
 
-/*
     if (!this.loggedIn) {
       this.loginService.checkSession().subscribe(
         response => {
@@ -58,7 +57,7 @@ export class ProductListingComponent implements OnInit {
           // localStorage.clear();
         }
       );
-    }*/
+    }
   }
   logout() {
     this.loginService.logout().subscribe(

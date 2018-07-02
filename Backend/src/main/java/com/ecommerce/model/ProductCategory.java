@@ -14,6 +14,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -28,8 +30,10 @@ public class ProductCategory implements Serializable{
 	private Integer id;
 	private String type;
 	
+	@JsonIgnore
 	@Column(name = "created_date")
 	private LocalDateTime createdOn;
+	@JsonIgnore
 	@Column(name = "lastupdate_date")
 	private LocalDateTime lastUpdatedOn;
 
