@@ -6,4 +6,9 @@ export class Cart {
   userId: number;
   createdOn: string;
   lastUpdatedOn: string;
+
+  constructor(id: number, product: Product[]) {
+    this.id = id;
+    this.product = product;
+  }
 }

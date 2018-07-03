@@ -15,7 +15,7 @@ export class ProductService {
   getAllProducts() {
     return this.httpClient.get<Product[]> (this.getAllProductsUrl);
   }
-  
+
   getProductByCategory(categoryId: ProductCategory) {
      return this.httpClient.post<Product[]> (this.getProductByCategoryUrl, categoryId);
   }

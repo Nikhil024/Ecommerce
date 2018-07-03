@@ -10,6 +10,7 @@ export class CartService {
   private addUnknownUserCartUrl = ApplicationProperties.BackendRestUrl + 'unknownUserAddCart';
   private addExistingCartUrl = ApplicationProperties.BackendRestUrl + 'addExistingCart';
   private getCartUrl = ApplicationProperties.BackendRestUrl + 'getCart';
+  private removeCartUrl = ApplicationProperties.BackendRestUrl + 'removeProduct';
   public cart = new Subject();
 
   constructor(private httpClient: HttpClient) {}
@@ -51,4 +52,14 @@ export class CartService {
     }
   }
 
+  removeCart(productCode: string, cartId: number) {
+    if (localStorage.getItem('xAuthToken') != null) {
+      const headers = new HttpHeaders({
+        'x-auth-token': localStorage.getItem('xAuthToken')
+      });
+      return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId, {headers: headers});
+    } else {
+      return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId);
+    }
+  }
 }

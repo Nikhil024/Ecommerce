@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,7 @@ import com.ecommerce.services.UserService;
 
 @RestController
 public class CartComponentController {
+	private static final Logger LOG = LoggerFactory.getLogger(CartComponentController.class);
 
 	@Autowired
 	private CartService cartService;
@@ -89,6 +92,31 @@ public class CartComponentController {
 		cart.setTotalPrice(totalCartPrice);
 		cartService.saveCart(cart);
 		return cart;
+	}
+	
+	@PostMapping("/removeProduct")
+	public Cart removeProductFromCart(@RequestBody String productCodeAndCartId) {
+		String[] productCodeAndCartIdSplit = productCodeAndCartId.split(":");
+		String productCode = productCodeAndCartIdSplit[0];
+		int cartId = Integer.valueOf(productCodeAndCartIdSplit[1]);
+		List<Product> productList = new ArrayList<>();
+		Optional<Cart> optionalCart = cartService.getCartById(cartId);
+		if(optionalCart.isPresent()) {
+			Cart cart = optionalCart.get();
+			int count = 0;
+			for(Product product : cart.getProduct()) {
+				count += 1;
+				if(productCode.equals(product.getCode())) {
+						LOG.info("Removed the ProductCode :::::: "+product.getCode());
+				}else {
+					productList.add(product);
+				}
+			}
+			cart.setProduct(productList);
+			cartService.saveCart(cart);
+			return cart;
+		}
+		return null;
 	}
 
 	@PostMapping("/getCart")
