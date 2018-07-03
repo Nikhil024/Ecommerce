@@ -38,10 +38,13 @@ public class ProductComponentController {
 		return productService.getAllProducts();
 	}
 	
+	@PostMapping("/getProduct")
+	public Product getProduct(@RequestBody String productCode) {
+		return productService.getProduct(productCode);
+	}
 	
 	@PostMapping("/getProductFromCategory")
 	public List<Product> getProductFromCategory(@RequestBody ProductCategory productCategoryId) {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA::: "+productCategoryId);
 		return productService.getProductFromCategory(productCategoryId);
 	}
 
@@ -82,14 +85,14 @@ public class ProductComponentController {
 		ProductCategory pc7 = new ProductCategory();
 		ProductCategory pc8 = new ProductCategory();
 		
-		pc.setType("Computers & Laptops");
-		pc1.setType("Cameras & Photos");
+		pc.setType("Computers&Laptops");
+		pc1.setType("Cameras&Photos");
 		pc2.setType("Hardware");
-		pc3.setType("Smartphones & Tablets");
-		pc4.setType("TV & Audio");
+		pc3.setType("Smartphones&Tablets");
+		pc4.setType("TV&Audio");
 		pc5.setType("Gadgets");
-		pc6.setType("Car Electronics");
-		pc7.setType("Video Games & Consoles");
+		pc6.setType("Car&Electronics");
+		pc7.setType("VideoGames&Consoles");
 		pc8.setType("Accessories");
 		
 		pcAll.add(pc);

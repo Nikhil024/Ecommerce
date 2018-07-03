@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Cart} from '../app-models/cart.model';
-import { User } from '../app-models/user.model';
+import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
-import { LoginService } from '../app-services/login.service';
-import { UserService } from '../app-services/user.service';
+import {LoginService} from '../app-services/login.service';
+import {UserService} from '../app-services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +12,13 @@ import { UserService } from '../app-services/user.service';
 })
 export class HeaderComponent implements OnInit {
   public cart = new Cart();
-  public user = new User('', '' , '');
+  public user = new User('', '', '');
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
   constructor(private cartService: CartService,
-              private loginService: LoginService,
-              private userService: UserService) { }
+    private loginService: LoginService,
+    private userService: UserService) {}
 
   ngOnInit() {
     this.cartService.cart.subscribe(
@@ -29,26 +29,25 @@ export class HeaderComponent implements OnInit {
         for (const product of this.cart.product) {
           this.totalCartCount += 1;
           this.totalCartCost += product.offerPrice;
-          console.log(JSON.stringify(product));
         }
       }
     );
-   
-      this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-        response => {
-          this.cart = response;
-          this.totalCartCount = this.cart.product.length;
-         for (const product of this.cart.product) {
-          this.totalCartCount += 1;
-          this.totalCartCost += product.offerPrice;
-          console.log(JSON.stringify(product));
+
+    this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+      response => {
+        this.totalCartCount = 0;
+        this.totalCartCost = 0;
+        this.cart = response;
+          for (const product of this.cart.product) {
+            this.totalCartCount += 1;
+            this.totalCartCost += product.offerPrice;
         }
-        },
-        error => {
-          console.log(JSON.stringify(error));
-        }
-      );
-    
+      },
+      error => {
+        console.log(JSON.stringify(error));
+      }
+    );
+
     if (!this.loggedIn) {
       this.loginService.checkSession().subscribe(
         response => {
@@ -61,15 +60,12 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
-    
-    
-    
     console.log('1' + localStorage.getItem('cartId') != null);
     console.log('2' + this.cart != null);
     console.log('3' + this.cart.product != null);
     console.log('4' + localStorage.getItem('cartId') != null && this.cart !== null && this.cart.product !== null);
   }
-  
+
   logout() {
     this.loginService.logout().subscribe(
       response => {
@@ -85,7 +81,7 @@ export class HeaderComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      response => this.user = response ,
+      response => this.user = response,
       error => console.log('error ' + JSON.stringify(error))
     );
   }

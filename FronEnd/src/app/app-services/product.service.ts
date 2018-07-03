@@ -8,6 +8,7 @@ import { ProductCategory } from '../app-models/productCategory.model';
 export class ProductService {
   private getAllProductsUrl = ApplicationProperties.BackendRestUrl + 'getAllProducts';
   private getProductByCategoryUrl = ApplicationProperties.BackendRestUrl + 'getProductFromCategory';
+  private getProductByCodeUrl = ApplicationProperties.BackendRestUrl + 'getProduct';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -19,5 +20,8 @@ export class ProductService {
      return this.httpClient.post<Product[]> (this.getProductByCategoryUrl, categoryId);
   }
 
+  getProduct(productCode: string) {
+    return this.httpClient.post<Product> (this.getProductByCodeUrl, productCode);
+  }
 
 }

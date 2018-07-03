@@ -14,6 +14,7 @@ import {CategoryListingComponent} from './category-listing/category-listing.comp
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
   {path: 'categories/:categoryType/:productCode', component: ProductDetailsComponent},
+  {path: 'product/:productCode', component: ProductDetailsComponent},
   {path: 'categories/:categoryType', component: CategoryListingComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
