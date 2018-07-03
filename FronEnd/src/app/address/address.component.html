@@ -1,3 +1,140 @@
-<p>
-  address works!
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>1 Col Portfolio - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../assets/styles/bootstrap4/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../../assets/styles/bootstrap4/1-col-portfolio.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<app-header></app-header>
+
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Page Heading -->
+  <h1 class="my-4">Address & Card Details
+    <h5 class="float-right">Cart Totals :<b> &#8377;{{ totalCost }}</b><br/>
+      <button class="btn btn-success float-right" routerLink="/address">Place Order</button>
+    </h5>
+  </h1>
+  <h3 class="d-flex justify-content-center"><ins><small>Select a Address</small></ins></h3>
+
+  <div class="col-sm-6">
+    <div class="card text-center">
+      <div class="card-header">
+        Featured
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+      <div class="card-footer text-muted">
+        2 days ago
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!-- /.container -->
+
+<div class="container">
+
+  <!-- Page Heading -->
+  <br/>
+  <h3 class="d-flex justify-content-center"><ins><small>Enter Card Details</small></ins></h3>
+
+  <div class="d-flex justify-content-center">
+    <div class="col-sm-6">
+      <div class="card text-center">
+        <div class="card-header">
+          Card Details
+        </div>
+        <form #f="ngForm">
+          <div class="form-row justify-content-center">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Card Number</label>
+              <input type="text" required ngModel
+                     #cardNumber="ngModel" class="form-control"
+                     id="inputEmail4" placeholder="Card Number" maxlength="16"
+                     *ngIf="!cardNumber.valid && cardNumber.touched">
+            </div>
+          </div>
+          <div class="form-row justify-content-center">
+            <div class="form-group col-md-4">
+              <label for="inputState">Card Type</label><label for="inputState" *ngIf="!cardType.valid && cardType.touched">Enter Card Type</label>
+              <select id="inputState" class="form-control" required ngModel #cardType="ngModel"
+                      >
+                <option></option>
+                <option>Visa</option>
+                <option>MasterCard</option>
+              </select>
+            </div>
+          </div>
+          <p>Card Expiry</p>
+          <div class="form-row justify-content-center">
+            <div class="float-right col-md-3">
+              <label for="year">Year</label>
+              <input type="text" class="form-control"
+                     id="year" maxlength="4" required ngModel #cardExpiryYear="ngModel"
+                     *ngIf="!cardExpiryYear.valid && cardExpiryYear.touched">
+            </div>
+            <div class="float-right col-md-2">
+              <label for="month">Month</label>
+              <input type="text" class="form-control" id="month" maxlength="2"
+                     required ngModel #cardExpiryMonth="ngModel"
+                     *ngIf="!cardExpiryMonth.valid && cardExpiryMonth.touched">
+            </div>
+          </div>
+          <!--<div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck">
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>-->
+          <br/>
+          <button (click)="validateCard()" class="btn btn-primary">Validate Card</button>
+        </form>
+        <br/>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Footer -->
+<br/>
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../../assets/styles/bootstrap4/jquery.min.js"></script>
+<script src="../../assets/styles/bootstrap4/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
