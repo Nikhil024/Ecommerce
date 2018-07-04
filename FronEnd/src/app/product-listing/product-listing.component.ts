@@ -17,7 +17,7 @@ export class ProductListingComponent implements OnInit {
   public user = new User('', '' , '');
   public productCategories: ProductCategory[];
   products: Product[];
-  public cart = new Cart();
+  public cart = new Cart(null , null);
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;

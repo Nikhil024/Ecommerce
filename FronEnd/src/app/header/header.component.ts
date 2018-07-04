@@ -11,7 +11,7 @@ import {UserService} from '../app-services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public cart = new Cart();
+  public cart = new Cart(null, null);
   public user = new User('', '', '');
   public totalCartCount = 0;
   public totalCartCost = 0;

@@ -9,7 +9,7 @@ import {Product} from '../app-models/product.model';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  cart = new Cart();
+  cart = new Cart(null ,null);
   totalCost = 0;
 
   constructor(private cartService: CartService) { }
@@ -32,7 +32,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   removeProduct(product: Product) {
-      const removeProduct = this.cart.product.indexOf(product.code);
+      const removeProduct = this.cart.product.indexOf(product);
       this.cart.product.splice(removeProduct, 1);
       if (parseInt(localStorage.getItem('cartId'), 10) != null) {
         this.cartService.removeCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
