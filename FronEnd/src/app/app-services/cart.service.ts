@@ -18,13 +18,11 @@ export class CartService {
 
   addCart(productCode: string) {
     if (localStorage.getItem('xAuthToken') != null) {
-      alert('yes');
       const headers = new HttpHeaders({
         'x-auth-token': localStorage.getItem('xAuthToken')
       });
      return this.httpClient.post<Cart>(this.addCartUrl, productCode, {headers: headers});
     } else {
-      alert('no');
       return this.httpClient.post<Cart>(this.addUnknownUserCartUrl, productCode);
     }
   }

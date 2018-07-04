@@ -24,12 +24,12 @@
 <app-header></app-header>
 
 <!-- Page Content -->
+<form #addressForm="ngForm" (ngSubmit)="submitOrder(addressForm)">
 <div class="container">
 
   <!-- Page Heading -->
   <h1 class="my-4">Address & Card Details
-    <h5 class="float-right">Cart Totals :<b> &#8377;</b><br/>
-      <button class="btn btn-success float-right" routerLink="/address" [disabled]="!f.valid" [disabled]="cardFormInputDisabled">Place Order</button>
+    <h5 class="float-right">Cart Totals :<b> &#8377; {{ totalCartCost }}</b><br/>
     </h5>
   </h1>
   <h3 class="d-flex justify-content-center"><ins><small>Select a Address</small></ins></h3>
@@ -37,125 +37,96 @@
   <div class="col-sm-6 float-left">
     <div class="card text-center">
       <div class="card-header">
-        Address
+        Shipping Address
       </div>
       <div class="card-body">
-
-
-					<form>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="inputEmail4">First Name</label> <input type="text"
-									class="form-control" id="inputEmail4" placeholder="First Name">
+									class="form-control" id="shippingFirstName" placeholder="First Name"
+              name="shippingFirstName" required #shippingFirstName="ngModel" ngModel>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="inputPassword4">Last Name</label> <input
-									type="text" class="form-control" id="inputPassword4"
-									placeholder="Last Name">
+								<label for="shippingLastName">Last Name</label> <input
+									type="text" class="form-control" id="shippingLastName"
+									placeholder="Last Name" name="shippingLastName" required ngModel #shippingLastName="ngModel">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputAddress">Address</label> <input type="text"
-								class="form-control" id="inputAddress"
-								placeholder="1234 Main St">
+							<label for="shippingAddress">Address</label> <input type="text"
+								class="form-control" id="shippingAddress"
+								placeholder="1234 Main St"
+            name="shippingAddress" required ngModel #shippingAddress="ngModel">
 						</div>
 						<div class="form-row justify-content-center">
 							<div class="form-group col-md-4">
-								<label for="inputState">State</label> <select id="inputState"
-									class="form-control">
-									<option selected>Choose...</option>
-									<option>...</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="inputZip">Zip</label> <input type="text"
-									class="form-control" id="inputZip">
+								<label for="shippingPostalCode">Postal Code</label> <input type="text"
+									class="form-control" id="shippingPostalCode" name="shippingPostalCode" required ngModel #shippingPostalCode="ngModel">
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="gridCheck">
-								<label class="form-check-label" for="gridCheck"> Check
-									me out </label>
-							</div>
-						</div>
-						<button class="btn btn-success" routerLink="/address" [disabled]="!f.valid" [disabled]="cardFormInputDisabled">Place Order</button>
-					</form>
-
 				</div>
       <div class="card-footer text-muted">
-        2 days ago
+        Shipping Address
       </div>
     </div>
   </div>
-  
-  
-  
+
+
+
   <div class="col-sm-6 float-right">
     <div class="card text-center">
       <div class="card-header">
-        Address
+        Billing Address
       </div>
       <div class="card-body">
-
-
-					<form>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label for="inputEmail4">First Name</label> <input type="text"
-									class="form-control" id="inputEmail4" placeholder="First Name">
+								<label for="billingFristName">First Name</label> <input type="text"
+									class="form-control" id="billingFristName" placeholder="First Name"
+              name="billingFristName" required #billingFristName="ngModel" [(ngModel)]="shippingFName">
 							</div>
 							<div class="form-group col-md-6">
-								<label for="inputPassword4">Last Name</label> <input
-									type="text" class="form-control" id="inputPassword4"
-									placeholder="Last Name">
+								<label for="billingLastName">Last Name</label> <input
+									type="text" class="form-control" id="billingLastName" name="billingLastName"
+									placeholder="Last Name" required #billingLastName="ngModel" [(ngModel)]="shippingLName">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputAddress">Address</label> <input type="text"
-								class="form-control" id="inputAddress"
-								placeholder="1234 Main St">
+							<label for="billingAddress">Address</label> <input type="text"
+								class="form-control" id="billingAddress"
+								placeholder="1234 Main St" name="billingAddress"
+            required #billingAddress="ngModel" [(ngModel)]="shippingAddr">
 						</div>
 						<div class="form-row justify-content-center">
 							<div class="form-group col-md-4">
-								<label for="inputState">State</label> <select id="inputState"
-									class="form-control">
-									<option selected>Choose...</option>
-									<option>...</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="inputZip">Zip</label> <input type="text"
-									class="form-control" id="inputZip">
+								<label for="billingPostalCode">Postal Code</label> <input type="text"
+									class="form-control" id="billingPostalCode"
+              name="billingPostalCode" required #billingPostalCode="ngModel" [(ngModel)]="shippingPCode">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="gridCheck">
-								<label class="form-check-label" for="gridCheck"> Check
-									me out </label>
+								<input class="form-check-input" type="checkbox" id="gridCheck"
+                       (click)="copyAddress(addressForm)"
+                       (change)="toggleAddress($event)" name="copyAddressCheckbox" ngModel #copyAddressCheckbox="ngModel">
+								<label class="form-check-label" for="gridCheck">Same as Shipping?</label>
 							</div>
 						</div>
-						<button class="btn btn-success" routerLink="/address" [disabled]="!f.valid" [disabled]="cardFormInputDisabled">Place Order</button>
-					</form>
-
 				</div>
       <div class="card-footer text-muted">
-        2 days ago
+        Billing Address
       </div>
     </div>
   </div>
-  
-  
-<br/>
-  <h3 class="justify-content-center"><ins><small>Enter Card Details</small></ins></h3>
+<div class="container d-flex justify-content-center">
+    <div class="col-sm-6">
+      <br/>
+      <h3 class="justify-content-center text-center"><ins><small>Enter Card Details</small></ins></h3>
 
-    <div class="col-sm-6 justify-content-center">
       <div class="card text-center">
         <div class="card-header">
           Card Details
         </div>
-        <form (ngSubmit)="validateCard(f)" #f="ngForm">
           <div class="form-row justify-content-center">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Card Number</label>
@@ -166,7 +137,7 @@
             </div>
           </div>
           <div class="form-row justify-content-center">
-          
+
             <div class="form-group col-md-4">
               <label for="inputState">Card Type</label>
               <select id="inputState" class="form-control" name="cardType" required ngModel #cardType="ngModel" [disabled]="cardFormInputDisabled">
@@ -191,38 +162,14 @@
                      placeholder="Expiry Month" [disabled]="cardFormInputDisabled">
             </div>
           </div>
-          <!--<div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck">
-              <label class="form-check-label" for="gridCheck">
-                Check me out
-              </label>
-            </div>
-          </div>-->
           <br/>
-        </form>
         <br/>
+        <button class="btn btn-success float-right" type="submit" [disabled]="!addressForm.valid " [disabled]="cardFormInputDisabled">Place Order</button>
       </div>
     </div>
-
-
-  
-  
-  
-  
 </div>
-<!-- /.container -->
-
-
-<div class="container">
-
-  <!-- Page Heading -->
-  
-  </div>
-
-
-
-
+</div>
+</form>
 <!-- Footer -->
 <br/>
 <footer class="py-5 bg-dark">

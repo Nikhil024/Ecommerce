@@ -5,6 +5,9 @@ import {CardService} from '../app-services/card.service';
 import {ApplicationProperties} from '../properties/applicationproperties';
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {CartService} from '../app-services/cart.service';
+import {Cart} from '../app-models/cart.model';
+import {Order} from '../app-models/order.model';
 
 @Component({
   selector: 'app-address',
@@ -16,10 +19,20 @@ import {NgForm} from '@angular/forms';
 export class AddressComponent implements OnInit {
   cardFormInputDisabled = false;
   card: Card;
-  constructor(private cardService: CardService,
-    private addressService: AddressService) {}
+  public totalCartCost = 0;
   address: Address[];
   addressIsEmpty = false;
+  cart = new Cart(null, null);
+  shippingFName = '';
+  shippingLName = '';
+  shippingAddr = '';
+  shippingPCode = '';
+  order = new Order(null, null, null);
+
+  constructor(private cardService: CardService,
+              private addressService: AddressService,
+              private cartService: CartService) {}
+
 
   ngOnInit() {
     this.addressService.getAddress().subscribe(
@@ -32,16 +45,23 @@ export class AddressComponent implements OnInit {
           this.addressIsEmpty = false;
         }
       }
-    ); 
+    );
+    this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+      response => {
+        this.cart = response;
+        for (const product of this.cart.product) {
+          this.totalCartCost += product.offerPrice;
+        }
+      },
+      error => {
+        console.log(JSON.stringify(error));
+      }
+    );
   }
 
-  validateCard(form: NgForm) {
-    console.log(form.value.cardNumber);
-    console.log(form.value.cardType);
-    console.log(form.value.cardExpiryMonth);
-    console.log(form.value.cardExpiryYear);
+  submitOrder(addressForm: NgForm) {
     if (localStorage.getItem('xAuthToken') != null) {
-      this.cardService.validateCard(new Card(form.value.cardNumber, form.value.cardType, form.value.cardExpiryYear, form.value.cardExpiryMonth)).subscribe(
+      this.cardService.validateCard(new Card(addressForm.value.cardNumber, addressForm.value.cardType, addressForm.value.cardExpiryYear, addressForm.value.cardExpiryMonth)).subscribe(
         response => {
           if (response.status === ApplicationProperties.CardSuccess) {
             this.cardFormInputDisabled = true;
@@ -59,9 +79,20 @@ export class AddressComponent implements OnInit {
       console.log('not logged in ');
     }
   }
-  
-  validateAddress(f: NgForm) {
-    
+
+  copyAddress(addressForm: NgForm) {
+    this.shippingFName = addressForm.value.shippingFirstName;
+    this.shippingLName = addressForm.value.shippingLastName;
+    this.shippingAddr = addressForm.value.shippingAddress;
+    this.shippingPCode = addressForm.value.shippingPostalCode;
   }
-  
+
+  toggleAddress(event) {
+    if ( !event.target.checked ) {
+      this.shippingFName = '';
+      this.shippingLName = '';
+      this.shippingPCode = '';
+      this.shippingAddr = '';
+    }
+  }
 }
