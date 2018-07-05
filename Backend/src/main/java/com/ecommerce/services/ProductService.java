@@ -10,4 +10,5 @@ public interface ProductService {
 	void saveAllProducts(List<Product> products);
 	Product getProduct(String productCode);
 	List<Product> getProductFromCategory(ProductCategory productCategoryId);
+	void saveProduct(Product product);
 }

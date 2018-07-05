@@ -4,6 +4,7 @@ import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
 import {LoginService} from '../app-services/login.service';
 import {UserService} from '../app-services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,21 @@ export class HeaderComponent implements OnInit {
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
+  url;
+  breadCrumbValue = [];
   constructor(private cartService: CartService,
     private loginService: LoginService,
-    private userService: UserService) {}
+    private userService: UserService,
+    private router: Router) {}
 
   ngOnInit() {
+    this.url = this.router.url.split('/');
+
+    for (let u of this.url.reverse) {
+      console.log(this.breadCrumbValue.push(u));
+    }
+
+
     this.cartService.cart.subscribe(
       (currentCart: Cart) => {
         this.totalCartCount = 0;
@@ -38,9 +49,9 @@ export class HeaderComponent implements OnInit {
         this.totalCartCount = 0;
         this.totalCartCost = 0;
         this.cart = response;
-          for (const product of this.cart.product) {
-            this.totalCartCount += 1;
-            this.totalCartCost += product.offerPrice;
+        for (const product of this.cart.product) {
+          this.totalCartCount += 1;
+          this.totalCartCost += product.offerPrice;
         }
       },
       error => {

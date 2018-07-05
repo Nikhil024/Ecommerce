@@ -34,8 +34,6 @@
 </nav>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Library</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Data</li>
+    <li class="breadcrumb-item" *ngFor="let u of url;let i = index"><a routerLink="/">{{ u }} {{ i }}</a></li>
   </ol>
 </nav>

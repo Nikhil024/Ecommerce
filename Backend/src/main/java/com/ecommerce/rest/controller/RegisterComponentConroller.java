@@ -38,7 +38,7 @@ public class RegisterComponentConroller {
 		User u = new User();
 		u.setUsername(user.getUsername());
 		u.setPassword(SecurityUtility.passwordEncoder().encode(user.getPassword()));
-		u.setFirstName("Nikhil Mohandas");
+		u.setFirstName("Anonymous");
 		Set<UserRole> userRoles = new HashSet<>();
 		Role role = new Role();
 		role.setName("ROLE_USER");
