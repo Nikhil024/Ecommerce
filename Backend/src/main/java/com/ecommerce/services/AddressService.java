@@ -7,4 +7,5 @@ import com.ecommerce.model.User;
 
 public interface AddressService {
 	List<Address> getAddress(User user);
+	void saveAddress(Address address);
 }

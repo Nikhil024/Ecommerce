@@ -8,16 +8,16 @@ import {NgForm} from '@angular/forms';
 import {CartService} from '../app-services/cart.service';
 import {Cart} from '../app-models/cart.model';
 import {Order} from '../app-models/order.model';
+import {OrderService} from '../app-services/order.service';
 
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css'],
-  providers: [CardService, AddressService]
+  providers: [CardService, AddressService, OrderService]
 
 })
 export class AddressComponent implements OnInit {
-  cardFormInputDisabled = false;
   card: Card;
   public totalCartCost = 0;
   address: Address[];
@@ -27,11 +27,15 @@ export class AddressComponent implements OnInit {
   shippingLName = '';
   shippingAddr = '';
   shippingPCode = '';
-  order = new Order(null, null, null);
+
+  order: Order;
+  billingAddress: Address;
+
 
   constructor(private cardService: CardService,
-              private addressService: AddressService,
-              private cartService: CartService) {}
+    private addressService: AddressService,
+    private cartService: CartService,
+    private orderService: OrderService) {}
 
 
   ngOnInit() {
@@ -60,15 +64,36 @@ export class AddressComponent implements OnInit {
   }
 
   submitOrder(addressForm: NgForm) {
+
     if (localStorage.getItem('xAuthToken') != null) {
       this.cardService.validateCard(new Card(addressForm.value.cardNumber, addressForm.value.cardType, addressForm.value.cardExpiryYear, addressForm.value.cardExpiryMonth)).subscribe(
         response => {
           if (response.status === ApplicationProperties.CardSuccess) {
-            this.cardFormInputDisabled = true;
+
+            this.addressService.saveAddress(new Address(addressForm.value.shippingFirstName, addressForm.value.shippingLastName,
+              addressForm.value.shippingAddress, addressForm.value.shippingPostalCode)).subscribe(
+              billingAddressResponse => {
+                this.billingAddress = billingAddressResponse;
+                console.log('billing Address' + JSON.stringify(billingAddressResponse));
+                this.orderService.saveOrder(new Order(this.cart.product, billingAddressResponse, 'success')).subscribe(
+                  orderResponse => {
+                    console.log(JSON.stringify(orderResponse));
+                  },
+                  error => {
+                    console.log(JSON.stringify(error));
+                  }
+                );
+              },
+              error => {
+
+              }
+              );
+
+
+
+
           } else if (response.status === ApplicationProperties.CardFraud) {
-            this.cardFormInputDisabled = false;
           } else if (response.status === ApplicationProperties.CardFailure) {
-            this.cardFormInputDisabled = false;
           }
         },
         error => {
@@ -88,7 +113,7 @@ export class AddressComponent implements OnInit {
   }
 
   toggleAddress(event) {
-    if ( !event.target.checked ) {
+    if (!event.target.checked) {
       this.shippingFName = '';
       this.shippingLName = '';
       this.shippingPCode = '';

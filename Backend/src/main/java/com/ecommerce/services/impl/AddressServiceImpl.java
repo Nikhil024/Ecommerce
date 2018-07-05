@@ -15,9 +15,15 @@ public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressRepository addressRepository;
+
 	@Override
 	public List<Address> getAddress(User user) {
 		return addressRepository.findByUser(user);
+	}
+
+	@Override
+	public void saveAddress(Address address) {
+		addressRepository.save(address);
 	}
 
 }

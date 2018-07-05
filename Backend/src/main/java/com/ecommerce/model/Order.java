@@ -19,19 +19,19 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Order implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -39,19 +39,23 @@ public class Order implements Serializable {
 	@OneToMany
 	@Column(name = "product_id")
 	private List<Product> product;
+	@OneToOne
+	@NotNull
+	private Address address;
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 	@NotNull
-	@OneToOne
-	private Address address;
-	
+	private String orderStatus;
+
 	@Column(name = "created_date")
+	@JsonIgnore
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
+	@JsonIgnore
 	private LocalDateTime lastUpdatedOn;
-	
+
 	@PrePersist
 	public void setCreatedOn() {
 		this.createdOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
@@ -60,6 +64,12 @@ public class Order implements Serializable {
 	@PreUpdate
 	public void setLastUpdatedOn() {
 		this.lastUpdatedOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", product=" + product + ", user=" + user + ", orderStatus=" + orderStatus
+				+ ", address=" + address + ", createdOn=" + createdOn + ", lastUpdatedOn=" + lastUpdatedOn + "]";
 	}
 
 }

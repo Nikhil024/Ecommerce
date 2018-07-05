@@ -16,13 +16,14 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
 import com.ecommerce.enumaration.AddressType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Address implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +37,6 @@ public class Address implements Serializable {
 	private String lastName;
 	@NotNull
 	private String address;
-	@NotNull
 	private AddressType type;
 	@NotNull
 	private Integer postalCode;
@@ -45,8 +45,10 @@ public class Address implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 	@Column(name = "created_date")
+	@JsonIgnore
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
+	@JsonIgnore
 	private LocalDateTime lastUpdatedOn;
 	
 	@PrePersist

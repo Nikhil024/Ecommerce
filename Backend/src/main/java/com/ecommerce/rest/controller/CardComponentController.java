@@ -27,7 +27,6 @@ public class CardComponentController {
 		if(card.getCardNumber().toString().equals(SUCCESS_CARD)) {
 			System.out.println("inside 1");
 			card.setStatus(SUCCESS_CODE);
-			card.setCardNumber(Long.valueOf(SecurityUtility.passwordEncoder().encode(card.getCardNumber().toString())));
 			System.out.println("Card details1::: "+card.toString());
 			return card;
 		} else if(card.getCardNumber().toString().equals(FRAUD_CARD)) {

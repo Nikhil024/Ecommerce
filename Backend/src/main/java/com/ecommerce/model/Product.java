@@ -15,6 +15,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -42,8 +44,10 @@ public class Product implements Serializable {
 	private Blob image;
 	
 	@Column(name = "created_date")
+	@JsonIgnore
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
+	@JsonIgnore
 	private LocalDateTime lastUpdatedOn;
 
 	@PrePersist

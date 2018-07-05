@@ -54,7 +54,7 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
 		dataSource.setUsername("nikhil");
 		dataSource.setPassword("admin");
 		return dataSource;

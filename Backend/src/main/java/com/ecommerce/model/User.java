@@ -67,8 +67,10 @@ public class User implements UserDetails, Serializable {
 	private Set<UserRole> userRoles = new HashSet<>();
 	
 	@Column(name = "created_date")
+	@JsonIgnore
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
+	@JsonIgnore
 	private LocalDateTime lastUpdatedOn;
 
 	@PrePersist
@@ -80,7 +82,7 @@ public class User implements UserDetails, Serializable {
 	public void setLastUpdatedOn() {
 		this.lastUpdatedOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
 	}
-
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new HashSet<>();
