@@ -1,6 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApplicationProperties} from '../properties/applicationproperties';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class LoginService implements OnInit {
@@ -8,7 +9,7 @@ export class LoginService implements OnInit {
   private tokenUrl = ApplicationProperties.BackendRestUrl + 'token';
   private checkSessionUrl = ApplicationProperties.BackendRestUrl + 'token';
   private logoutUrl =  ApplicationProperties.BackendRestUrl + 'userLogout';
-
+  public loginBanner = new Subject();
   ngOnInit() { }
 
   constructor(private httpClient: HttpClient) {}

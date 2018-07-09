@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
           response => {
             localStorage.setItem('xAuthToken', response['token']);
             console.log(JSON.stringify(response));
+            this.loginService.loginBanner.next(true);
             this.router.navigate(['/']);
           },
           error => console.log('error:: ' + JSON.stringify(error))

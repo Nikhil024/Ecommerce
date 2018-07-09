@@ -17,20 +17,31 @@ export class HeaderComponent implements OnInit {
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
+  public showLoginBanner = false;
+  showLogoutBanner = false;
   url;
   breadCrumbValue = [];
   constructor(private cartService: CartService,
     private loginService: LoginService,
     private userService: UserService,
     private router: Router) {}
-
   ngOnInit() {
     this.url = this.router.url.split('/');
 
-    for (let u of this.url.reverse) {
+    for (const u of this.url.reverse) {
       console.log(this.breadCrumbValue.push(u));
     }
 
+    this.loginService.loginBanner.subscribe(
+      response => {
+        this.loggedIn = true;
+        this.showLogoutBanner = true;
+        setTimeout(() => {
+          // this.showLoginBanner = false;
+        }, 3000);
+
+      }
+    );
 
     this.cartService.cart.subscribe(
       (currentCart: Cart) => {
@@ -82,6 +93,7 @@ export class HeaderComponent implements OnInit {
       response => {
         console.log(JSON.stringify(response));
         this.loggedIn = true;
+
       },
       error => {
         console.log(JSON.stringify(error));
