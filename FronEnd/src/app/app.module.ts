@@ -17,6 +17,7 @@ import {FormsModule} from '@angular/forms';
 import {ApplicationRoutes} from './application-routes.module';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
 import {HeaderComponent} from './header/header.component';
+import {SearchFilterPipe} from './search-filter.pipe';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {HeaderComponent} from './header/header.component';
     RegisterComponent,
     CategoryListingComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,

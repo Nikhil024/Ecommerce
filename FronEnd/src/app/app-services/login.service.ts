@@ -10,6 +10,8 @@ export class LoginService implements OnInit {
   private checkSessionUrl = ApplicationProperties.BackendRestUrl + 'token';
   private logoutUrl =  ApplicationProperties.BackendRestUrl + 'userLogout';
   public loginBanner = new Subject();
+  public searchFilter = new Subject();
+
   ngOnInit() { }
 
   constructor(private httpClient: HttpClient) {}
@@ -48,4 +50,9 @@ export class LoginService implements OnInit {
     });
     return this.httpClient.post(this.logoutUrl, {headers: headers});
   }
+
+  isAuthenticated() {
+    return localStorage.getItem('xAuthToken') != null;
+  }
+
 }

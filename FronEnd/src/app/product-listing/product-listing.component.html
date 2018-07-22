@@ -34,7 +34,7 @@
       <div class="list-group" *ngFor="let productCategory of productCategories">
         <a routerLink="/categories/{{ productCategory.type }}" class="list-group-item">{{ productCategory.type }}</a>
       </div>
-      
+
     </div>
     <!-- /.col-lg-3 -->
 
@@ -66,10 +66,9 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-
       <div class="row">
 
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products | searchFilter:seachFilter:'code'">
           <div class="card h-100">
             <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
             <div class="card-body">

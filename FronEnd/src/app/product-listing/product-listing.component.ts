@@ -15,50 +15,35 @@ import {Cart} from '../app-models/cart.model';
 })
 export class ProductListingComponent implements OnInit {
   public user = new User('', '' , '');
-  public productCategories: ProductCategory[];
+  public productCategories: ProductCategory[] = [];
   products: Product[];
   public cart = new Cart(null , null);
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
+  public seachFilter = '';
 
   constructor(private loginService: LoginService,
               private userService: UserService,
               private productService: ProductService,
               private productCategoryService: ProductCategoryService,
-              private cartService: CartService) { }
+              private cartService: CartService) {
+
+    this.loginService.searchFilter.subscribe((response) => {
+        this.seachFilter = response;
+      },
+      error => alert(error));
+
+  }
 
   ngOnInit() {
     this.getAllProducts();
     this.getAllProductCategories();
-    if (localStorage.getItem('cartId') != null && this.cart != null && this.cart.product != null) {
-      this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-        response => {
-          this.cart = response;
-          this.totalCartCount = this.cart.product.length;
-          for (let i = 0; i <= this.cart.product.length; i++) {
-            this.totalCartCost += response.product[i].offerPrice;
-          }
-        },
-        error => {
-          console.log(JSON.stringify(error));
-        }
-      );
+    this.getCart();
+    this.checkSession();
     }
 
-    if (!this.loggedIn) {
-      this.loginService.checkSession().subscribe(
-        response => {
-          this.loggedIn = true;
-          this.getUser();
-        },
-        error => {
-          this.loggedIn = false;
-          // localStorage.clear();
-        }
-      );
-    }
-  }
+
   logout() {
     this.loginService.logout().subscribe(
       response => {
@@ -101,6 +86,23 @@ export class ProductListingComponent implements OnInit {
     );
   }
 
+  getCart() {
+    if (localStorage.getItem('cartId') != null && this.cart != null && this.cart.product != null) {
+      this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+        response => {
+          this.cart = response;
+          this.totalCartCount = this.cart.product.length;
+          for (let i = 0; i <= this.cart.product.length; i++) {
+            this.totalCartCost += response.product[i].offerPrice;
+          }
+        },
+        error => {
+          console.log(JSON.stringify(error));
+        }
+      );
+    }
+  }
+
   addToCart(product: Product) {
     if (localStorage.getItem('cartId') != null) {
       this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
@@ -121,6 +123,21 @@ export class ProductListingComponent implements OnInit {
         },
         error => {
           console.log(JSON.stringify(error));
+        }
+      );
+    }
+  }
+
+  checkSession() {
+    if (!this.loggedIn) {
+      this.loginService.checkSession().subscribe(
+        response => {
+          this.loggedIn = true;
+          this.getUser();
+        },
+        error => {
+          this.loggedIn = false;
+          // localStorage.clear();
         }
       );
     }
