@@ -21,7 +21,7 @@ export class ProductListingComponent implements OnInit {
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
-  public seachFilter = '';
+  public seachFilterUI = '';
 
   constructor(private loginService: LoginService,
               private userService: UserService,
@@ -29,11 +29,12 @@ export class ProductListingComponent implements OnInit {
               private productCategoryService: ProductCategoryService,
               private cartService: CartService) {
 
-    this.loginService.searchFilter.subscribe((response) => {
-        this.seachFilter = response;
-      },
-      error => alert(error));
-
+    this.loginService.searchFilter.subscribe(
+      response => {
+        if (response != null ) {
+          this.seachFilterUI = response;
+        }
+    });
   }
 
   ngOnInit() {
@@ -41,7 +42,7 @@ export class ProductListingComponent implements OnInit {
     this.getAllProductCategories();
     this.getCart();
     this.checkSession();
-    }
+  }
 
 
   logout() {

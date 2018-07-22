@@ -118,8 +118,7 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  demo() {
-    console.log('aaaaaa::: ' + this.seachFilter);
+  searchFilterCriteria() {
     this.loginService.searchFilter.next(this.seachFilter);
   }
 

@@ -11,7 +11,7 @@ export class SearchFilterPipe implements PipeTransform {
     }
     const resultProducts = [];
     for (const product of value) {
-      if (product[propName].includes(filterString)) {
+      if (product[propName].toLowerCase().includes(filterString.toLowerCase())) {
         resultProducts.push(product);
       }
     }
