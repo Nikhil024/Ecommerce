@@ -18,6 +18,7 @@ import {ApplicationRoutes} from './application-routes.module';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
 import {HeaderComponent} from './header/header.component';
 import {SearchFilterPipe} from './search-filter.pipe';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {SearchFilterPipe} from './search-filter.pipe';
     CategoryListingComponent,
     HeaderComponent,
     PageNotFoundComponent,
+    ErrorPageComponent,
     SearchFilterPipe
   ],
   imports: [

@@ -10,6 +10,6 @@ export class RegisterService {
   constructor (private httpClient: HttpClient) {}
 
   register(user: User) {
-    return this.httpClient.post<string>(this.registerUrl, user);
+    return this.httpClient.post(this.registerUrl, user, {responseType: 'text'});
   }
 }

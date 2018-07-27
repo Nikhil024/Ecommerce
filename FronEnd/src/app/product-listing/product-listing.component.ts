@@ -8,6 +8,7 @@ import {ProductService} from '../app-services/product.service';
 import {ProductCategoryService} from '../app-services/product.category.service';
 import {CartService} from '../app-services/cart.service';
 import {Cart} from '../app-models/cart.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-listing',
@@ -27,10 +28,11 @@ export class ProductListingComponent implements OnInit {
               private userService: UserService,
               private productService: ProductService,
               private productCategoryService: ProductCategoryService,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private router: Router) {
 
     this.loginService.searchFilter.subscribe(
-      response => {
+      (response: string) => {
         if (response != null ) {
           this.seachFilterUI = response;
         }
@@ -61,8 +63,11 @@ export class ProductListingComponent implements OnInit {
   getUser() {
     this.userService.getUser().subscribe(
       response => this.user = response ,
-      error => console.log('error ' + JSON.stringify(error))
-    );
+      error => {
+        console.log('error ' + JSON.stringify(error));
+        this.router.navigate(['/errorpage']);
+        }
+     );
   }
 
   getAllProducts() {
@@ -72,6 +77,7 @@ export class ProductListingComponent implements OnInit {
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
+        this.router.navigate(['/errorpage']);
       }
     );
   }
@@ -83,6 +89,7 @@ export class ProductListingComponent implements OnInit {
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
+        this.router.navigate(['/errorpage']);
       }
     );
   }
@@ -99,6 +106,7 @@ export class ProductListingComponent implements OnInit {
         },
         error => {
           console.log(JSON.stringify(error));
+          this.router.navigate(['/errorpage']);
         }
       );
     }
@@ -113,6 +121,7 @@ export class ProductListingComponent implements OnInit {
         },
         error => {
           console.log(JSON.stringify(error));
+          this.router.navigate(['/errorpage']);
         }
       );
     } else {
@@ -124,6 +133,7 @@ export class ProductListingComponent implements OnInit {
         },
         error => {
           console.log(JSON.stringify(error));
+          this.router.navigate(['/errorpage']);
         }
       );
     }

@@ -52,6 +52,7 @@ export class LoginService implements OnInit {
   }
 
   isAuthenticated() {
+    console.log('aaaaa ' + localStorage.getItem('xAuthToken'));
     return localStorage.getItem('xAuthToken') != null;
   }
 
