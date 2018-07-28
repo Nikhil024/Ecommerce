@@ -1,3 +1,6 @@
+<div class="alert alert-danger text-center" *ngIf="alreadyExists">
+  <strong>Failure!</strong> User already Exists!.
+</div>
 <body class="text-center">
 <form class="form-signin" (ngSubmit)="register(f)" #f="ngForm">
   <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">

@@ -6,8 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SearchFilterPipe implements PipeTransform {
 
   transform(value: any, filterString: string, propName: string): any {
-    if (value.length === 0 || filterString === '') {
-      return value;
+    if (value != null) {
+      if (value.length === 0 || filterString === '') {
+        return value;
+      }
+    } else {
+      return [];
     }
     const resultProducts = [];
     for (const product of value) {

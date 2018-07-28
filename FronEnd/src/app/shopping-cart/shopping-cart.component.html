@@ -64,7 +64,7 @@
 
       <hr>
       </div>
-      <h5 class="float-right">Cart Totals :<b> &#8377;{{ totalCost }}</b><br/>
+      <h5 class="float-right" *ngIf="totalCost !== 0">Cart Totals :<b> &#8377;{{ totalCost }}</b><br/>
         <button class="btn btn-success float-right" routerLink="/address">Place Order</button>
       </h5>
       <!-- Pagination -->

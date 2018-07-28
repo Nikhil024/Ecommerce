@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 })
 export class ProductListingComponent implements OnInit {
   public user = new User('', '' , '');
-  public productCategories: ProductCategory[] = [];
+  public productCategories: ProductCategory[];
   products: Product[];
   public cart = new Cart(null , null);
   public totalCartCount = 0;

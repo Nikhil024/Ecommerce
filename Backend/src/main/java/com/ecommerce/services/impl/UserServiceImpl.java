@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public User createUser(User user, Set<UserRole> userRole) {
+	public User createUser(User user, Set<UserRole> userRole) {	
 		User localUser = userRepository.findByUsername(user.getUsername());
 		if (localUser != null) {
 			LOG.info("User {} is already present in DB ", user.getUsername());
@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userRepository.updateUser(user.isEnabled(), user.getId());		
 	}
 
 }

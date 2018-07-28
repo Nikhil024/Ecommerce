@@ -26,7 +26,7 @@
           <a class="nav-link" routerLink="/register">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/cart">
+          <a class="nav-link" #cartLink routerLink="/cart" >
             <img class="cart" src="../../assets/images/cart.png">
               <span class="dot"></span>
               <span class="cart_count">{{ totalCartCount }}</span>
@@ -49,3 +49,4 @@
 <div class="alert alert-warning text-center" *ngIf="showLogoutBanner">
   <strong>Success!</strong> You have loggedOut!!!.
 </div>
+

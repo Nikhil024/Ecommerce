@@ -9,7 +9,7 @@ import {Product} from '../app-models/product.model';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  cart = new Cart(null ,null);
+  cart = new Cart(null , null);
   totalCost = 0;
 
   constructor(private cartService: CartService) { }

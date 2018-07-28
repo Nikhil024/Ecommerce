@@ -26,26 +26,26 @@ public class RegisterComponentConroller {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody User user, HttpServletResponse response) {
-		LOG.info("user:::: "+user.getUsername());
-		if(userService.getUserByUsername(user.getUsername()) != null) {
-			return new ResponseEntity<String> ("User already Exists", HttpStatus.NOT_FOUND);
-		}else {
-		User u = new User();
-		u.setUsername(user.getUsername());
-		u.setPassword(SecurityUtility.passwordEncoder().encode(user.getPassword()));
-		u.setFirstName("Anonymous");
-		Set<UserRole> userRoles = new HashSet<>();
-		Role role = new Role();
-		role.setName("ROLE_USER");
-		userRoles.add(new UserRole(u, role));
-		userService.createUser(u, userRoles);
-		userRoles.clear();
-		
-		return new ResponseEntity<String> ("Success!", HttpStatus.OK);
+		LOG.info("user:::: " + user.getUsername());
+		if (userService.getUserByUsername(user.getUsername()) != null) {
+			return new ResponseEntity<String>("User already Exists", HttpStatus.NOT_FOUND);
+		} else {
+			User u = new User();
+			u.setUsername(user.getUsername());
+			u.setPassword(SecurityUtility.passwordEncoder().encode(user.getPassword()));
+			u.setFirstName("Anonymous");
+			Set<UserRole> userRoles = new HashSet<>();
+			Role role = new Role();
+			role.setName("ROLE_USER");
+			userRoles.add(new UserRole(u, role));
+			userService.createUser(u, userRoles);
+			userRoles.clear();
+
+			return new ResponseEntity<String>("Success!", HttpStatus.OK);
 		}
 	}
-	
+
 }

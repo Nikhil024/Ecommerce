@@ -1,6 +1,7 @@
 package com.ecommerce.services.impl;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,4 +31,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		return productCategoryRepository.save(productCategory);
 	}
 
+	@Override
+	public ProductCategory getByType(ProductCategory productCategory) {
+		return productCategoryRepository.findByType(productCategory.getType());
+	}
+
+	@Override
+	public void updateProductCategory(ProductCategory productCategory) {
+		productCategoryRepository.updateCategory(productCategory.isEnabled(), productCategory.getId());
+	}
 }

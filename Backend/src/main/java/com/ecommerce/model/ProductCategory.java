@@ -30,6 +30,8 @@ public class ProductCategory implements Serializable{
 	private Integer id;
 	private String type;
 	
+	private boolean enabled;
+	
 	@JsonIgnore
 	@Column(name = "created_date")
 	private LocalDateTime createdOn;

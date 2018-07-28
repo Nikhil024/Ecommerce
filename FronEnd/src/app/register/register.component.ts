@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   private user: User;
+  public alreadyExists = false;
   constructor(private registerService: RegisterService,
               private router: Router) { }
 
@@ -22,11 +23,16 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(user).subscribe(
       response => {
         console.log('success ' + response);
+        this.registerService.status = true;
         this.router.navigate(['/login']);
       },
       error => {
-          console.log('error ' + JSON.stringify(error));
-          this.router.navigate(['/errorpage']);
+         const errorMessage = error['error'];
+          if (errorMessage === 'User already Exists') {
+              this.alreadyExists = true;
+          } else {
+            this.router.navigate(['/errorpage']);
+          }
       }
     );
   }

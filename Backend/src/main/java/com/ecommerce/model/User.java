@@ -29,15 +29,14 @@ import com.ecommerce.configuration.Authority;
 import com.ecommerce.enumaration.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,6 +50,7 @@ public class User implements UserDetails, Serializable {
 	@Transient
 	private String confirmPassword;
 	private String email;
+	private String role;
 
 	@OneToMany(mappedBy="user")
 	@JsonIgnore

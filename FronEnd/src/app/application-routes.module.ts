@@ -11,6 +11,8 @@ import {ProductConfirmationComponent} from './product-confirmation/product-confi
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {AdminComponent} from './admin/admin.component';
+import {AuthGaurd} from './auth-gaurd.service';
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
@@ -19,10 +21,11 @@ const appRoutes: Routes = [
   {path: 'categories/:categoryType', component: CategoryListingComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'cart', component: ShoppingCartComponent},
-  {path: 'address', component: AddressComponent},
-  {path: 'summary', component: SummaryComponent},
-  {path: 'confirm', component: ProductConfirmationComponent},
+  {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGaurd]},
+  {path: 'address', component: AddressComponent, canActivate: [AuthGaurd]},
+  {path: 'summary', component: SummaryComponent, canActivate: [AuthGaurd]},
+  {path: 'confirm', component: ProductConfirmationComponent, canActivate: [AuthGaurd]},
+  {path: 'admin', component: AdminComponent},
   { path: 'errorpage', component: ErrorPageComponent},
   { path: 'notfound', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},

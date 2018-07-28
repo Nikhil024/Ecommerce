@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../app-services/login.service';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {RegisterService} from '../app-services/register.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService, private routerLink: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private registerService: RegisterService) { }
 
   ngOnInit() {
   }

@@ -6,4 +6,5 @@ import com.ecommerce.model.Role;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
+	Role findByName(String name);
 }

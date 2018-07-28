@@ -8,4 +8,6 @@ public interface ProductCategoryService {
 	List<ProductCategory> getAllProductCategories();
 	void saveAllProducts(List<ProductCategory> productCategory);
 	ProductCategory saveProduct(ProductCategory productCategory);
+	ProductCategory getByType(ProductCategory productCategory);
+	void updateProductCategory(ProductCategory productCategory);
 }

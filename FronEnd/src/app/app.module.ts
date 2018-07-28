@@ -19,6 +19,9 @@ import {CategoryListingComponent} from './category-listing/category-listing.comp
 import {HeaderComponent} from './header/header.component';
 import {SearchFilterPipe} from './search-filter.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {AdminComponent} from './admin/admin.component';
+import {AuthGaurd} from './auth-gaurd.service';
+import {LoginService} from './app-services/login.service';
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import {ErrorPageComponent} from './error-page/error-page.component';
     HeaderComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,7 @@ import {ErrorPageComponent} from './error-page/error-page.component';
     FormsModule,
     ApplicationRoutes
   ],
-  providers: [],
+  providers: [AuthGaurd, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

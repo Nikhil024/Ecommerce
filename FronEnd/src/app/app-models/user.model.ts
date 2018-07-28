@@ -6,6 +6,7 @@ export class User {
   public confirmPassword: string;
   public email: string;
   public enabled: boolean;
+  public role: string;
   public createdOn: string;
   public lastUpdatedOn: string;
 

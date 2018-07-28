@@ -1,3 +1,6 @@
+<div class="alert alert-success text-center" *ngIf="registerService.status">
+  <strong>Successfully!</strong> Registerd! Please sign in.!
+</div>
 <body class="text-center">
 <form class="form-signin" (ngSubmit)="login(f)" #f="ngForm">
   <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
