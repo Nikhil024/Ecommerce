@@ -11,8 +11,9 @@ import {ProductConfirmationComponent} from './product-confirmation/product-confi
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {AdminComponent} from './admin/admin.component';
 import {AuthGaurd} from './auth-gaurd.service';
+import {EnableItemComponent} from './admin/enable-item/enable-item.component';
+import {AddItemComponent} from './admin/add-item/add-item.component';
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
@@ -25,7 +26,10 @@ const appRoutes: Routes = [
   {path: 'address', component: AddressComponent, canActivate: [AuthGaurd]},
   {path: 'summary', component: SummaryComponent, canActivate: [AuthGaurd]},
   {path: 'confirm', component: ProductConfirmationComponent, canActivate: [AuthGaurd]},
-  {path: 'admin', component: AdminComponent},
+  {path: 'admin/addItem', component: AddItemComponent},
+  {path: 'admin/addItem/:item', component: AddItemComponent},
+  {path: 'admin/enableItem', component: EnableItemComponent},
+  {path: 'admin/enableItem/:item', component: EnableItemComponent},
   { path: 'errorpage', component: ErrorPageComponent},
   { path: 'notfound', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},

@@ -6,6 +6,7 @@ import {User} from '../app-models/user.model';
 @Injectable()
 export class UserService {
   private getUserUrl =  ApplicationProperties.BackendRestUrl + 'getUser';
+  private getAllUsersUrl =  ApplicationProperties.BackendRestUrl + 'getAllUsers';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -14,5 +15,12 @@ export class UserService {
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
     return this.httpClient.post<User>(this.getUserUrl, {headers: headers});
+  }
+
+  getAllUsers() {
+    const headers = new HttpHeaders({
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+    return this.httpClient.post<User[]>(this.getAllUsersUrl, {headers: headers});
   }
 }

@@ -25,6 +25,15 @@
         <li class="nav-item" [hidden]="loggedIn">
           <a class="nav-link" routerLink="/register">Register</a>
         </li>
+        <li class="nav-item dropdown" *ngIf="user.role === 'ROLE_ADMIN' && loggedIn">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/admin/addItem">Add Products/User/Categories</a>
+            <a class="dropdown-item" routerLink="/admin/enableItem">Enable Products/User/Categories</a>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" #cartLink routerLink="/cart" >
             <img class="cart" src="../../assets/images/cart.png">

@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   url;
   breadCrumbValue = [];
   public seachFilter = '';
+  userRole: string;
 
 
   constructor(private cartService: CartService,
@@ -113,8 +114,11 @@ export class HeaderComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      response => this.user = response,
-      error => console.log('error ' + JSON.stringify(error))
+      response => {
+        this.user = response;
+        this.userRole = this.user.role;
+      },
+        error => {console.log('error ' + JSON.stringify(error)); }
     );
   }
 

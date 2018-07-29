@@ -54,5 +54,4 @@ export class LoginService implements OnInit {
   isAuthenticated() {
     return localStorage.getItem('xAuthToken') != null;
   }
-
 }

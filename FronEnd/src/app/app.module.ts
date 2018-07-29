@@ -19,9 +19,10 @@ import {CategoryListingComponent} from './category-listing/category-listing.comp
 import {HeaderComponent} from './header/header.component';
 import {SearchFilterPipe} from './search-filter.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {AdminComponent} from './admin/admin.component';
 import {AuthGaurd} from './auth-gaurd.service';
 import {LoginService} from './app-services/login.service';
+import {AddItemComponent} from './admin/add-item/add-item.component';
+import {EnableItemComponent} from './admin/enable-item/enable-item.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {LoginService} from './app-services/login.service';
     PageNotFoundComponent,
     ErrorPageComponent,
     SearchFilterPipe,
-    AdminComponent
+    AddItemComponent,
+    EnableItemComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -128,20 +129,25 @@ public class AdminComponentController {
 	@PostMapping("/enableCategory")
 	public ResponseEntity<String> enableCategory(@RequestBody ProductCategory category, Principal principal) {
 		String message;
-		if (principal != null) {
+		System.out.println("1");
+		if (principal == null) {
+			System.out.println("2");
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
-
+		System.out.println("3");
 		if (productCategoryService.getByType(category) == null) {
-			return new ResponseEntity<String>("Product does not Exists!", HttpStatus.NO_CONTENT);
+			System.out.println("4");
+			return new ResponseEntity<String>("Category does not Exists!", HttpStatus.NO_CONTENT);
 		}
-
+		System.out.println("5");
 		productCategoryService.updateProductCategory(category);
+		System.out.println("6");
 		if (category.isEnabled()) {
 			message = "Enabled!";
 		} else {
 			message = "Disabled!";
 		}
+		System.out.println("7");
 		return new ResponseEntity<String>("Category " + message, HttpStatus.OK);
 	}
 }

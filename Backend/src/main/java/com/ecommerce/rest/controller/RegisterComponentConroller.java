@@ -40,6 +40,7 @@ public class RegisterComponentConroller {
 			Set<UserRole> userRoles = new HashSet<>();
 			Role role = new Role();
 			role.setName("ROLE_USER");
+			u.setRole(role.getName());
 			userRoles.add(new UserRole(u, role));
 			userService.createUser(u, userRoles);
 			userRoles.clear();

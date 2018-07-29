@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.model.ProductCategory;
 
@@ -15,7 +16,7 @@ public interface ProductCategoryRepository extends CrudRepository<ProductCategor
 
 	/* void saveAll(List<ProductCategory> productCategory); */
 	ProductCategory findByType(String type);
-
+	@Transactional
 	@Modifying
 	@Query("update ProductCategory pc set pc.enabled=?1 where pc.id=?2")
 	void updateCategory(boolean enabled, Integer id);

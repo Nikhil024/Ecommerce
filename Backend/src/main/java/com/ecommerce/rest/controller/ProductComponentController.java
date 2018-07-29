@@ -65,7 +65,7 @@ public class ProductComponentController {
 		Role role = new Role();
 		role.setRoleId(1);
 		role.setName("ROLE_ADMIN");
-
+		user.setRole(role.getName());
 		userRoles.add(new UserRole(user, role));
 		userService.createUser(user, userRoles);
 
@@ -85,15 +85,36 @@ public class ProductComponentController {
 		ProductCategory pc7 = new ProductCategory();
 		ProductCategory pc8 = new ProductCategory();
 		
-		pc.setType("Computers&Laptops");
-		pc1.setType("Cameras&Photos");
+		pc.setType("Computers & Laptops");
+		pc1.setType("Cameras & Photos");
 		pc2.setType("Hardware");
-		pc3.setType("Smartphones&Tablets");
-		pc4.setType("TV&Audio");
+		pc3.setType("Smartphones & Tablets");
+		pc4.setType("TV & Audio");
 		pc5.setType("Gadgets");
-		pc6.setType("Car&Electronics");
-		pc7.setType("VideoGames&Consoles");
+		pc6.setType("Car & Electronics");
+		pc7.setType("Video Games & Consoles");
 		pc8.setType("Accessories");
+		
+		
+		pc.setCode("Computers&Laptops");
+		pc1.setCode("Cameras&Photos");
+		pc2.setCode("Hardware");
+		pc3.setCode("Smartphones&Tablets");
+		pc4.setCode("TV&Audio");
+		pc5.setCode("Gadgets");
+		pc6.setCode("Car&Electronics");
+		pc7.setCode("VideoGames&Consoles");
+		pc8.setCode("Accessories");
+		
+		pc.setEnabled(true);
+		pc1.setEnabled(true);
+		pc2.setEnabled(true);
+		pc3.setEnabled(true);
+		pc4.setEnabled(true);
+		pc5.setEnabled(true);
+		pc6.setEnabled(true);
+		pc7.setEnabled(true);
+		pc8.setEnabled(true);
 		
 		pcAll.add(pc);
 		pcAll.add(pc1);
@@ -361,6 +382,34 @@ public class ProductComponentController {
 		p24.setOfferPrice(56000d);
 		p24.setPrice(59000d);
 		p24.setStock(50);
+		
+		
+		p.setEnabled(true);
+		p1.setEnabled(true);
+		p2.setEnabled(true);
+		p3.setEnabled(true);
+		p4.setEnabled(true);
+		p5.setEnabled(true);
+		p6.setEnabled(true);
+		p7.setEnabled(true);
+		p8.setEnabled(true);
+		p9.setEnabled(true);
+		p10.setEnabled(true);
+		p11.setEnabled(true);
+		p12.setEnabled(true);
+		p13.setEnabled(true);
+		p14.setEnabled(true);
+		p15.setEnabled(true);
+		p16.setEnabled(true);
+		p17.setEnabled(true);
+		p18.setEnabled(true);
+		p19.setEnabled(true);
+		p20.setEnabled(true);
+		p21.setEnabled(true);
+		p22.setEnabled(true);
+		p23.setEnabled(true);
+		p24.setEnabled(true);
+		
 		
 		pAll.add(p);
 		pAll.add(p1);

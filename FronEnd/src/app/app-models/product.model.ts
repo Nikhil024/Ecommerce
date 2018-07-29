@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   offerPrice: number;
   image: Blob;
+  enabled: boolean;
   createdOn: string;
   lastUpdatedOn: string;
 }

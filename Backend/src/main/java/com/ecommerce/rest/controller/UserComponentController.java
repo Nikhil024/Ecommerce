@@ -1,9 +1,10 @@
 package com.ecommerce.rest.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,11 @@ public class UserComponentController {
 	@PostMapping("/getUser")
 	public User getUser (Principal principal) {
 		return userService.getUserByUsername(principal.getName());
+	}
+	
+	@PostMapping("/getAllUsers")
+	public List<User> getAllUsers() {
+		return userService.getAllUsers();
 	}
 
 }

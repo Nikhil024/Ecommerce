@@ -32,7 +32,7 @@
 
       <h1 class="my-4">Shop Name</h1>
       <div class="list-group" *ngFor="let productCategory of productCategories">
-        <a routerLink="/categories/{{ productCategory.type }}" class="list-group-item" routerLinkActive="active">{{ productCategory.type }}</a>
+        <a routerLink="/categories/{{ productCategory.code }}" class="list-group-item" routerLinkActive="active">{{ productCategory.type }}</a>
       </div>
      <!--  <div class="list-group">
         <a routerLink="/" class="list-group-item">Back to Home</a>
