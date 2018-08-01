@@ -6,7 +6,7 @@
     </button>
     <div class="col-lg-7">
       <div class="input-group">
-        <input type="text" [(ngModel)]="seachFilter" (keyup)="searchFilterCriteria()" class="form-control" placeholder="Search Product..!" id="txtSearch"/>
+        <input type="text" [(ngModel)]="seachFilter" (keyup)="searchFilterCriteria()" class="form-control" placeholder="Search {{ itemType }}" id="txtSearch"/>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">

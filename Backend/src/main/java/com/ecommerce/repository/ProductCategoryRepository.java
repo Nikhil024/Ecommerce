@@ -13,8 +13,7 @@ import com.ecommerce.model.ProductCategory;
 @Repository
 public interface ProductCategoryRepository extends CrudRepository<ProductCategory, Integer> {
 	List<ProductCategory> findAll();
-
-	/* void saveAll(List<ProductCategory> productCategory); */
+	List<ProductCategory> findByEnabled(boolean enabled);
 	ProductCategory findByType(String type);
 	@Transactional
 	@Modifying

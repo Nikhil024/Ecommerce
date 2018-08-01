@@ -6,11 +6,17 @@ import {ProductCategory} from '../app-models/productCategory.model';
 @Injectable()
 export class ProductCategoryService {
   private getAllProductCategoriesUrl = ApplicationProperties.BackendRestUrl + 'getAllCategories';
+  private getAllEnabledCategoriesUrl = ApplicationProperties.BackendRestUrl + 'getAllEnabledCategories';
   private enableProductCategoriesUrl = ApplicationProperties.BackendRestUrl + 'admin/enableCategory';
   constructor(private httpClient: HttpClient) {}
 
   getAllProductCategories() {
     return this.httpClient.get<ProductCategory[]>(this.getAllProductCategoriesUrl);
+  }
+
+
+  getAllEnabledProductCategories() {
+    return this.httpClient.get<ProductCategory[]>(this.getAllEnabledCategoriesUrl);
   }
 
   enableProductCategories(category: ProductCategory) {

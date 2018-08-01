@@ -28,7 +28,9 @@ public class ProductCategory implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@Column(unique = true)
 	private String type;
+	@Column(unique = true)
 	private String code;
 	
 	private boolean enabled;

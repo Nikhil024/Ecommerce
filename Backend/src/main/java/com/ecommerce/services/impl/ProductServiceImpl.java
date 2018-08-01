@@ -45,4 +45,9 @@ public class ProductServiceImpl implements ProductService {
 	public void updateProduct(Product product) {
 		productRepository.updateProduct(product.isEnabled(), product.getId());		
 	}
+
+	@Override
+	public List<Product> getAllEnabledProducts() {
+		return productRepository.findByEnabled(true);
+	}
 }

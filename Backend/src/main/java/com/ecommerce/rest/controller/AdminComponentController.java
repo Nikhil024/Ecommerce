@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,25 +131,36 @@ public class AdminComponentController {
 	@PostMapping("/enableCategory")
 	public ResponseEntity<String> enableCategory(@RequestBody ProductCategory category, Principal principal) {
 		String message;
-		System.out.println("1");
 		if (principal == null) {
-			System.out.println("2");
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
-		System.out.println("3");
 		if (productCategoryService.getByType(category) == null) {
-			System.out.println("4");
 			return new ResponseEntity<String>("Category does not Exists!", HttpStatus.NO_CONTENT);
 		}
-		System.out.println("5");
 		productCategoryService.updateProductCategory(category);
-		System.out.println("6");
+		
+		
+		List<Product> products = productService.getProductFromCategory(category);
+		
+		System.out.println("products.size():: "+products.size());
+		
+		for(Product product : products) {
+			System.out.println("Product:::: "+product.getCode());
+			product.setEnabled(category.isEnabled());
+			System.out.println("category.isEnabled()"+category.isEnabled());
+			System.out.println("Product:::: "+product.isEnabled());
+			try {
+			productService.updateProduct(product);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		if (category.isEnabled()) {
 			message = "Enabled!";
 		} else {
 			message = "Disabled!";
 		}
-		System.out.println("7");
 		return new ResponseEntity<String>("Category " + message, HttpStatus.OK);
 	}
 }

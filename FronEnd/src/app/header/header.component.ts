@@ -4,7 +4,7 @@ import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
 import {LoginService} from '../app-services/login.service';
 import {UserService} from '../app-services/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   breadCrumbValue = [];
   public seachFilter = '';
   userRole: string;
-
+  itemType: string;
 
   constructor(private cartService: CartService,
               private loginService: LoginService,
@@ -41,6 +41,12 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.itemType = params['item'];
+      }
+    );
 
     this.route.url.subscribe(
       (url) => {

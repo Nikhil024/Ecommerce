@@ -8,12 +8,17 @@ import { ProductCategory } from '../app-models/productCategory.model';
 export class ProductService {
   private getAllProductsUrl = ApplicationProperties.BackendRestUrl + 'getAllProducts';
   private getProductByCategoryUrl = ApplicationProperties.BackendRestUrl + 'getProductFromCategory';
+  private getAllEnabledProductsUrl = ApplicationProperties.BackendRestUrl + 'getAllEnabledProducts';
   private getProductByCodeUrl = ApplicationProperties.BackendRestUrl + 'getProduct';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts() {
     return this.httpClient.get<Product[]> (this.getAllProductsUrl);
+  }
+
+  getAllEnabledProducts() {
+    return this.httpClient.get<Product[]> (this.getAllEnabledProductsUrl);
   }
 
   getProductByCategory(categoryId: ProductCategory) {

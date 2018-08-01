@@ -6,6 +6,7 @@ import {ProductService} from '../../app-services/product.service';
 import {ProductCategoryService} from '../../app-services/product.category.service';
 import {Product} from '../../app-models/product.model';
 import {ProductCategory} from '../../app-models/productCategory.model';
+import {LoginService} from '../../app-services/login.service';
 
 @Component({
   selector: 'app-enable-item',
@@ -17,11 +18,29 @@ export class EnableItemComponent implements OnInit {
   private itemType: string;
   private products: Product[];
   private productCategories: ProductCategory[];
+  public seachFilterUI = '';
+  private currentUser: User;
   constructor(private router: Router,
               private activatedRouted: ActivatedRoute,
               private userService: UserService,
               private productService: ProductService,
-              private productCategoryService: ProductCategoryService) { }
+              private productCategoryService: ProductCategoryService,
+              private loginService: LoginService) {
+
+    this.loginService.searchFilter.subscribe(
+      (response: string) => {
+        if (response != null ) {
+          this.seachFilterUI = response;
+        }
+      });
+
+    this.userService.getUser().subscribe(
+       (user: User) => {
+        this.currentUser = user;
+      }
+    );
+
+  }
 
   ngOnInit() {
     this.activatedRouted.params.subscribe(

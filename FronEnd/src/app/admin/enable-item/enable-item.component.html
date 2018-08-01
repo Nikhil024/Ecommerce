@@ -24,11 +24,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users;let i = index">
+      <tr *ngFor="let user of users | searchFilter:seachFilterUI:'username';let i = index">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ user.username }}</td>
-        <td>{{ user.role }}</td>
-        <td>
+        <td *ngIf="user !== currentUser">{{ user.username }}</td>
+        <td *ngIf="user !== currentUser">{{ user.role }}</td>
+        <td *ngIf="user !== currentUser">
           <label class="switch">
             <input type="checkbox" [checked]="user.enabled">
             <span class="slider round"></span>
@@ -46,14 +46,16 @@
         <th scope="col">#</th>
         <th scope="col">Product Code</th>
         <th scope="col">Product Offer Price</th>
+        <th scope="col">Category Code</th>
         <th scope="col">Enable/Disable</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products;let i = index">
+      <tr *ngFor="let product of products | searchFilter:seachFilterUI:'code';let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ product.code }}</td>
         <td>{{ product.offerPrice }}</td>
+        <td>{{ product.category.code }}</td>
         <td>
           <label class="switch">
             <input type="checkbox" [checked]="product.enabled">
@@ -70,13 +72,13 @@
       <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Product Code</th>
-        <th scope="col">Product Offer Price</th>
+        <th scope="col">Category Type</th>
+        <th scope="col">Category Code</th>
         <th scope="col">Enable/Disable</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let category of productCategories;let i = index">
+      <tr *ngFor="let category of productCategories | searchFilter:seachFilterUI:'code';let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ category.type }}</td>
         <td>{{ category.code }}</td>

@@ -71,7 +71,7 @@ export class ProductListingComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productService.getAllProducts().subscribe(
+    this.productService.getAllEnabledProducts().subscribe(
       response => {
         this.products = response;
       },
@@ -83,7 +83,7 @@ export class ProductListingComponent implements OnInit {
   }
 
   getAllProductCategories() {
-    this.productCategoryService.getAllProductCategories().subscribe(
+    this.productCategoryService.getAllEnabledProductCategories().subscribe(
       response => {
         this.productCategories = response;
       },

@@ -38,11 +38,17 @@ public class ProductComponentController {
 		return productService.getAllProducts();
 	}
 	
+	@GetMapping("/getAllEnabledProducts")
+	public List<Product> getAllEnabledProducts() {
+		return productService.getAllEnabledProducts();
+	}
+	
 	@PostMapping("/getProduct")
 	public Product getProduct(@RequestBody String productCode) {
 		return productService.getProduct(productCode);
 	}
 	
+		
 	@PostMapping("/getProductFromCategory")
 	public List<Product> getProductFromCategory(@RequestBody ProductCategory productCategoryId) {
 		return productService.getProductFromCategory(productCategoryId);
@@ -51,6 +57,11 @@ public class ProductComponentController {
 	@GetMapping("/getAllCategories")
 	public List<ProductCategory> getAllCategories() {
 		return productCategoryService.getAllProductCategories();
+	}
+	
+	@GetMapping("/getAllEnabledCategories")
+	public List<ProductCategory> getAllEnabledCategories() {
+		return productCategoryService.getEnabledCategories();
 	}
 	
 	

@@ -40,4 +40,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public void updateProductCategory(ProductCategory productCategory) {
 		productCategoryRepository.updateCategory(productCategory.isEnabled(), productCategory.getId());
 	}
+
+	@Override
+	public List<ProductCategory> getEnabledCategories() {
+		return productCategoryRepository.findByEnabled(true);
+	}
 }

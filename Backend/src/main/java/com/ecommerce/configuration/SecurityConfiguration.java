@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 													  "/getAllCategories" , "/unknownUserAddCart", 
 													  "/addExistingCart" ,"/getCart", 
 													  "/getProductFromCategory", "/getProduct",
-													  "/removeProduct"};
+													  "/removeProduct", "/getAllEnabledCategories", "/getAllEnabledProducts"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

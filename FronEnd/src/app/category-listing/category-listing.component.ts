@@ -21,13 +21,13 @@ export class CategoryListingComponent implements OnInit {
     private cartService: CartService) {}
 
   ngOnInit() {
-    this.productCategoryService.getAllProductCategories().subscribe(
+    this.productCategoryService.getAllEnabledProductCategories().subscribe(
       response => {
         for (const category of response) {
           this.productCategories.push(category);
           if (category.type === this.route.snapshot.params['categoryType']) {
             this.productService.getProductByCategory(category).subscribe(
-              products => {
+              (products: Product[]) => {
                 this.products = products;
               },
               error => JSON.stringify(error)
