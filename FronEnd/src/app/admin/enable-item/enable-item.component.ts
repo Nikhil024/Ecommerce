@@ -94,4 +94,26 @@ export class EnableItemComponent implements OnInit {
     );
   }
 
+
+
+  enableProduct(product: Product) {
+    if (!product.category.enabled) {
+      document.getElementById('productCategoryEnablingModal').click();
+    }
+    if (product.enabled) {
+      product.enabled = false;
+    } else {
+      product.enabled = true;
+      product.category.enabled = true;
+    }
+  this.productService.enableProduct(product).subscribe(
+    response => {
+      console.log('success:: ' + JSON.stringify(response));
+    }, error => {
+      console.log('error' + JSON.stringify(error));
+    }
+  );
+
+  }
+
 }

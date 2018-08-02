@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Cart} from '../app-models/cart.model';
 import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
@@ -19,11 +19,13 @@ export class HeaderComponent implements OnInit {
   public loggedIn = false;
   public showLogoutBanner = false;
   public showLoginBanner = false;
+  public showLoginRequired = false;
   url;
   breadCrumbValue = [];
   public seachFilter = '';
   userRole: string;
   itemType: string;
+  @ViewChild('exampleModal') openModal: ElementRef;
 
   constructor(private cartService: CartService,
               private loginService: LoginService,
@@ -130,6 +132,15 @@ export class HeaderComponent implements OnInit {
 
   searchFilterCriteria() {
     this.loginService.searchFilter.next(this.seachFilter);
+  }
+
+  cartStatus() {
+    if (!this.loggedIn) {
+      document.getElementById('abc').click();
+      this.showLoginRequired = true;
+    } else {
+      this.showLoginRequired = false;
+    }
   }
 
 }

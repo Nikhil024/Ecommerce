@@ -120,6 +120,8 @@ public class AdminComponentController {
 		}
 
 		productService.updateProduct(product);
+		
+			
 		if (product.isEnabled()) {
 			message = "Enabled!";
 		} else {

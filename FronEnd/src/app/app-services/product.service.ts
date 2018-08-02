@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApplicationProperties} from '../properties/applicationproperties';
 import {Product} from '../app-models/product.model';
 import { ProductCategory } from '../app-models/productCategory.model';
@@ -10,6 +10,7 @@ export class ProductService {
   private getProductByCategoryUrl = ApplicationProperties.BackendRestUrl + 'getProductFromCategory';
   private getAllEnabledProductsUrl = ApplicationProperties.BackendRestUrl + 'getAllEnabledProducts';
   private getProductByCodeUrl = ApplicationProperties.BackendRestUrl + 'getProduct';
+  private enableProductUrl = ApplicationProperties.BackendRestUrl + 'admin/enableProduct';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -27,6 +28,13 @@ export class ProductService {
 
   getProduct(productCode: string) {
     return this.httpClient.post<Product> (this.getProductByCodeUrl, productCode);
+  }
+
+  enableProduct(product: Product) {
+    const headers = new HttpHeaders({
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+    return this.httpClient.post<Product> (this.enableProductUrl, product, {headers: headers});
   }
 
 }
