@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(form: NgModel) {
-    const user = new User(form.value.username, form.value.password, form.value.confirmPassword);
+    const user = new User(form.value.username, form.value.password, form.value.confirmPassword, 'ROLE_USER', '', true);
     this.registerService.register(user).subscribe(
       response => {
         console.log('success ' + response);

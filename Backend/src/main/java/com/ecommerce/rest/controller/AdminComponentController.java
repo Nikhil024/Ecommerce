@@ -5,15 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ import com.ecommerce.services.UserService;
 
 @RestController
 @RequestMapping("/admin")
-@PreAuthorize("ROLE_ADMIN")
+//@PreAuthorize("ROLE_ADMIN")
 public class AdminComponentController {
 	private static final Logger LOG = LoggerFactory.getLogger(AdminComponentController.class);
 
@@ -118,10 +116,26 @@ public class AdminComponentController {
 		if (productService.getProduct(product.getCode()) == null) {
 			return new ResponseEntity<String>("Product does not Exists!", HttpStatus.NO_CONTENT);
 		}
-
+		System.out.println("product:::::::::: "+product.toString());
+		try {
 		productService.updateProduct(product);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		ProductCategory productCategory  = productCategoryService.getByType(product.getCategory());
+
+		System.out.println("product.getCategory():::::::::: "+product.getCategory().toString());
+		System.out.println("!productCategory.isEnabled():::::::::: "+!productCategory.isEnabled());
 		
-			
+		if (!productCategory.isEnabled()) {
+			try {
+			productCategoryService.updateProductCategory(product.getCategory());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		if (product.isEnabled()) {
 			message = "Enabled!";
 		} else {
@@ -165,4 +179,14 @@ public class AdminComponentController {
 		}
 		return new ResponseEntity<String>("Category " + message, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/getAllRoles")
+	public List<Role> getAllRoles(Principal principal) {
+		return roleRepository.findAll();
+	}
+	
+	
+	
+	
 }

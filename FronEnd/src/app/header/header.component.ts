@@ -13,7 +13,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   public cart = new Cart(null, null);
-  public user = new User('', '', '');
+  public user = new User('', '' , '', '', '', false);
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;

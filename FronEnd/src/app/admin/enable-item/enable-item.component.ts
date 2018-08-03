@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../app-models/user.model';
 import {UserService} from '../../app-services/user.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -21,21 +21,21 @@ export class EnableItemComponent implements OnInit {
   public seachFilterUI = '';
   private currentUser: User;
   constructor(private router: Router,
-              private activatedRouted: ActivatedRoute,
-              private userService: UserService,
-              private productService: ProductService,
-              private productCategoryService: ProductCategoryService,
-              private loginService: LoginService) {
+    private activatedRouted: ActivatedRoute,
+    private userService: UserService,
+    private productService: ProductService,
+    private productCategoryService: ProductCategoryService,
+    private loginService: LoginService) {
 
     this.loginService.searchFilter.subscribe(
       (response: string) => {
-        if (response != null ) {
+        if (response != null) {
           this.seachFilterUI = response;
         }
       });
 
     this.userService.getUser().subscribe(
-       (user: User) => {
+      (user: User) => {
         this.currentUser = user;
       }
     );
@@ -46,11 +46,16 @@ export class EnableItemComponent implements OnInit {
     this.activatedRouted.params.subscribe(
       (params: Params) => {
         this.itemType = params['item'];
+        if (params['item'] === 'user') {
+          this.getUser();
+        } else if (params['item'] === 'category') {
+          this.getAllProductCategories();
+        } else if (params['item'] === 'product') {
+          this.getAllProducts();
+        }
       }
     );
-    this.getUser();
-    this.getAllProductCategories();
-    this.getAllProducts();
+
   }
 
   getUser() {
@@ -58,7 +63,7 @@ export class EnableItemComponent implements OnInit {
       response => {
         this.users = response;
       },
-      error => {console.log('error ' + JSON.stringify(error)); }
+      error => {console.log('error ' + JSON.stringify(error));}
     );
   }
 
@@ -74,16 +79,16 @@ export class EnableItemComponent implements OnInit {
     this.productCategoryService.getAllProductCategories().subscribe(
       (productCategories: ProductCategory[]) => {
         this.productCategories = productCategories;
-    }
+      }
     );
   }
 
   productStatus(category: ProductCategory) {
-      if (category.enabled) {
-        category.enabled = false;
-      } else {
-        category.enabled = true;
-      }
+    if (category.enabled) {
+      category.enabled = false;
+    } else {
+      category.enabled = true;
+    }
     this.productCategoryService.enableProductCategories(category).subscribe(
       response => {
         console.log('success:: ' + JSON.stringify(response));
@@ -106,14 +111,14 @@ export class EnableItemComponent implements OnInit {
       product.enabled = true;
       product.category.enabled = true;
     }
-  this.productService.enableProduct(product).subscribe(
-    response => {
-      console.log('success:: ' + JSON.stringify(response));
-    }, error => {
-      console.log('error' + JSON.stringify(error));
-    }
-  );
-
+    this.productService.enableProduct(product).subscribe(
+      response => {
+        console.log('success:: ' + JSON.stringify(response));
+      }, 
+      error => {
+        console.log('error' + JSON.stringify(error));
+      }
+    );
   }
 
 }

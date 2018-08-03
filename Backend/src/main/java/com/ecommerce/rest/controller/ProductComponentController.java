@@ -73,11 +73,19 @@ public class ProductComponentController {
 		user.setPassword(SecurityUtility.passwordEncoder().encode("p"));
 		user.setFirstName("Nikhil Mohandas");
 		Set<UserRole> userRoles = new HashSet<>();
+		
 		Role role = new Role();
 		role.setRoleId(1);
 		role.setName("ROLE_ADMIN");
 		user.setRole(role.getName());
 		userRoles.add(new UserRole(user, role));
+		
+		Role role1 = new Role();
+		role1.setRoleId(1);
+		role1.setName("ROLE_USER");
+		userRoles.add(new UserRole(user, role1));
+		
+		
 		userService.createUser(user, userRoles);
 
 		List<ProductCategory> pcAll =  new ArrayList<>();

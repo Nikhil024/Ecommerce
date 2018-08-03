@@ -23,8 +23,6 @@ import {AuthGaurd} from './auth-gaurd.service';
 import {LoginService} from './app-services/login.service';
 import {AddItemComponent} from './admin/add-item/add-item.component';
 import {EnableItemComponent} from './admin/enable-item/enable-item.component';
-import {BootstrapModalModule} from 'ngx-modialog/plugins/bootstrap';
-import {ModalModule} from 'ngx-modialog';
 
 
 @NgModule({
@@ -50,9 +48,7 @@ import {ModalModule} from 'ngx-modialog';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ApplicationRoutes,
-    ModalModule.forRoot(),
-    BootstrapModalModule
+    ApplicationRoutes
   ],
   providers: [AuthGaurd, LoginService],
   bootstrap: [AppComponent]

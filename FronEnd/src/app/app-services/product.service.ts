@@ -34,7 +34,7 @@ export class ProductService {
     const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    return this.httpClient.post<Product> (this.enableProductUrl, product, {headers: headers});
+    return this.httpClient.post (this.enableProductUrl, product, {headers: headers});
   }
 
 }

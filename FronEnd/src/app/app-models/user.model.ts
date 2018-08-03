@@ -10,10 +10,12 @@ export class User {
   public createdOn: string;
   public lastUpdatedOn: string;
 
-  constructor(username: string, password: string, confirmPassword: string) {
+  constructor(username: string, password: string, confirmPassword: string, role: string, email: string, enabled: boolean) {
     this.username = username;
     this.password = password;
     this.confirmPassword = confirmPassword;
+    this.role = role;
+    this.email = email;
+    this.enabled = enabled;
   }
-
 }
