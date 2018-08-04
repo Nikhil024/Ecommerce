@@ -114,7 +114,7 @@ export class EnableItemComponent implements OnInit {
     this.productService.enableProduct(product).subscribe(
       response => {
         console.log('success:: ' + JSON.stringify(response));
-      }, 
+      },
       error => {
         console.log('error' + JSON.stringify(error));
       }

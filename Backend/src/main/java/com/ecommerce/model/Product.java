@@ -24,7 +24,7 @@ import lombok.Data;
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -38,18 +38,35 @@ public class Product implements Serializable {
 	private Double price;
 	private Double offerPrice;
 	private boolean enabled;
-	
+
 	@OneToOne
 	@NotNull
 	private ProductCategory category;
-	private Blob image;
-	
+	private String imageName;
+
 	@Column(name = "created_date")
 	@JsonIgnore
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
 	@JsonIgnore
 	private LocalDateTime lastUpdatedOn;
+
+	
+	public Product() {}
+	
+	public Product(String code, String description, Integer stock, Double price, Double offerPrice,
+			ProductCategory category, String imageName, boolean enabled) {
+
+		this.code = code;
+		this.description = description;
+		this.stock = stock;
+		this.price = price;
+		this.offerPrice = offerPrice;
+		this.category = category;
+		this.imageName = imageName;
+		this.enabled = enabled;
+
+	}
 
 	@PrePersist
 	public void setCreatedOn() {

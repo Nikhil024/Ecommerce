@@ -3,14 +3,11 @@
 <div class="card text-center">
 	<div class="card-header">
 		<ul class="nav nav-tabs card-header-tabs">
-			<li class="nav-item"><a class="nav-link"
-				routerLinkActive="active" routerLink="/admin/addItem/user">User</a>
+			<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/admin/addItem/user">User</a>
 			</li>
-			<li class="nav-item"><a class="nav-link"
-				routerLinkActive="active" routerLink="/admin/addItem/category">Category</a>
+			<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/admin/addItem/category">Category</a>
 			</li>
-			<li class="nav-item"><a class="nav-link"
-				routerLinkActive="active" routerLink="/admin/addItem/product">Product</a>
+			<li class="nav-item"><a class="nav-link" 	routerLinkActive="active" routerLink="/admin/addItem/product">Product</a>
 			</li>
 		</ul>
 	</div>
@@ -21,22 +18,22 @@
 			(ngSubmit)="createNewUser(createUserForm)">
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label for="inputEmail4">Username</label> <input type="text"
+					<label for="username">Username</label> <input type="text"
 						class="form-control" id="username" name="username"
-						placeholder="Username" required #username="ngModel" ngModel>
+						placeholder="Username" required #username="ngModel" ngModel ><!--[ngClass]="!username.valid && username.touched ? 'is-valid' : 'is-invalid'-->
 					<h6 class="text-danger" *ngIf="!username.valid && username.touched">
 						Enter a Username</h6>
 				</div>
 
 				<div class="form-group col-md-3">
-					<label for="inputPassword4">Password</label> <input type="password"
+					<label for="password">Password</label> <input type="password"
 						class="form-control" id="password" name="password"
 						placeholder="Password" required #password="ngModel" ngModel>
 					<h6 class="text-danger" *ngIf="!password.valid && password.touched">
 						Enter Password</h6>
 				</div>
 				<div class="form-group col-md-3">
-					<label for="inputPassword4">Confirm Password</label> <input
+					<label for="confirmPassword">Confirm Password</label> <input
 						type="password" class="form-control" id="confirmPassword"
 						name="confirmPassword" placeholder="Confirm Password" required
 						#confirmPassword="ngModel" ngModel>
@@ -61,7 +58,7 @@
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="inputAddress2">Email</label> <input type="text"
+					<label for="email">Email</label> <input type="text"
 						class="form-control" name="email" id="Email" required
 						#email="ngModel" placeholder="Email" ngModel>
 					<h6 class="text-danger" *ngIf="!email.valid && email.touched">Enter
@@ -73,7 +70,7 @@
 
 			<div class="form-group">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" id="gridCheck"
+					<input class="form-check-input" type="checkbox" id="userEnabled"
 						name="enabled" #userEnabled="ngModel" ngModel
 						[defaultChecked]="false" /> <label class="form-check-label"
 						for="gridCheck"> Enabled </label>
@@ -100,6 +97,8 @@
 						class="form-control" id="categoryName" name="categoryName"
 						aria-describedby="emailHelp" placeholder="Enter category name"
 						#categoryName="ngModel" ngModel required>
+          <h6 class="text-danger" *ngIf="!categoryName.valid && categoryName.touched">
+            Enter a Category Name</h6>
 					<!-- <small
 					id="emailHelp" class="form-text text-muted">We'll never
 					share your email with anyone else.</small> -->
@@ -109,11 +108,13 @@
 						class="form-control" id="categoryType" name="categoryType"
 						#categoryType="ngModel" ngModel required
 						placeholder="Enter category type">
+          <h6 class="text-danger" *ngIf="!categoryType.valid && categoryType.touched">
+            Enter a Category Type</h6>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" id="gridCheck"
+					<input class="form-check-input" type="checkbox" id="categoryEnabled"
 						name="categoryEnabled" #categoryEnabled="ngModel" ngModel
 						[defaultChecked]="false" /> <label class="form-check-label"
 						for="gridCheck"> Enabled </label>
@@ -125,56 +126,70 @@
 					categoryEnabled.value ? 'Enabled' : 'Disabled' }}</b>
 			</h3>
 			<button type="submit" class="btn btn-primary"
-				[disabled]="!categoryType.valid && !categoryName.valid">Create Category</button>
+				[disabled]="!createCategoryFrom.valid">Create Category</button>
 		</form>
 	</div>
 
 	<div class="card-body" *ngIf="itemType === 'product'">
 
-		<form #createProductFrom="ngForm"
-			(ngSubmit)="createNewProduct(createProductFrom)">
+		<form #createProductFrom="ngForm" (ngSubmit)="createNewProduct(createProductFrom)">
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label for="code">Code</label> <input type="code" name="code"
+					<label for="productCode">Code</label> <input type="text" name="productCode"
 						#productCode="ngModel" ngModel required class="form-control"
-						id=code placeholder="Code">
+						id=productCode placeholder="Code">
+          <h6 class="text-danger" *ngIf="!productCode.valid && productCode.touched">
+            Enter Product Code</h6>
 				</div>
 				<div class="form-group col-md-8">
-					<label for="description">Description</label> <input type="password"
+					<label for="description">Description</label> <input type="description"
 						name="description" class="form-control" id="description"
 						placeholder="Description" #description="ngModel" ngModel required>
+          <h6 class="text-danger" *ngIf="!description.valid && description.touched">
+            Enter Product Description</h6>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-2">
-					<label for="Stock">Stock</label> <input type="text" name="Stock"
+					<label for="Stock">Stock</label> <input type="text" name="stock"
 						class="form-control" id="Stock" placeholder="Stock"
 						#stock="ngModel" ngModel required>
+          <h6 class="text-danger" *ngIf="!stock.valid && stock.touched">
+            Enter the Stock</h6>
 				</div>
 				<div class="form-group col-md-3">
 					<label for="price">Price</label> <input type="text" name="price"
 						class="form-control" id="price" #price="ngModel" ngModel required
 						placeholder="Price">
+          <h6 class="text-danger" *ngIf="!price.valid && price.touched">
+            Enter the Price</h6>
 				</div>
 				<div class="form-group col-md-3">
 					<label for="offerPrice">Offer Price</label> <input type="text"
 						name="offerPrice" class="form-control" id="offerPrice"
-						#offerPrice="ngModel" ngModel required placeholder="Price">
+						#offerPrice="ngModel" ngModel required placeholder="Price"> <!--ngClass]="offerPrice.valid && offerPrice.touched ? 'is-valid' : 'is-invalid'"-->
+          <h6 class="text-danger" *ngIf="!offerPrice.valid && offerPrice.touched">
+            Enter the Offer Price</h6>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label for="inputState">Category</label> <select id="category"
-						class="form-control" required name="category" #category="ngModel"
+						class="form-control" required name="productCategory" #productCategory="ngModel"
 						ngModel>
 						<option *ngFor="let category of productCategories"
 							[ngValue]="category">{{ category.type }}</option>
 					</select>
+          <h6 class="text-danger" *ngIf="!productCategory.valid && productCategory.touched">
+            Select a Product Category</h6>
 				</div>
-				<div class="form-group col-md-6">
-					<label for="exampleFormControlFile1">Select Image</label> <input
-						type="file" class="form-control-file text-center" id="exampleFormControlFile1">
+
+				<div class="form-group col-md-6 justify-content-center">
+					<label for="image">Select Image</label> <input
+						type="file" class="form-control-file text-center" id="image" name="image" ngModel accept=".png,.jpg,.jpeg"
+            (change)="fileChange($event)">
 				</div>
+
 			</div>
 			<div class="form-group">
 				<div class="form-check">
@@ -186,10 +201,11 @@
 			</div>
 			<h3
 				[ngClass]="productEnabled.value != '' ? 'text-success' : 'text-danger' ">
-				<b>Product Will be {{ productEnabled.value !== '' &&
-					productEnabled.value ? 'Enabled' : 'Disabled' }}</b>
+				<b>Product Will be {{ productEnabled.value !== '' && productEnabled.value ? 'Enabled' : 'Disabled' }}</b>
 			</h3>
-			<button type="submit" class="btn btn-primary">Create Product</button>
+			<button type="submit" class="btn btn-primary"
+              [disabled]="!createProductFrom.valid"
+              >Create Product</button>
 		</form>
 
 

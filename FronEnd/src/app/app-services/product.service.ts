@@ -11,7 +11,7 @@ export class ProductService {
   private getAllEnabledProductsUrl = ApplicationProperties.BackendRestUrl + 'getAllEnabledProducts';
   private getProductByCodeUrl = ApplicationProperties.BackendRestUrl + 'getProduct';
   private enableProductUrl = ApplicationProperties.BackendRestUrl + 'admin/enableProduct';
-
+  private createNewProductUrl = ApplicationProperties.BackendRestUrl + 'admin/addProducts';
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts() {
@@ -34,7 +34,15 @@ export class ProductService {
     const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    return this.httpClient.post (this.enableProductUrl, product, {headers: headers});
+    return this.httpClient.post(this.enableProductUrl, product, {headers: headers});
   }
+
+  createNewProduct(product: Product) {
+    const headers = new HttpHeaders({
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+    return this.httpClient.post(this.createNewProductUrl, product, {headers: headers});
+  }
+
 
 }

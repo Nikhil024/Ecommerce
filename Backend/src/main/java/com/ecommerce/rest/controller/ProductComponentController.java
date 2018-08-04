@@ -81,7 +81,7 @@ public class ProductComponentController {
 		userRoles.add(new UserRole(user, role));
 		
 		Role role1 = new Role();
-		role1.setRoleId(1);
+		role1.setRoleId(2);
 		role1.setName("ROLE_USER");
 		userRoles.add(new UserRole(user, role1));
 		
@@ -182,7 +182,7 @@ public class ProductComponentController {
 		p.setCategory(pc);
 		p.setCode("Computer");
 		p.setDescription("This is the Computer want to buy?");
-		p.setImage(null);
+		p.setImageName(null);
 		p.setOfferPrice(150000d);
 		p.setPrice(152000d);
 		p.setStock(2);
@@ -190,7 +190,7 @@ public class ProductComponentController {
 		p1.setCategory(pc1);
 		p1.setCode("S8");
 		p1.setDescription("This is the S8 want to buy?");
-		p1.setImage(null);
+		p1.setImageName(null);
 		p1.setOfferPrice(58000d);
 		p1.setPrice(52000d);
 		p1.setStock(50);
@@ -199,7 +199,7 @@ public class ProductComponentController {
 		p2.setCategory(pc1);
 		p2.setCode("S8+");
 		p2.setDescription("This is the S8+ want to buy?");
-		p2.setImage(null);
+		p2.setImageName(null);
 		p2.setOfferPrice(60000d);
 		p2.setPrice(70000d);
 		p2.setStock(50);
@@ -208,7 +208,7 @@ public class ProductComponentController {
 		p3.setCategory(pc1);
 		p3.setCode("s7");
 		p3.setDescription("This is the s7 want to buy?");
-		p3.setImage(null);
+		p3.setImageName(null);
 		p3.setOfferPrice(56000d);
 		p3.setPrice(59000d);
 		p3.setStock(50);
@@ -217,7 +217,7 @@ public class ProductComponentController {
 		p4.setCategory(pc2);
 		p4.setCode("s7Edge");
 		p4.setDescription("This is the s7Edge want to buy?");
-		p4.setImage(null);
+		p4.setImageName(null);
 		p4.setOfferPrice(56000d);
 		p4.setPrice(59000d);
 		p4.setStock(50);
@@ -226,7 +226,7 @@ public class ProductComponentController {
 		p5.setCategory(pc2);
 		p5.setCode("HTCDesire");
 		p5.setDescription("This is the HTCDesire want to buy?");
-		p5.setImage(null);
+		p5.setImageName(null);
 		p5.setOfferPrice(56000d);
 		p5.setPrice(59000d);
 		p5.setStock(50);
@@ -235,7 +235,7 @@ public class ProductComponentController {
 		p6.setCategory(pc3);
 		p6.setCode("Samsung Note7");
 		p6.setDescription("This is the Samsung Note7 want to buy?");
-		p6.setImage(null);
+		p6.setImageName(null);
 		p6.setOfferPrice(56000d);
 		p6.setPrice(59000d);
 		p6.setStock(50);
@@ -244,7 +244,7 @@ public class ProductComponentController {
 		p7.setCategory(pc3);
 		p7.setCode("Samsung Note6");
 		p7.setDescription("This is the Samsung Note6 want to buy?");
-		p7.setImage(null);
+		p7.setImageName(null);
 		p7.setOfferPrice(56000d);
 		p7.setPrice(59000d);
 		p7.setStock(50);
@@ -253,7 +253,7 @@ public class ProductComponentController {
 		p8.setCategory(pc4);
 		p8.setCode("Samsung Note5");
 		p8.setDescription("This is the Samsung Note5 want to buy?");
-		p8.setImage(null);
+		p8.setImageName(null);
 		p8.setOfferPrice(56000d);
 		p8.setPrice(59000d);
 		p8.setStock(50);
@@ -262,7 +262,7 @@ public class ProductComponentController {
 		p9.setCategory(pc4);
 		p9.setCode("Samsung Note4");
 		p9.setDescription("This is the Samsung Note4 want to buy?");
-		p9.setImage(null);
+		p9.setImageName(null);
 		p9.setOfferPrice(56000d);
 		p9.setPrice(59000d);
 		p9.setStock(50);
@@ -271,7 +271,7 @@ public class ProductComponentController {
 		p10.setCategory(pc5);
 		p10.setCode("Samsung Note3");
 		p10.setDescription("This is the Samsung Note3 want to buy?");
-		p10.setImage(null);
+		p10.setImageName(null);
 		p10.setOfferPrice(56000d);
 		p10.setPrice(59000d);
 		p10.setStock(50);
@@ -280,7 +280,7 @@ public class ProductComponentController {
 		p11.setCategory(pc5);
 		p11.setCode("Samsung Note2");
 		p11.setDescription("This is the Samsung Note2 want to buy?");
-		p11.setImage(null);
+		p11.setImageName(null);
 		p11.setOfferPrice(56000d);
 		p11.setPrice(59000d);
 		p11.setStock(50);
@@ -289,7 +289,7 @@ public class ProductComponentController {
 		p12.setCategory(pc5);
 		p12.setCode("Samsung Note1");
 		p12.setDescription("This is the Samsung Note1 want to buy?");
-		p12.setImage(null);
+		p12.setImageName(null);
 		p12.setOfferPrice(56000d);
 		p12.setPrice(59000d);
 		p12.setStock(50);
@@ -298,7 +298,7 @@ public class ProductComponentController {
 		p13.setCategory(pc6);
 		p13.setCode("Samsung Note");
 		p13.setDescription("This is the Samsung Note want to buy?");
-		p13.setImage(null);
+		p13.setImageName(null);
 		p13.setOfferPrice(56000d);
 		p13.setPrice(59000d);
 		p13.setStock(50);
@@ -307,7 +307,7 @@ public class ProductComponentController {
 		p14.setCategory(pc7);
 		p14.setCode("Samsung s6");
 		p14.setDescription("This is the Samsung s6 want to buy?");
-		p14.setImage(null);
+		p14.setImageName(null);
 		p14.setOfferPrice(56000d);
 		p14.setPrice(59000d);
 		p14.setStock(50);
@@ -316,7 +316,7 @@ public class ProductComponentController {
 		p15.setCategory(pc8);
 		p15.setCode("Samsung s5");
 		p15.setDescription("This is the Samsung s5 want to buy?");
-		p15.setImage(null);
+		p15.setImageName(null);
 		p15.setOfferPrice(56000d);
 		p15.setPrice(59000d);
 		p15.setStock(50);
@@ -325,7 +325,7 @@ public class ProductComponentController {
 		p16.setCategory(pc8);
 		p16.setCode("Samsung s4");
 		p16.setDescription("This is the Samsung s4 want to buy?");
-		p16.setImage(null);
+		p16.setImageName(null);
 		p16.setOfferPrice(56000d);
 		p16.setPrice(59000d);
 		p16.setStock(50);
@@ -334,7 +334,7 @@ public class ProductComponentController {
 		p17.setCategory(pc7);
 		p17.setCode("Samsung s3");
 		p17.setDescription("This is the Samsung s3 want to buy?");
-		p17.setImage(null);
+		p17.setImageName(null);
 		p17.setOfferPrice(56000d);
 		p17.setPrice(59000d);
 		p17.setStock(50);
@@ -343,7 +343,7 @@ public class ProductComponentController {
 		p18.setCategory(pc1);
 		p18.setCode("Samsung s2");
 		p18.setDescription("This is the Samsung s2 want to buy?");
-		p18.setImage(null);
+		p18.setImageName(null);
 		p18.setOfferPrice(56000d);
 		p18.setPrice(59000d);
 		p18.setStock(50);
@@ -352,7 +352,7 @@ public class ProductComponentController {
 		p19.setCategory(pc);
 		p19.setCode("Oneplus6");
 		p19.setDescription("This is the Oneplus6 want to buy?");
-		p19.setImage(null);
+		p19.setImageName(null);
 		p19.setOfferPrice(56000d);
 		p19.setPrice(59000d);
 		p19.setStock(50);
@@ -361,7 +361,7 @@ public class ProductComponentController {
 		p20.setCategory(pc);
 		p20.setCode("Oneplus5");
 		p20.setDescription("This is the Oneplus5 want to buy?");
-		p20.setImage(null);
+		p20.setImageName(null);
 		p20.setOfferPrice(56000d);
 		p20.setPrice(59000d);
 		p20.setStock(50);
@@ -370,7 +370,7 @@ public class ProductComponentController {
 		p21.setCategory(pc4);
 		p21.setCode("Oneplus4");
 		p21.setDescription("This is the Oneplus4 want to buy?");
-		p21.setImage(null);
+		p21.setImageName(null);
 		p21.setOfferPrice(56000d);
 		p21.setPrice(59000d);
 		p21.setStock(50);
@@ -379,7 +379,7 @@ public class ProductComponentController {
 		p22.setCategory(pc6);
 		p22.setCode("Oneplus3");
 		p22.setDescription("This is the Oneplus3 want to buy?");
-		p22.setImage(null);
+		p22.setImageName(null);
 		p22.setOfferPrice(56000d);
 		p22.setPrice(59000d);
 		p22.setStock(50);
@@ -388,7 +388,7 @@ public class ProductComponentController {
 		p23.setCategory(pc7);
 		p23.setCode("Oneplus2");
 		p23.setDescription("This is the Oneplus2 want to buy?");
-		p23.setImage(null);
+		p23.setImageName(null);
 		p23.setOfferPrice(56000d);
 		p23.setPrice(59000d);
 		p23.setStock(50);
@@ -397,7 +397,7 @@ public class ProductComponentController {
 		p24.setCategory(pc2);
 		p24.setCode("Oneplus");
 		p24.setDescription("This is the Oneplus want to buy?");
-		p24.setImage(null);
+		p24.setImageName(null);
 		p24.setOfferPrice(56000d);
 		p24.setPrice(59000d);
 		p24.setStock(50);

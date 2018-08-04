@@ -1,7 +1,12 @@
 package com.ecommerce.rest.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ecommerce.configuration.SecurityUtility;
 import com.ecommerce.model.Product;
@@ -30,7 +37,7 @@ import com.ecommerce.services.UserService;
 
 @RestController
 @RequestMapping("/admin")
-//@PreAuthorize("ROLE_ADMIN")
+@PreAuthorize("ROLE_ADMIN")
 public class AdminComponentController {
 	private static final Logger LOG = LoggerFactory.getLogger(AdminComponentController.class);
 
@@ -49,7 +56,7 @@ public class AdminComponentController {
 	@PostMapping("/addUser")
 	public ResponseEntity<String> createNewUser(@RequestBody User user, Principal principal) {
 
-		if (principal != null) {
+		if (principal == null) {
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
 
@@ -65,31 +72,31 @@ public class AdminComponentController {
 	}
 
 	@PostMapping("/addProducts")
-	public ResponseEntity<String> addProducts(@RequestBody List<Product> products, Principal principal) {
+	public ResponseEntity<String> addProducts(@RequestBody Product products, Principal principal) {
 
-		if (principal != null) {
+		if (principal == null) {
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
 
-		productService.saveAllProducts(products);
-		return new ResponseEntity<String>("Saved " + products.size() + " Products!", HttpStatus.OK);
+		productService.saveProduct(products);
+		return new ResponseEntity<String>("Saved Products!", HttpStatus.OK);
 	}
 
 	@PostMapping("/addCategories")
-	public ResponseEntity<String> addCategories(@RequestBody List<ProductCategory> categories, Principal principal) {
+	public ResponseEntity<String> addCategories(@RequestBody ProductCategory categories, Principal principal) {
 
-		if (principal != null) {
+		if (principal == null) {
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
 
-		productCategoryService.saveAllProducts(categories);
-		return new ResponseEntity<String>("Saved " + categories.size() + " Categories!", HttpStatus.OK);
+		productCategoryService.saveProduct(categories);
+		return new ResponseEntity<String>("Saved Categories!", HttpStatus.OK);
 	}
 
 	@PostMapping("/enableUser")
 	public ResponseEntity<String> enableUser(@RequestBody User user, Principal principal) {
 		String message;
-		if (principal != null) {
+		if (principal == null) {
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
 
@@ -109,7 +116,7 @@ public class AdminComponentController {
 	@PostMapping("/enableProduct")
 	public ResponseEntity<String> enableProduct(@RequestBody Product product, Principal principal) {
 		String message;
-		if (principal != null) {
+		if (principal == null) {
 			return new ResponseEntity<String>("Not Logged In", HttpStatus.NO_CONTENT);
 		}
 
@@ -186,6 +193,21 @@ public class AdminComponentController {
 		return roleRepository.findAll();
 	}
 	
+	
+	@PostMapping(value = "/upload")
+    public void UploadFile(MultipartHttpServletRequest request) throws IOException {
+
+      Iterator<String> itr = request.getFileNames();
+      MultipartFile file = request.getFile(itr.next());
+      String fileName = file.getOriginalFilename();
+      File dir = new File("E:\\Projects\\Ecommerce\\FronEnd\\src\\assets\\images\\productImages");
+      if (dir.isDirectory()) {
+        File serverFile = new File(dir, fileName);
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        stream.write(file.getBytes());
+        stream.close();
+      }
+    }
 	
 	
 	

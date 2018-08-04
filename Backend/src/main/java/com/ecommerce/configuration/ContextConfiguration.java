@@ -18,6 +18,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -54,7 +55,7 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
 		dataSource.setUsername("nikhil");
 		dataSource.setPassword("admin");
 		return dataSource;
@@ -62,7 +63,7 @@ public class ContextConfiguration implements WebMvcConfigurer {
 
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-	/*	hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");*/
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		hibernateProperties.put("hibernate.show_sql", "true");
 		hibernateProperties.put("hibernate.format_sql", "true");
@@ -75,5 +76,12 @@ public class ContextConfiguration implements WebMvcConfigurer {
 		lettuceConnectionFactory.setHostName("localhost");
 		lettuceConnectionFactory.setPort(6379);
 		return lettuceConnectionFactory;
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setMaxUploadSize(15000000);
+		return commonsMultipartResolver;
 	}
 }

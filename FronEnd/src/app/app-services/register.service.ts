@@ -15,7 +15,6 @@ export class RegisterService {
   register(user: User) {
     return this.httpClient.post(this.registerUrl, user, {responseType: 'text'});
   }
-  
   registerNewUser(user: User) {
     const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
