@@ -9,17 +9,29 @@ import {AddressComponent} from './address/address.component';
 import {SummaryComponent} from './summary/summary.component';
 import {ProductConfirmationComponent} from './product-confirmation/product-confirmation.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {CategoryListingComponent} from './category-listing/category-listing.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
+import {AuthGaurd} from './auth-gaurd.service';
+import {EnableItemComponent} from './admin/enable-item/enable-item.component';
+import {AddItemComponent} from './admin/add-item/add-item.component';
+import {AdminGaurd} from './admin-gaurd.service';
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
-  {path: 'phones/{device_code}', component: ProductDetailsComponent},
+  {path: 'categories/:categoryType/:productCode', component: ProductDetailsComponent},
+  {path: 'categories/:categoryType', component: CategoryListingComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'cart', component: ShoppingCartComponent},
-  {path: 'address', component: AddressComponent},
-  {path: 'summary', component: SummaryComponent},
-  {path: 'confirm', component: ProductConfirmationComponent},
-  { path: 'not-found', component: PageNotFoundComponent},
+  {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGaurd]},
+  {path: 'address', component: AddressComponent, canActivate: [AuthGaurd]},
+  {path: 'summary', component: SummaryComponent, canActivate: [AuthGaurd]},
+  {path: 'confirm', component: ProductConfirmationComponent, canActivate: [AuthGaurd]},
+  {path: 'admin/addItem', redirectTo: 'admin/addItem/user', canActivate: [AdminGaurd] },
+  {path: 'admin/addItem/:item', component: AddItemComponent, canActivate: [AdminGaurd]},
+  {path: 'admin/enableItem', redirectTo: 'admin/enableItem/user', canActivate: [AdminGaurd]},
+  {path: 'admin/enableItem/:item', component: EnableItemComponent, canActivate: [AdminGaurd]},
+  { path: 'errorpage', component: ErrorPageComponent},
+  { path: 'notfound', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},
 ];
 

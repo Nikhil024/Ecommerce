@@ -15,6 +15,16 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {ApplicationRoutes} from './application-routes.module';
+import {CategoryListingComponent} from './category-listing/category-listing.component';
+import {HeaderComponent} from './header/header.component';
+import {SearchFilterPipe} from './search-filter.pipe';
+import {ErrorPageComponent} from './error-page/error-page.component';
+import {AuthGaurd} from './auth-gaurd.service';
+import {LoginService} from './app-services/login.service';
+import {AddItemComponent} from './admin/add-item/add-item.component';
+import {EnableItemComponent} from './admin/enable-item/enable-item.component';
+import {UserService} from './app-services/user.service';
+import {AdminGaurd} from './admin-gaurd.service';
 
 
 @NgModule({
@@ -28,7 +38,13 @@ import {ApplicationRoutes} from './application-routes.module';
     ProductConfirmationComponent,
     LoginComponent,
     RegisterComponent,
-    PageNotFoundComponent
+    CategoryListingComponent,
+    HeaderComponent,
+    PageNotFoundComponent,
+    ErrorPageComponent,
+    SearchFilterPipe,
+    AddItemComponent,
+    EnableItemComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +52,7 @@ import {ApplicationRoutes} from './application-routes.module';
     FormsModule,
     ApplicationRoutes
   ],
-  providers: [],
+  providers: [AuthGaurd, LoginService, AdminGaurd, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
