@@ -32,7 +32,7 @@
 
       <h1 class="my-4">Shop Name</h1>
       <div class="list-group" *ngFor="let productCategory of productCategories">
-        <a routerLink="/categories/{{ productCategory.type }}" class="list-group-item">{{ productCategory.type }}</a>
+        <a routerLink="/categories/{{ productCategory.code }}" class="list-group-item" routerLinkActive="active">{{ productCategory.type }}</a>
       </div>
 
     </div>
@@ -69,10 +69,10 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products | searchFilter:seachFilterUI:'code'">
           <div class="card h-100">
-            <a routerLink="/product/{{ product.code }}"><img class="card-img-top" src="../../assets/images/productImages/{{ product.imageName }}"  alt=""></a>
+            <a routerLink="categories/{{ product.category.code }}/{{ product.code }}"><img class="card-img-top" src="../../assets/images/productImages/{{ product.imageName }}"  alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a routerLink="/product/{{ product.code }}">{{ product.code }}</a>
+                <a routerLink="categories/{{ product.category.code }}/{{ product.code }}">{{ product.code }}</a>
               </h4>
               <h5>&#8377;{{ product.offerPrice }}</h5><span><del>&#8377;{{ product.price }}</del></span>
               <p class="card-text">{{ product.description }}</p>
@@ -94,6 +94,26 @@
 
 </div>
 <!-- /.container -->
+<button [hidden]="true" type="button" id="alreadyInCartProduct" class="btn btn-primary" data-toggle="modal" data-target="#cartExisting"></button>
+
+<div class="modal fade" id="cartExisting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Product Already in Cart
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">

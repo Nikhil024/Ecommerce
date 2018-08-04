@@ -23,6 +23,8 @@ import {AuthGaurd} from './auth-gaurd.service';
 import {LoginService} from './app-services/login.service';
 import {AddItemComponent} from './admin/add-item/add-item.component';
 import {EnableItemComponent} from './admin/enable-item/enable-item.component';
+import {UserService} from './app-services/user.service';
+import {AdminGaurd} from './admin-gaurd.service';
 
 
 @NgModule({
@@ -50,7 +52,7 @@ import {EnableItemComponent} from './admin/enable-item/enable-item.component';
     FormsModule,
     ApplicationRoutes
   ],
-  providers: [AuthGaurd, LoginService],
+  providers: [AuthGaurd, LoginService, AdminGaurd, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

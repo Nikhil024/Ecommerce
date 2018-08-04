@@ -77,13 +77,15 @@ export class HeaderComponent implements OnInit {
 
     if (localStorage.getItem('cartId') != null) {
       this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-        response => {
+        (cart: Cart) => {
           this.totalCartCount = 0;
           this.totalCartCost = 0;
-          this.cart = response;
-          for (const product of this.cart.product) {
-            this.totalCartCount += 1;
-            this.totalCartCost += product.offerPrice;
+          this.cart = cart;
+          if (cart != null && cart.product != null) {
+            for (const product of cart.product) {
+              this.totalCartCount += 1;
+              this.totalCartCost += product.offerPrice;
+            }
           }
         },
         error => {

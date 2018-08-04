@@ -9,6 +9,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,7 +95,7 @@ public class CartComponentController {
 		cartService.saveCart(cart);
 		return cart;
 	}
-	
+
 	@PostMapping("/removeProduct")
 	public Cart removeProductFromCart(@RequestBody String productCodeAndCartId) {
 		String[] productCodeAndCartIdSplit = productCodeAndCartId.split(":");
@@ -101,14 +103,14 @@ public class CartComponentController {
 		int cartId = Integer.valueOf(productCodeAndCartIdSplit[1]);
 		List<Product> productList = new ArrayList<>();
 		Optional<Cart> optionalCart = cartService.getCartById(cartId);
-		if(optionalCart.isPresent()) {
+		if (optionalCart.isPresent()) {
 			Cart cart = optionalCart.get();
 			int count = 0;
-			for(Product product : cart.getProduct()) {
+			for (Product product : cart.getProduct()) {
 				count += 1;
-				if(productCode.equals(product.getCode())) {
-						LOG.info("Removed the ProductCode :::::: "+product.getCode());
-				}else {
+				if (productCode.equals(product.getCode())) {
+					LOG.info("Removed the ProductCode :::::: " + product.getCode());
+				} else {
 					productList.add(product);
 				}
 			}
@@ -124,10 +126,24 @@ public class CartComponentController {
 		if (cartId != null) {
 			Optional<Cart> cart = cartService.getCartById(Integer.parseInt(cartId));
 			if (cart.isPresent()) {
+				System.out.println(cart.get().toString());
 				return cart.get();
 			}
 			return null;
 		}
 		return null;
 	}
+
+	@PostMapping("/removeCart")
+	public ResponseEntity<String> removeCart(@RequestBody Integer cartId, Principal principal) {
+		Optional<Cart> optionalCart = cartService.getCartById(cartId);
+		if (optionalCart.isPresent()) {
+			Cart cart = optionalCart.get();
+			cartService.removeCart(cart);
+			return new ResponseEntity<String>("Removed Cart!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("No cart to Remove", HttpStatus.OK);
+		}
+	}
+
 }

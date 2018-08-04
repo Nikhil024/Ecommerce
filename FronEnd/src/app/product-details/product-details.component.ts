@@ -4,7 +4,8 @@ import {CartService} from '../app-services/cart.service';
 import {ProductCategoryService} from '../app-services/product.category.service';
 import {ProductService} from '../app-services/product.service';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Cart} from '../app-models/cart.model';
 
 @Component({
   selector: 'app-product-details',
@@ -15,29 +16,39 @@ export class ProductDetailsComponent implements OnInit {
 
   product: Product;
   productCategories: ProductCategory[];
+  currentCategory: string;
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
     private productCategoriesService: ProductCategoryService,
     private cartService: CartService) {}
 
   ngOnInit() {
+
     const productCode = this.route.snapshot.params['productCode'];
     this.productService.getProduct(productCode).subscribe(
-      response => {
-        this.product = response;
-        console.log(JSON.stringify(response));
+      (product: Product) => {
+        this.product = product;
+        console.log(JSON.stringify(product));
       }
     );
     this.productCategoriesService.getAllProductCategories().subscribe(
-      response => this.productCategories = response
+      (categories: ProductCategory[]) => this.productCategories = categories
     );
+
+    this.route.params.subscribe(
+      (params: Params) => {
+       this.currentCategory =  params['categoryType'];
+      }
+    );
+
+
+
   }
-  
   addToCart(product: Product) {
       if (localStorage.getItem('cartId') != null) {
         this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-          response => {
-            this.cartService.cart.next(response);
+          (cart: Cart) => {
+            this.cartService.cart.next(cart);
           },
           error => {
             console.log(JSON.stringify(error));
@@ -45,9 +56,9 @@ export class ProductDetailsComponent implements OnInit {
         );
       } else {
         this.cartService.addCart(product.code).subscribe(
-          response => {
-            this.cartService.cart.next(response);
-            localStorage.setItem('cartId', response.id.toString());
+          (cart: Cart) => {
+            this.cartService.cart.next(cart);
+            localStorage.setItem('cartId', cart.id.toString());
           },
           error => {
             console.log(JSON.stringify(error));

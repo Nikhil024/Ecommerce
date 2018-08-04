@@ -9,12 +9,13 @@ import {CartService} from '../app-services/cart.service';
 import {Cart} from '../app-models/cart.model';
 import {Order} from '../app-models/order.model';
 import {OrderService} from '../app-services/order.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css'],
-  providers: [CardService, AddressService, OrderService]
+  providers: [CardService, AddressService]
 
 })
 export class AddressComponent implements OnInit {
@@ -35,7 +36,8 @@ export class AddressComponent implements OnInit {
   constructor(private cardService: CardService,
     private addressService: AddressService,
     private cartService: CartService,
-    private orderService: OrderService) {}
+    private orderService: OrderService,
+    private router: Router) {}
 
 
   ngOnInit() {
@@ -76,8 +78,11 @@ export class AddressComponent implements OnInit {
                 this.billingAddress = billingAddressResponse;
                 console.log('billing Address' + JSON.stringify(billingAddressResponse));
                 this.orderService.saveOrder(new Order(this.cart.product, billingAddressResponse, 'success')).subscribe(
-                  orderResponse => {
+                  (orderResponse: Order) => {
+                    this.orderService.order.next(orderResponse.id);
+                    this.cartService.removeCartUser().subscribe();
                     console.log(JSON.stringify(orderResponse));
+                    this.router.navigate(['/confirm']);
                   },
                   error => {
                     console.log(JSON.stringify(error));

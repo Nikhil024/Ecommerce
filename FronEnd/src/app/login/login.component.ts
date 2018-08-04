@@ -28,11 +28,12 @@ export class LoginComponent implements OnInit {
             this.loginService.loginBanner.next(true);
             this.router.navigate(['/']);
           },
-          error => console.log('error:: ' + JSON.stringify(error))
+          error => console.log('error1:: ' + JSON.stringify(error))
         );
       },
       error => {
-        alert('error:: ' + error['text']);
+        document.getElementById('wrongLoginButton').click();
+        console.log('error2:: ' + JSON.stringify(error));
       }
     );
   }

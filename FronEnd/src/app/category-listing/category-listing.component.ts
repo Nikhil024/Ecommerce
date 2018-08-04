@@ -25,7 +25,7 @@ export class CategoryListingComponent implements OnInit {
       response => {
         for (const category of response) {
           this.productCategories.push(category);
-          if (category.type === this.route.snapshot.params['categoryType']) {
+          if (category.code === this.route.snapshot.params['categoryType']) {
             this.productService.getProductByCategory(category).subscribe(
               (products: Product[]) => {
                 this.products = products;
@@ -39,7 +39,7 @@ export class CategoryListingComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         for (const category of this.productCategories) {
-          if (category.type === params['categoryType']) {
+          if (category.code === params['categoryType']) {
             this.productService.getProductByCategory(category).subscribe(
               response => {
                 this.products = response;

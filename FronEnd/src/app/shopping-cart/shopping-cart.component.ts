@@ -20,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
         response => {
           this.totalCost = 0;
           this.cart = response;
+          console.log(JSON.stringify(response));
           for ( const responseProduct of response.product) {
             this.totalCost += responseProduct.offerPrice;
           }

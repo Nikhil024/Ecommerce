@@ -33,5 +33,10 @@ public class CartServiceImpl implements CartService {
 	public Optional<Cart> getCartById(Integer id) {
 		return cartRepository.findById(id);
 	}
+	
+	@Override	
+	public void removeCart(Cart cart) {
+		cartRepository.delete(cart);
+	}
 
 }

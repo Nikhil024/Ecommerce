@@ -6,6 +6,7 @@ import {UserService} from './app-services/user.service';
 import {ProductCategoryService} from './app-services/product.category.service';
 import {CartService} from './app-services/cart.service';
 import { RoleService } from './app-services/role.service';
+import {OrderService} from './app-services/order.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { RoleService } from './app-services/role.service';
               UserService,
               ProductCategoryService,
               CartService,
-              RoleService
+              RoleService,
+              OrderService
   ]
 })
 export class AppComponent implements OnInit {

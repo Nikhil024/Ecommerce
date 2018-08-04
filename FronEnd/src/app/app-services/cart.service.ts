@@ -11,6 +11,7 @@ export class CartService {
   private addExistingCartUrl = ApplicationProperties.BackendRestUrl + 'addExistingCart';
   private getCartUrl = ApplicationProperties.BackendRestUrl + 'getCart';
   private removeCartUrl = ApplicationProperties.BackendRestUrl + 'removeProduct';
+  private removeCartUserUrl = ApplicationProperties.BackendRestUrl + 'removeCart';
   public cart = new Subject();
 
   constructor(private httpClient: HttpClient) {}
@@ -60,4 +61,12 @@ export class CartService {
       return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId);
     }
   }
+
+  removeCartUser() {
+    const headers = new HttpHeaders({
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+    return this.httpClient.post(this.removeCartUserUrl, parseInt(localStorage.getItem('cartId'), 10), {headers: headers});
+  }
+
 }

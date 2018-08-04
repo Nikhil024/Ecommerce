@@ -18,11 +18,12 @@ export class ProductListingComponent implements OnInit {
   public user = new User('', '' , '', '', '', false);
   public productCategories: ProductCategory[];
   products: Product[];
-  public cart = new Cart(null , null);
+  public cart: Cart;
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
   public seachFilterUI = '';
+  private continueToAddCart = true;
 
   constructor(private loginService: LoginService,
               private userService: UserService,
@@ -62,7 +63,7 @@ export class ProductListingComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      response => this.user = response ,
+      (user: User) => this.user = user ,
       error => {
         console.log('error ' + JSON.stringify(error));
         this.router.navigate(['/errorpage']);
@@ -72,8 +73,8 @@ export class ProductListingComponent implements OnInit {
 
   getAllProducts() {
     this.productService.getAllEnabledProducts().subscribe(
-      response => {
-        this.products = response;
+      (products: Product[]) => {
+        this.products = products;
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
@@ -84,8 +85,8 @@ export class ProductListingComponent implements OnInit {
 
   getAllProductCategories() {
     this.productCategoryService.getAllEnabledProductCategories().subscribe(
-      response => {
-        this.productCategories = response;
+      (categories: ProductCategory[]) => {
+        this.productCategories = categories;
       },
       error => {
         console.log('error:: ' + JSON.stringify(error));
@@ -95,13 +96,17 @@ export class ProductListingComponent implements OnInit {
   }
 
   getCart() {
-    if (localStorage.getItem('cartId') != null && this.cart != null && this.cart.product != null) {
+    if (localStorage.getItem('cartId') != null) {
       this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-        response => {
-          this.cart = response;
-          this.totalCartCount = this.cart.product.length;
-          for (let i = 0; i <= this.cart.product.length; i++) {
-            this.totalCartCost += response.product[i].offerPrice;
+        (cart: Cart) => {
+          if (cart !== null && cart.product != null ) {
+            this.cart = cart;
+            this.totalCartCount = this.cart.product.length;
+            for (let i = 0; i <= this.cart.product.length; i++) {
+              if (cart.product[i] != null) {
+                this.totalCartCost += cart.product[i].offerPrice;
+              }
+            }
           }
         },
         error => {
@@ -113,29 +118,41 @@ export class ProductListingComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    if (localStorage.getItem('cartId') != null) {
-      this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-        response => {
-          this.cart = response;
-          this.cartService.cart.next(response);
-        },
-        error => {
-          console.log(JSON.stringify(error));
-          this.router.navigate(['/errorpage']);
+    if (this.cart != null && this.cart.product != null) {
+      for (const cartProduct of this.cart.product) {
+        if (cartProduct.code === product.code) {
+          this.continueToAddCart = false;
+          document.getElementById('alreadyInCartProduct').click();
+        } else {
+          this.continueToAddCart = true;
         }
-      );
-    } else {
-      this.cartService.addCart(product.code).subscribe(
-        response => {
-          this.cartService.cart.next(response);
-          this.cart = response;
-          localStorage.setItem('cartId', this.cart.id.toString());
-        },
-        error => {
-          console.log(JSON.stringify(error));
-          this.router.navigate(['/errorpage']);
-        }
-      );
+      }
+    }
+    if (this.continueToAddCart) {
+      if (localStorage.getItem('cartId') != null) {
+        this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+          (cart: Cart) => {
+            this.cart = cart;
+            this.cartService.cart.next(cart);
+          },
+          error => {
+            console.log(JSON.stringify(error));
+            this.router.navigate(['/errorpage']);
+          }
+        );
+      } else {
+        this.cartService.addCart(product.code).subscribe(
+          (cart: Cart) => {
+            this.cartService.cart.next(cart);
+            this.cart = cart;
+            localStorage.setItem('cartId', this.cart.id.toString());
+          },
+          error => {
+            console.log(JSON.stringify(error));
+            this.router.navigate(['/errorpage']);
+          }
+        );
+      }
     }
   }
 

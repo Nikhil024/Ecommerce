@@ -7,4 +7,5 @@ import com.ecommerce.model.Cart;
 public interface CartService {
 	void saveCart(Cart cart);
 	Optional<Cart> getCartById(Integer id);
+	public void removeCart(Cart cart);
 }

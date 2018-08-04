@@ -10,7 +10,7 @@ export class Order {
   createdOn: string;
   lastUpdatedOn: string;
 
-  constructor(product: Product[],address: Address, orderStatus: string) {
+  constructor(product: Product[], address: Address, orderStatus: string) {
     this.product = product;
     this.address = address;
     this.orderStatus = orderStatus;

@@ -14,11 +14,11 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {AuthGaurd} from './auth-gaurd.service';
 import {EnableItemComponent} from './admin/enable-item/enable-item.component';
 import {AddItemComponent} from './admin/add-item/add-item.component';
+import {AdminGaurd} from './admin-gaurd.service';
 
 const appRoutes: Routes = [
   {path: '', component: ProductListingComponent},
   {path: 'categories/:categoryType/:productCode', component: ProductDetailsComponent},
-  {path: 'product/:productCode', component: ProductDetailsComponent},
   {path: 'categories/:categoryType', component: CategoryListingComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
@@ -26,10 +26,10 @@ const appRoutes: Routes = [
   {path: 'address', component: AddressComponent, canActivate: [AuthGaurd]},
   {path: 'summary', component: SummaryComponent, canActivate: [AuthGaurd]},
   {path: 'confirm', component: ProductConfirmationComponent, canActivate: [AuthGaurd]},
-  {path: 'admin/addItem', component: AddItemComponent},
-  {path: 'admin/addItem/:item', component: AddItemComponent},
-  {path: 'admin/enableItem', component: EnableItemComponent},
-  {path: 'admin/enableItem/:item', component: EnableItemComponent},
+  {path: 'admin/addItem', redirectTo: 'admin/addItem/user', canActivate: [AdminGaurd] },
+  {path: 'admin/addItem/:item', component: AddItemComponent, canActivate: [AdminGaurd]},
+  {path: 'admin/enableItem', redirectTo: 'admin/enableItem/user', canActivate: [AdminGaurd]},
+  {path: 'admin/enableItem/:item', component: EnableItemComponent, canActivate: [AdminGaurd]},
   { path: 'errorpage', component: ErrorPageComponent},
   { path: 'notfound', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'},
