@@ -17,6 +17,7 @@ export class ProductDetailsComponent implements OnInit {
   product: Product;
   productCategories: ProductCategory[];
   currentCategory: string;
+  cart: Cart;
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
     private productCategoriesService: ProductCategoryService,
@@ -41,8 +42,16 @@ export class ProductDetailsComponent implements OnInit {
       }
     );
 
-
-
+ if (localStorage.getItem('cartId') != null) {
+     this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+        (cart: Cart) => {
+          this.cart = cart;
+        },
+          error => {
+            console.log(JSON.stringify(error));
+          }
+     );
+ }
   }
   addToCart(product: Product) {
       if (localStorage.getItem('cartId') != null) {
