@@ -15,7 +15,7 @@ import com.ecommerce.model.ProductCategory;
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 	List<Product> findAll();
 	Product findByCode(String code);
-	List<Product> findByCategory(ProductCategory id);
+	List<Product> findByCategoryAndEnabled(ProductCategory id, boolean enabled);
 	List<Product> findByEnabled(boolean enabled);
 	
 	@Modifying

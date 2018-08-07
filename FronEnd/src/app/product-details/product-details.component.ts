@@ -6,6 +6,7 @@ import {ProductService} from '../app-services/product.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Cart} from '../app-models/cart.model';
+import { ApplicationProperties } from '../properties/applicationproperties';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +19,8 @@ export class ProductDetailsComponent implements OnInit {
   productCategories: ProductCategory[];
   currentCategory: string;
   cart: Cart;
+  public applicationName = ApplicationProperties.ApplicationName;
+  
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
     private productCategoriesService: ProductCategoryService,
