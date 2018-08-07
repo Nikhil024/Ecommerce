@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../app-services/login.service';
 import {UserService} from '../app-services/user.service';
 import {User} from '../app-models/user.model';
@@ -8,36 +8,40 @@ import {ProductService} from '../app-services/product.service';
 import {ProductCategoryService} from '../app-services/product.category.service';
 import {CartService} from '../app-services/cart.service';
 import {Cart} from '../app-models/cart.model';
+import {ApplicationProperties} from '../properties/applicationproperties';
 import {Router} from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-product-listing',
   templateUrl: './product-listing.component.html'
 })
 export class ProductListingComponent implements OnInit {
-  public user = new User('', '' , '', '', '', false);
+  public user = new User('', '', '', '', '', false);
   public productCategories: ProductCategory[];
   products: Product[];
   public cart: Cart;
+  public currentCart: Cart;
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
   public seachFilterUI = '';
   private continueToAddCart = true;
+  public applicationName = ApplicationProperties.ApplicationName;
 
   constructor(private loginService: LoginService,
-              private userService: UserService,
-              private productService: ProductService,
-              private productCategoryService: ProductCategoryService,
-              private cartService: CartService,
-              private router: Router) {
+    private userService: UserService,
+    private productService: ProductService,
+    private productCategoryService: ProductCategoryService,
+    private cartService: CartService,
+    private router: Router) {
 
     this.loginService.searchFilter.subscribe(
       (response: string) => {
-        if (response != null ) {
+        if (response != null) {
           this.seachFilterUI = response;
         }
-    });
+      });
   }
 
   ngOnInit() {
@@ -51,7 +55,6 @@ export class ProductListingComponent implements OnInit {
   logout() {
     this.loginService.logout().subscribe(
       response => {
-        console.log(JSON.stringify(response));
         this.loggedIn = true;
       },
       error => {
@@ -63,12 +66,12 @@ export class ProductListingComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      (user: User) => this.user = user ,
+      (user: User) => this.user = user,
       error => {
         console.log('error ' + JSON.stringify(error));
         this.router.navigate(['/errorpage']);
-        }
-     );
+      }
+    );
   }
 
   getAllProducts() {
@@ -99,10 +102,11 @@ export class ProductListingComponent implements OnInit {
     if (localStorage.getItem('cartId') != null) {
       this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
         (cart: Cart) => {
-          if (cart !== null && cart.product != null ) {
+          if (cart !== null && cart.product != null) {
             this.cart = cart;
             this.totalCartCount = this.cart.product.length;
             for (let i = 0; i <= this.cart.product.length; i++) {
+               $('#' + cart.product[i].code + '_cart').text('Added In Cart');
               if (cart.product[i] != null) {
                 this.totalCartCost += cart.product[i].offerPrice;
               }
@@ -118,13 +122,13 @@ export class ProductListingComponent implements OnInit {
   }
 
   addToCart(product: Product) {
+    $('#' + product.code + '_cart').text('Added In Cart');
     if (this.cart != null && this.cart.product != null) {
+      this.continueToAddCart = true;
       for (const cartProduct of this.cart.product) {
         if (cartProduct.code === product.code) {
           this.continueToAddCart = false;
           document.getElementById('alreadyInCartProduct').click();
-        } else {
-          this.continueToAddCart = true;
         }
       }
     }

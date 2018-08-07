@@ -121,4 +121,22 @@ export class EnableItemComponent implements OnInit {
     );
   }
 
+  enableUser(user: User) {
+
+    if (user.enabled) {
+      user.enabled = false;
+    } else {
+      user.enabled = true;
+    }
+    this.userService.enableUser(user).subscribe(
+      response => {
+        console.log('success:: ' + JSON.stringify(response));
+      },
+      error => {
+        console.log('error' + JSON.stringify(error));
+      }
+    );
+
+  }
+
 }

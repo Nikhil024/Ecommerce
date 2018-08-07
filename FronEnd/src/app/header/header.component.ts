@@ -4,6 +4,7 @@ import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
 import {LoginService} from '../app-services/login.service';
 import {UserService} from '../app-services/user.service';
+import { ApplicationProperties } from '../properties/applicationproperties';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   public showLoginBanner = false;
   public showLoginRequired = false;
   url;
+  public applicationName = ApplicationProperties.ApplicationName;
   breadCrumbValue = [];
   public seachFilter = '';
   userRole: string;

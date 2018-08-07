@@ -29,7 +29,7 @@
         <td *ngIf="user !== currentUser">{{ user.username }}</td>
         <td *ngIf="user !== currentUser">{{ user.role }}</td>
         <td *ngIf="user !== currentUser">
-          <label class="switch">
+          <label class="switch" (change)="enableUser(user)">
             <input type="checkbox" [checked]="user.enabled">
             <span class="slider round"></span>
           </label>
