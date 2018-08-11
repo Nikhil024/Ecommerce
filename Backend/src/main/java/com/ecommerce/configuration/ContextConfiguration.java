@@ -19,22 +19,29 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan("com.ecommerce.controller")
 @EnableJpaRepositories(basePackages = "com.ecommerce.repository")
 @EnableRedisHttpSession
-public class ContextConfiguration implements WebMvcConfigurer {
+public class ContextConfiguration extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
+	
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*");
+    }
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
 		hibernateJpa.setDatabasePlatform("org.hibernate.dialect.Oracle10gDialect");
 		hibernateJpa.setShowSql(true);
-		hibernateJpa.setGenerateDdl(true);
+		/*hibernateJpa.setGenerateDdl(true);*/
 		hibernateJpa.setDatabase(Database.ORACLE);
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource());
@@ -55,15 +62,15 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUrl("jdbc:oracle:thin:@eazycart.csapfjoyvmcm.us-east-2.rds.amazonaws.com:1521:ORCL");
 		dataSource.setUsername("nikhil");
-		dataSource.setPassword("admin");
+		dataSource.setPassword("nikhil22");
 		return dataSource;
 	}
 
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		/*hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");*/
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		hibernateProperties.put("hibernate.show_sql", "true");
 		hibernateProperties.put("hibernate.format_sql", "true");
