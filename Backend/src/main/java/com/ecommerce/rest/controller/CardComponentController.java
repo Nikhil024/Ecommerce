@@ -23,22 +23,16 @@ public class CardComponentController {
 	
 	@PostMapping("/validateCard")
 	public Card validateCard(@RequestBody Card card, Principal principal) {
-		System.out.println("Card details::: "+card.toString());
 		if(card.getCardNumber().toString().equals(SUCCESS_CARD)) {
-			System.out.println("inside 1");
 			card.setStatus(SUCCESS_CODE);
-			System.out.println("Card details1::: "+card.toString());
 			return card;
 		} else if(card.getCardNumber().toString().equals(FRAUD_CARD)) {
-			System.out.println("inside 2");
 			card.setStatus(FRAUD_CODE);
 			return card;
 		}else if(card.getCardNumber().toString().equals(FAILURE_CARD)) {
-			System.out.println("inside 3");
 			card.setStatus(FAILURE_CODE);
 			return card;
 		}
-		System.out.println("inside 4");
 		card.setStatus(FAILURE_CODE);
 		return card;
 	}

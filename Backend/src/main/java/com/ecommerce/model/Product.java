@@ -1,7 +1,6 @@
 package com.ecommerce.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 

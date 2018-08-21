@@ -29,7 +29,6 @@ public class RegisterComponentConroller {
 
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody User user, HttpServletResponse response) {
-		LOG.info("user:::: " + user.getUsername());
 		if (userService.getUserByUsername(user.getUsername()) != null) {
 			return new ResponseEntity<String>("User already Exists", HttpStatus.NOT_FOUND);
 		} else {
