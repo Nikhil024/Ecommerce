@@ -48,6 +48,9 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	@Value("${hibernate.property.ddl}")
 	private String hibernateDDL;
 	
+	@Value("${hibernate.generate.ddl}")
+	private Boolean hibernateGenerateDDL;
+	
 	@Value("${hibernate.property.showSQL}")
 	private Boolean hibernateShowSQL;
 	
@@ -71,8 +74,8 @@ public class ContextConfiguration implements WebMvcConfigurer {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
 		hibernateJpa.setDatabasePlatform(databaseDailect);
-		hibernateJpa.setShowSql(true);
-		hibernateJpa.setGenerateDdl(true);
+		hibernateJpa.setShowSql(hibernateShowSQL);
+		hibernateJpa.setGenerateDdl(hibernateGenerateDDL);
 		hibernateJpa.setDatabase(Database.ORACLE);
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource());
