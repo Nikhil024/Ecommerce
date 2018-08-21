@@ -4,15 +4,13 @@ import java.util.Collections;
 import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericToStringSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -22,14 +20,47 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("com.ecommerce.controller")
+@ComponentScan("com.ecommerce.rest.controller")
 @EnableJpaRepositories(basePackages = "com.ecommerce.repository")
 @EnableRedisHttpSession
-public class ContextConfiguration extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
+@PropertySource("classpath:properties/application-${spring.profiles.active}.properties")
+public class ContextConfiguration implements WebMvcConfigurer {
+	
+	
+	@Value("${database.platform.dialect}")
+	private String databaseDailect;
+	
+	@Value("${database.classname}")
+	private String databaseClassname;
+	
+	@Value("${database.url}")
+	private String databaseURL;
+	
+	@Value("${database.name}")
+	private String databaseName;
+	
+	@Value("${database.password}")
+	private String databasePassword;
+
+	@Value("${hibernate.property.ddl}")
+	private String hibernateDDL;
+	
+	@Value("${hibernate.property.showSQL}")
+	private Boolean hibernateShowSQL;
+	
+	@Value("${hibernate.property.formatSQL}")
+	private Boolean hibernateFormatSQL;
+	
+	@Value("${redis.hostname}")
+	private String redisHostName;
+	
+	@Value("${redis.portnumber}")
+	private Integer redisPortNumber;
+	
+	
 	
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -39,9 +70,9 @@ public class ContextConfiguration extends WebMvcConfigurerAdapter implements Web
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
-		hibernateJpa.setDatabasePlatform("org.hibernate.dialect.Oracle10gDialect");
+		hibernateJpa.setDatabasePlatform(databaseDailect);
 		hibernateJpa.setShowSql(true);
-		/*hibernateJpa.setGenerateDdl(true);*/
+		hibernateJpa.setGenerateDdl(true);
 		hibernateJpa.setDatabase(Database.ORACLE);
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource());
@@ -61,27 +92,27 @@ public class ContextConfiguration extends WebMvcConfigurerAdapter implements Web
 
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@eazycart.csapfjoyvmcm.us-east-2.rds.amazonaws.com:1521:ORCL");
-		dataSource.setUsername("nikhil");
-		dataSource.setPassword("nikhil22");
+		dataSource.setDriverClassName(databaseClassname);
+		dataSource.setUrl(databaseURL);
+		dataSource.setUsername(databaseName);
+		dataSource.setPassword(databasePassword);
 		return dataSource;
 	}
 
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-		/*hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");*/
-		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-		hibernateProperties.put("hibernate.show_sql", "true");
-		hibernateProperties.put("hibernate.format_sql", "true");
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hibernateDDL);
+		hibernateProperties.setProperty("hibernate.dialect", databaseDailect);
+		hibernateProperties.put("hibernate.show_sql", hibernateShowSQL);
+		hibernateProperties.put("hibernate.format_sql", hibernateFormatSQL);
 		return hibernateProperties;
 	}
 
 	@Bean
 	public LettuceConnectionFactory connectionFactory() {
 		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory();
-		lettuceConnectionFactory.setHostName("localhost");
-		lettuceConnectionFactory.setPort(6379);
+		lettuceConnectionFactory.setHostName(redisHostName);
+		lettuceConnectionFactory.setPort(redisPortNumber);
 		return lettuceConnectionFactory;
 	}
 	
