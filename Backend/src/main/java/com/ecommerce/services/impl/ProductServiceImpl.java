@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProductFromCategory(ProductCategory productCategoryId) {
-		return productRepository.findByCategory(productCategoryId);
+		return productRepository.findByCategoryAndEnabled(productCategoryId, true);
 	}
 
 	@Override
