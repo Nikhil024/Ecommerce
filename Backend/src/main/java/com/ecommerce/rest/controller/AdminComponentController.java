@@ -13,6 +13,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +40,7 @@ import com.ecommerce.services.UserService;
 @RestController
 @RequestMapping("/admin")
 @PreAuthorize("ROLE_ADMIN")
+@PropertySource("classpath:properties/application-${spring.profiles.active}.properties")
 public class AdminComponentController {
 	private static final Logger LOG = LoggerFactory.getLogger(AdminComponentController.class);
 
@@ -52,6 +55,10 @@ public class AdminComponentController {
 
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	
+	
+	@Value("${frontend.url}")
+	private String frontendUrl;
 
 	@PostMapping("/addUser")
 	public ResponseEntity<String> createNewUser(@RequestBody User user, Principal principal) {
@@ -64,7 +71,7 @@ public class AdminComponentController {
 		Role role = roleRepository.findByName(user.getRole());
 
 		LOG.info("User role is :: " + user.getRole());
-		user.setFirstName("Nikhil Mohandas");
+		user.setFirstName("Anonymous");
 		user.setPassword(SecurityUtility.passwordEncoder().encode(user.getPassword()));
 		userRoles.add(new UserRole(user, role));
 		userService.createUser(user, userRoles);
@@ -123,7 +130,6 @@ public class AdminComponentController {
 		if (productService.getProduct(product.getCode()) == null) {
 			return new ResponseEntity<String>("Product does not Exists!", HttpStatus.NO_CONTENT);
 		}
-		System.out.println("product:::::::::: "+product.toString());
 		try {
 		productService.updateProduct(product);
 		}catch(Exception e) {
@@ -131,9 +137,6 @@ public class AdminComponentController {
 		}
 		ProductCategory productCategory  = productCategoryService.getByType(product.getCategory());
 
-		System.out.println("product.getCategory():::::::::: "+product.getCategory().toString());
-		System.out.println("!productCategory.isEnabled():::::::::: "+!productCategory.isEnabled());
-		
 		if (!productCategory.isEnabled()) {
 			try {
 			productCategoryService.updateProductCategory(product.getCategory());
@@ -165,13 +168,8 @@ public class AdminComponentController {
 		
 		List<Product> products = productService.getProductFromCategory(category);
 		
-		System.out.println("products.size():: "+products.size());
-		
 		for(Product product : products) {
-			System.out.println("Product:::: "+product.getCode());
 			product.setEnabled(category.isEnabled());
-			System.out.println("category.isEnabled()"+category.isEnabled());
-			System.out.println("Product:::: "+product.isEnabled());
 			try {
 			productService.updateProduct(product);
 			}catch(Exception e) {
@@ -200,7 +198,7 @@ public class AdminComponentController {
       Iterator<String> itr = request.getFileNames();
       MultipartFile file = request.getFile(itr.next());
       String fileName = file.getOriginalFilename();
-      File dir = new File("E:\\Projects\\Ecommerce\\FronEnd\\src\\assets\\images\\productImages");
+      File dir = new File(frontendUrl+"/assets/images/productImages");
       if (dir.isDirectory()) {
         File serverFile = new File(dir, fileName);
         BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));

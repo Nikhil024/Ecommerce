@@ -26,9 +26,6 @@ import com.ecommerce.services.impl.UserSecurityService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private Environment env;
-
-	@Autowired
 	private UserSecurityService userSecurityService;
 	
 	@Autowired

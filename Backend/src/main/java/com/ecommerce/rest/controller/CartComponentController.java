@@ -51,13 +51,11 @@ public class CartComponentController {
 
 	@PostMapping("/unknownUserAddCart")
 	public Cart addUnknownCart(@RequestBody String productCode) {
-		System.out.println("a::::::::::::" + productCode);
 		if (productCode == null) {
 			return null;
 		}
 
 		List<Product> productList = new ArrayList<>();
-		System.out.println("Product:::::: " + productService.getProduct(productCode).toString());
 		Product product = productService.getProduct(productCode);
 		productList.add(product);
 		Cart cart = new Cart(productList, null);
@@ -126,7 +124,6 @@ public class CartComponentController {
 		if (cartId != null) {
 			Optional<Cart> cart = cartService.getCartById(Integer.parseInt(cartId));
 			if (cart.isPresent()) {
-				System.out.println(cart.get().toString());
 				return cart.get();
 			}
 			return null;
