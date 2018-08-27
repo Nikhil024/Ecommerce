@@ -12,6 +12,7 @@ export class ErrorPageComponent implements OnInit {
 
   ngOnInit() {
   }
+  
   mail() {
     window.open('mailto:admin@eazycart.com?subject=404 on URL ' + this.router.url + '&body=Query', '_self');
   }

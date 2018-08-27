@@ -30,13 +30,21 @@ public class LoginComponentController {
 		
 	}
 	
+	@GetMapping("/login")
+	public Map<String, String> login(HttpSession session, HttpServletRequest request,Principal principal, Authentication authentication){
+		System.out.println("aaaaaaaa::: "+principal.getName());
+		return Collections.singletonMap("token", session.getId());
+		
+	}
+	
 	@GetMapping("/checkSession")
 	public ResponseEntity<String> checkSession(Principal principal, Authentication authentication) {
 		return new ResponseEntity<String>("Session Active!",HttpStatus.OK);
 	}
 	
 	@PostMapping("/userLogout")
-	public ResponseEntity<String> logout(HttpServletResponse response) {
+	public ResponseEntity<String> logout(HttpServletResponse response,HttpServletRequest request) {
+		request.getSession().invalidate();
 		SecurityContextHolder.clearContext();
 		response.setStatus(HttpServletResponse.SC_OK);
 		return new ResponseEntity<String>("Logout Success!",HttpStatus.OK);

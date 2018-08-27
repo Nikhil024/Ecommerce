@@ -10,26 +10,33 @@ import {RegisterService} from '../app-services/register.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+ public loggedIn = false;
   constructor(private loginService: LoginService, private routerLink: ActivatedRoute,
               private router: Router,
               public registerService: RegisterService) { }
 
   ngOnInit() {
+      this.loginService.loginBanner.subscribe(
+    response => {
+      if (response) {
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }
+    },
+    error => {
+      this.loggedIn = false;
+    }
+  );
   }
 
   login(form: NgForm) {
     this.loginService.login(form.value.username, form.value.password).subscribe(
       res => {
-        this.loginService.getToken (form.value.username, form.value.password).subscribe(
-          response => {
-            localStorage.setItem('xAuthToken', response['token']);
-            console.log(JSON.stringify(response));
+            localStorage.setItem('xAuthToken', res['token']);
+            console.log(JSON.stringify(res));
             this.loginService.loginBanner.next(true);
             this.router.navigate(['/']);
-          },
-          error => console.log('error1:: ' + JSON.stringify(error))
-        );
       },
       error => {
         document.getElementById('wrongLoginButton').click();

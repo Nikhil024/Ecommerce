@@ -26,6 +26,7 @@ public class RequestFilter implements Filter{
 		httpResponse.setHeader("Access-Control-Allow-Headers","x-request-with, x-auth-token");
 		httpResponse.setHeader("Access-Control-Max-Age", "3600");
 		httpResponse.setHeader("Allow-Control-Allow-Credentials","true");
+		httpResponse.setHeader("Access-Control-Allow-Credentials", "x-auth-token");
 		
 		if(!(httpRequest.getMethod().equalsIgnoreCase("OPTIONS"))) {
 			try {

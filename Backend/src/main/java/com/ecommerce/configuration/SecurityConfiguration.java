@@ -1,5 +1,7 @@
 package com.ecommerce.configuration;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.ecommerce.handlers.AuthenticationFailureHandler;
 import com.ecommerce.handlers.AuthenticationSuccessHandler;
@@ -57,13 +61,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http
 			.csrf().disable()
-			.cors().disable()
+			.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and()
 			.exceptionHandling()
 				.authenticationEntryPoint(unauthorizedHandler)
 			.and()
-			.formLogin()
-				.successHandler(authSuccessHandler)
-				.failureHandler(authFailureHandler)
+			.httpBasic()
+				/*.successHandler(authSuccessHandler)
+				.failureHandler(authFailureHandler)*/
 				.and()
 			.authorizeRequests()
 				.antMatchers(PUBLIC_MATCHERS)

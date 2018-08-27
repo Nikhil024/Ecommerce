@@ -23,7 +23,7 @@ export class LoginService implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': basicHeader
     });
-    return this.httpClient.post(this.loginUrl , 'username=' + username + '&password=' + password, { headers: headers});
+    return this.httpClient.get(this.loginUrl , { headers: headers});
   }
 
   getToken (username: string, password: string) {
@@ -33,7 +33,7 @@ export class LoginService implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': basicHeader
     });
-    return this.httpClient.get(this.tokenUrl , {headers: headers});
+    return this.httpClient.get(this.tokenUrl , { headers: headers});
   }
 
 
