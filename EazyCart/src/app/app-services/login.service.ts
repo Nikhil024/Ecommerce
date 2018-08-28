@@ -26,17 +26,6 @@ export class LoginService implements OnInit {
     return this.httpClient.get(this.loginUrl , { headers: headers});
   }
 
-  getToken (username: string, password: string) {
-    const encodedCredentials = btoa(username + ':' + password);
-    const basicHeader = 'Basic ' + encodedCredentials;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': basicHeader
-    });
-    return this.httpClient.get(this.tokenUrl , { headers: headers});
-  }
-
-
   checkSession () {
     const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
@@ -45,10 +34,7 @@ export class LoginService implements OnInit {
   }
 
   logout() {
-    const headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-    return this.httpClient.post(this.logoutUrl, {headers: headers});
+    return this.httpClient.post(this.logoutUrl, localStorage.getItem('xAuthToken'));
   }
 
   isAuthenticated() {

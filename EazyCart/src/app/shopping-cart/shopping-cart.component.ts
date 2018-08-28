@@ -29,6 +29,7 @@ export class ShoppingCartComponent implements OnInit {
         }
       );
     }
+    console.log(JSON.stringify('cart::: ' +  JSON.stringify(this.cart)));
   }
 
   removeProduct(product: Product) {

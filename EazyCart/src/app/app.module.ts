@@ -12,7 +12,7 @@ import { ProductConfirmationComponent } from './product-confirmation/product-con
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {ApplicationRoutes} from './application-routes.module';
 import {CategoryListingComponent} from './category-listing/category-listing.component';
@@ -26,6 +26,7 @@ import {EnableItemComponent} from './admin/enable-item/enable-item.component';
 import {UserService} from './app-services/user.service';
 import {AdminGaurd} from './admin-gaurd.service';
 import {MaintenanceComponent} from './maintenance/maintenance.component';
+import {AuthenticationInterceptor} from './interceptors/AuthenticationInterceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import {MaintenanceComponent} from './maintenance/maintenance.component';
     SearchFilterPipe,
     AddItemComponent,
     EnableItemComponent,
-	MaintenanceComponent
+    MaintenanceComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,9 @@ import {MaintenanceComponent} from './maintenance/maintenance.component';
     FormsModule,
     ApplicationRoutes
   ],
-  providers: [AuthGaurd, LoginService, AdminGaurd, UserService],
+  providers: [AuthGaurd, LoginService, AdminGaurd, UserService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

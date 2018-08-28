@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   login(form: NgForm) {
     this.loginService.login(form.value.username, form.value.password).subscribe(
       res => {
-            localStorage.setItem('xAuthToken', res['token']);
+            localStorage.setItem('xAuthToken', btoa(form.value.username + ':' + form.value.password));
             console.log(JSON.stringify(res));
             this.loginService.loginBanner.next(true);
             this.router.navigate(['/']);

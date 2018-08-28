@@ -13,13 +13,10 @@ export class AddressService {
 
 
   getAddress() {
-    const headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-    return this.httpClient.get<Address[]>(this.getAddressUrl, {headers: headers});
+    return this.httpClient.get<Address[]>(this.getAddressUrl);
   }
 
-  saveAddress(address:Address) {
+  saveAddress(address: Address) {
     return this.httpClient.post<Address>(this.saveAddressUrl, address);
   }
 

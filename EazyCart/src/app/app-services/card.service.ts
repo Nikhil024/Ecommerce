@@ -12,9 +12,6 @@ export class CardService {
 
 
   validateCard(cardDetails: Card) {
-       const headers = new HttpHeaders({
-        'x-auth-token': localStorage.getItem('xAuthToken')
-      });
-      return this.httpClient.post<Card>(this.validateCardURL, cardDetails, {headers: headers});
+      return this.httpClient.post<Card>(this.validateCardURL, cardDetails);
   }
 }

@@ -61,7 +61,6 @@ export class ProductListingComponent implements OnInit {
       this.loggedIn = false;
     }
   );
-    alert('aaaaaa ' + this.loggedIn);
   }
 
 
@@ -119,10 +118,10 @@ export class ProductListingComponent implements OnInit {
           if (cart !== null && cart.product != null) {
             this.cart = cart;
             this.totalCartCount = this.cart.product.length;
-            for (let i = 0; i <= this.cart.product.length; i++) {
-               $('#' + cart.product[i].code + '_cart').text('Added In Cart');
-              if (cart.product[i] != null) {
-                this.totalCartCost += cart.product[i].offerPrice;
+            for (const cartProduct of this.cart.product) {
+              if (cartProduct != null) {
+                $('#' + cartProduct.code + '_cart').text('Added In Cart');
+                this.totalCartCost += cartProduct.offerPrice;
               }
             }
           }

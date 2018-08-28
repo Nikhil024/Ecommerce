@@ -10,10 +10,7 @@ export class FileUploadService {
 
 
   uploadProductImage(formData: FormData) {
-    const headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-   return this.httpClient.post(this.fileUploadUrl, formData, {headers: headers});
+   return this.httpClient.post(this.fileUploadUrl, formData);
   }
 
 

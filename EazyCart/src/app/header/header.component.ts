@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   public seachFilter = '';
   userRole: string;
   itemType: string;
-  @ViewChild('exampleModal') openModal: ElementRef;
 
   constructor(private cartService: CartService,
               public loginService: LoginService,

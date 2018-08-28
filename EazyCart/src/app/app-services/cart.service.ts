@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApplicationProperties} from '../properties/applicationproperties';
 import {Cart} from '../app-models/cart.model';
@@ -18,55 +18,24 @@ export class CartService {
 
 
   addCart(productCode: string) {
-    if (localStorage.getItem('xAuthToken') != null) {
-      const headers = new HttpHeaders({
-        'x-auth-token': localStorage.getItem('xAuthToken')
-      });
-     return this.httpClient.post<Cart>(this.addCartUrl, productCode, {headers: headers});
-    } else {
-      return this.httpClient.post<Cart>(this.addUnknownUserCartUrl, productCode);
-    }
+    return this.httpClient.post<Cart>(this.addCartUrl, productCode);
   }
 
   addToExistingCart(productCode: string, cartId: number) {
-    if (localStorage.getItem('xAuthToken') != null) {
-      const headers = new HttpHeaders({
-        'x-auth-token': localStorage.getItem('xAuthToken')
-      });
-        return this.httpClient.post<Cart>(this.addExistingCartUrl, productCode + ':' + cartId, {headers: headers});
-    } else {
-        return this.httpClient.post<Cart>(this.addExistingCartUrl, productCode + ':' + cartId);
-    }
+    return this.httpClient.post<Cart>(this.addExistingCartUrl, productCode + ':' + cartId);
 
   }
 
   getCart(cartId: number) {
-    if (localStorage.getItem('xAuthToken') != null) {
-      const headers = new HttpHeaders({
-        'x-auth-token': localStorage.getItem('xAuthToken')
-      });
-      return this.httpClient.post<Cart>(this.getCartUrl, cartId, {headers: headers});
-    } else {
-      return this.httpClient.post<Cart>(this.getCartUrl, cartId);
-    }
+    return this.httpClient.post<Cart>(this.getCartUrl, cartId);
   }
 
   removeCart(productCode: string, cartId: number) {
-    if (localStorage.getItem('xAuthToken') != null) {
-      const headers = new HttpHeaders({
-        'x-auth-token': localStorage.getItem('xAuthToken')
-      });
-      return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId, {headers: headers});
-    } else {
-      return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId);
-    }
+    return this.httpClient.post<Cart>(this.removeCartUrl, productCode + ':' + cartId);
   }
 
   removeCartUser() {
-    const headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-    return this.httpClient.post(this.removeCartUserUrl, parseInt(localStorage.getItem('cartId'), 10), {headers: headers});
+    return this.httpClient.post(this.removeCartUserUrl, parseInt(localStorage.getItem('cartId'), 10));
   }
 
 }
