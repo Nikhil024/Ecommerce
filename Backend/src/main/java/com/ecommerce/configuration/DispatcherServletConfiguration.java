@@ -28,7 +28,7 @@ public class DispatcherServletConfiguration extends AbstractAnnotationConfigDisp
 	
 	@Override
 	public void onStartup(ServletContext context) throws ServletException {
-      context.setInitParameter("spring.profiles.active", "dev");
+      context.setInitParameter("spring.profiles.active", "prod");
       
       AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
       ctx.register(ContextConfiguration.class);
