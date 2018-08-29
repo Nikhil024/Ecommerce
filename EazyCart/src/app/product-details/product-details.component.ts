@@ -6,7 +6,7 @@ import {ProductService} from '../app-services/product.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Cart} from '../app-models/cart.model';
-import { ApplicationProperties } from '../properties/applicationproperties';
+import {ApplicationProperties} from '../properties/applicationproperties';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +20,7 @@ export class ProductDetailsComponent implements OnInit {
   currentCategory: string;
   cart: Cart;
   public applicationName = ApplicationProperties.ApplicationName;
-  
+
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
     private productCategoriesService: ProductCategoryService,
@@ -41,41 +41,41 @@ export class ProductDetailsComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-       this.currentCategory =  params['categoryType'];
+        this.currentCategory = params['categoryType'];
       }
     );
 
- if (localStorage.getItem('cartId') != null) {
-     this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+    if (localStorage.getItem('cartId') != null) {
+      this.cartService.getCart(parseInt(localStorage.getItem('cartId'), 10)).subscribe(
         (cart: Cart) => {
           this.cart = cart;
         },
-          error => {
-            console.log(JSON.stringify(error));
-          }
-     );
- }
+        error => {
+          console.log(JSON.stringify(error));
+        }
+      );
+    }
   }
   addToCart(product: Product) {
-      if (localStorage.getItem('cartId') != null) {
-        this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
-          (cart: Cart) => {
-            this.cartService.cart.next(cart);
-          },
-          error => {
-            console.log(JSON.stringify(error));
-          }
-        );
-      } else {
-        this.cartService.addCart(product.code).subscribe(
-          (cart: Cart) => {
-            this.cartService.cart.next(cart);
-            localStorage.setItem('cartId', cart.id.toString());
-          },
-          error => {
-            console.log(JSON.stringify(error));
-          }
-        );
-      }
+    if (localStorage.getItem('cartId') != null) {
+      this.cartService.addToExistingCart(product.code, parseInt(localStorage.getItem('cartId'), 10)).subscribe(
+        (cart: Cart) => {
+          this.cartService.cart.next(cart);
+        },
+        error => {
+          console.log(JSON.stringify(error));
+        }
+      );
+    } else {
+      this.cartService.addCart(product.code).subscribe(
+        (cart: Cart) => {
+          this.cartService.cart.next(cart);
+          localStorage.setItem('cartId', cart.id.toString());
+        },
+        error => {
+          console.log(JSON.stringify(error));
+        }
+      );
     }
+  }
 }

@@ -3,7 +3,7 @@ import {ProductCategory} from '../app-models/productCategory.model';
 import {CartService} from '../app-services/cart.service';
 import {ProductCategoryService} from '../app-services/product.category.service';
 import {ProductService} from '../app-services/product.service';
-import { ApplicationProperties } from '../properties/applicationproperties';
+import {ApplicationProperties} from '../properties/applicationproperties';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 
@@ -16,7 +16,7 @@ export class CategoryListingComponent implements OnInit {
   productCategories: ProductCategory[] = [];
   products: Product[];
   public applicationName = ApplicationProperties.ApplicationName;
-  
+
   constructor(private route: ActivatedRoute,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,

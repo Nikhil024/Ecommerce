@@ -1,12 +1,9 @@
 package com.ecommerce.configuration;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-
-import com.ecommerce.handlers.AuthenticationFailureHandler;
-import com.ecommerce.handlers.AuthenticationSuccessHandler;
 import com.ecommerce.handlers.UnauthorizedEntryPointHandler;
 import com.ecommerce.services.impl.UserSecurityService;
 
@@ -31,12 +24,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserSecurityService userSecurityService;
-	
-	@Autowired
-	private AuthenticationSuccessHandler authSuccessHandler;
-	
-	@Autowired
-	private AuthenticationFailureHandler authFailureHandler;
 	
 	@Autowired
 	private UnauthorizedEntryPointHandler unauthorizedHandler;
@@ -66,8 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint(unauthorizedHandler)
 			.and()
 			.httpBasic()
-				/*.successHandler(authSuccessHandler)
-				.failureHandler(authFailureHandler)*/
 				.and()
 			.authorizeRequests()
 				.antMatchers(PUBLIC_MATCHERS)

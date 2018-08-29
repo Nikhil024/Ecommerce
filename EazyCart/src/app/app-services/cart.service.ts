@@ -18,7 +18,12 @@ export class CartService {
 
 
   addCart(productCode: string) {
-    return this.httpClient.post<Cart>(this.addCartUrl, productCode);
+    if (localStorage.getItem('xAuthToken') === null) {
+      return this.httpClient.post<Cart>(this.addUnknownUserCartUrl, productCode);
+    } else {
+      return this.httpClient.post<Cart>(this.addCartUrl, productCode);
+    }
+
   }
 
   addToExistingCart(productCode: string, cartId: number) {

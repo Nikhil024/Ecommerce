@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.model.Cart;
+import com.ecommerce.model.Product;
 import com.ecommerce.repository.CartRepository;
 import com.ecommerce.services.CartService;
 
@@ -37,6 +38,11 @@ public class CartServiceImpl implements CartService {
 	@Override	
 	public void removeCart(Cart cart) {
 		cartRepository.delete(cart);
+	}
+
+	@Override
+	public Long deleteByProduct(Product product) {
+		return cartRepository.deleteByProduct(product);
 	}
 
 }

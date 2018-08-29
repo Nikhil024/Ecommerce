@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApplicationProperties} from '../properties/applicationproperties';
 import {Product} from '../app-models/product.model';
-import { ProductCategory } from '../app-models/productCategory.model';
+import {ProductCategory} from '../app-models/productCategory.model';
 
 @Injectable()
 export class ProductService {
@@ -15,19 +15,19 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts() {
-    return this.httpClient.get<Product[]> (this.getAllProductsUrl);
+    return this.httpClient.get<Product[]>(this.getAllProductsUrl);
   }
 
   getAllEnabledProducts() {
-    return this.httpClient.get<Product[]> (this.getAllEnabledProductsUrl);
+    return this.httpClient.get<Product[]>(this.getAllEnabledProductsUrl);
   }
 
   getProductByCategory(categoryId: ProductCategory) {
-     return this.httpClient.post<Product[]> (this.getProductByCategoryUrl, categoryId);
+    return this.httpClient.post<Product[]>(this.getProductByCategoryUrl, categoryId);
   }
 
   getProduct(productCode: string) {
-    return this.httpClient.post<Product> (this.getProductByCodeUrl, productCode);
+    return this.httpClient.post<Product>(this.getProductByCodeUrl, productCode);
   }
 
   enableProduct(product: Product) {

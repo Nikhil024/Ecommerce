@@ -9,7 +9,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authReq = req;
     if (localStorage.getItem('xAuthToken') !== null) {
-      this.authReq = req.clone({ headers: req.headers.set('Authorization', 'Basic ' + localStorage.getItem('xAuthToken'))});
+      this.authReq = req.clone({headers: req.headers.set('Authorization', 'Basic ' + localStorage.getItem('xAuthToken'))});
     }
     return next.handle(this.authReq);
   }

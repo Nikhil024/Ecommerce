@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderService} from '../app-services/order.service';
 import {Order} from '../app-models/order.model';
 import {CartService} from '../app-services/cart.service';
@@ -11,7 +11,7 @@ import {CartService} from '../app-services/cart.service';
 export class ProductConfirmationComponent implements OnInit {
 
   constructor(private orderService: OrderService,
-              private cartService: CartService) { }
+    private cartService: CartService) {}
   public order: number;
   ngOnInit() {
     this.orderService.order.subscribe(
@@ -23,7 +23,7 @@ export class ProductConfirmationComponent implements OnInit {
             console.log('yes!!');
           }
         );
-    }
+      }
     );
   }
 

@@ -10,7 +10,7 @@ export class FileUploadService {
 
 
   uploadProductImage(formData: FormData) {
-   return this.httpClient.post(this.fileUploadUrl, formData);
+    return this.httpClient.post(this.fileUploadUrl, formData);
   }
 
 

@@ -8,29 +8,29 @@ export class LoginService implements OnInit {
   private loginUrl = ApplicationProperties.BackendRestUrl + 'login';
   private tokenUrl = ApplicationProperties.BackendRestUrl + 'token';
   private checkSessionUrl = ApplicationProperties.BackendRestUrl + 'token';
-  private logoutUrl =  ApplicationProperties.BackendRestUrl + 'userLogout';
+  private logoutUrl = ApplicationProperties.BackendRestUrl + 'userLogout';
   public loginBanner = new Subject();
   public searchFilter = new Subject();
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   constructor(private httpClient: HttpClient) {}
 
-  login (username: string, password: string) {
+  login(username: string, password: string) {
     const encodedCredentials = btoa(username + ':' + password);
     const basicHeader = 'Basic ' + encodedCredentials;
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': basicHeader
     });
-    return this.httpClient.get(this.loginUrl , { headers: headers});
+    return this.httpClient.get(this.loginUrl, {headers: headers});
   }
 
-  checkSession () {
+  checkSession() {
     const headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
-    return this.httpClient.get(this.checkSessionUrl , {headers: headers});
+    return this.httpClient.get(this.checkSessionUrl, {headers: headers});
   }
 
   logout() {
@@ -38,6 +38,6 @@ export class LoginService implements OnInit {
   }
 
   isAuthenticated() {
-    return localStorage.getItem('xAuthToken') != null;
+    return localStorage.getItem('xAuthToken') !== null;
   }
 }

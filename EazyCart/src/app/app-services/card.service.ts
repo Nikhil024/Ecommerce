@@ -1,6 +1,6 @@
 import {Card} from '../app-models/card.model';
-import { ApplicationProperties } from '../properties/applicationproperties';
-import { HttpHeaders } from '@angular/common/http';
+import {ApplicationProperties} from '../properties/applicationproperties';
+import {HttpHeaders} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
@@ -12,6 +12,6 @@ export class CardService {
 
 
   validateCard(cardDetails: Card) {
-      return this.httpClient.post<Card>(this.validateCardURL, cardDetails);
+    return this.httpClient.post<Card>(this.validateCardURL, cardDetails);
   }
 }

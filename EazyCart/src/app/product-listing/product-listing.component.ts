@@ -50,17 +50,17 @@ export class ProductListingComponent implements OnInit {
     this.getCart();
     this.checkSession();
     this.loginService.loginBanner.subscribe(
-    response => {
-      if (response) {
-        this.loggedIn = true;
-      } else {
+      response => {
+        if (response) {
+          this.loggedIn = true;
+        } else {
+          this.loggedIn = false;
+        }
+      },
+      error => {
         this.loggedIn = false;
       }
-    },
-    error => {
-      this.loggedIn = false;
-    }
-  );
+    );
   }
 
 
@@ -79,7 +79,9 @@ export class ProductListingComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      (user: User) => this.user = user,
+      (user: User) => {
+        this.user = user;
+      },
       error => {
         console.log('error ' + JSON.stringify(error));
         this.router.navigate(['/errorpage']);
@@ -174,7 +176,7 @@ export class ProductListingComponent implements OnInit {
   }
 
   checkSession() {
-    if(localStorage.getItem('xAuthToken') != null){
+    if (localStorage.getItem('xAuthToken') != null) {
       this.loggedIn = true;
     } else {
       this.loggedIn = false;

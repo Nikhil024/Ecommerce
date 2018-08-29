@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgModel} from '@angular/forms';
 import {RegisterService} from '../app-services/register.service';
 import {User} from '../app-models/user.model';
@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   private user: User;
   public alreadyExists = false;
   constructor(private registerService: RegisterService,
-              private router: Router) { }
+    private router: Router) {}
 
   ngOnInit() {
   }
@@ -27,12 +27,12 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error => {
-         const errorMessage = error['error'];
-          if (errorMessage === 'User already Exists') {
-              this.alreadyExists = true;
-          } else {
-            this.router.navigate(['/errorpage']);
-          }
+        const errorMessage = error['error'];
+        if (errorMessage === 'User already Exists') {
+          this.alreadyExists = true;
+        } else {
+          this.router.navigate(['/errorpage']);
+        }
       }
     );
   }

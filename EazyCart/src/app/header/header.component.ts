@@ -4,7 +4,7 @@ import {User} from '../app-models/user.model';
 import {CartService} from '../app-services/cart.service';
 import {LoginService} from '../app-services/login.service';
 import {UserService} from '../app-services/user.service';
-import { ApplicationProperties } from '../properties/applicationproperties';
+import {ApplicationProperties} from '../properties/applicationproperties';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   public cart = new Cart(null, null);
-  public user = new User('', '' , '', '', '', false);
+  public user = new User('', '', '', '', '', false);
   public totalCartCount = 0;
   public totalCartCost = 0;
   public loggedIn = false;
@@ -29,15 +29,15 @@ export class HeaderComponent implements OnInit {
   itemType: string;
 
   constructor(private cartService: CartService,
-              public loginService: LoginService,
-              private userService: UserService,
-              private router: Router,
-              private route: ActivatedRoute) {
-                  this.showLoginBanner = true;
-                  setTimeout(() => {
-                      this.showLoginBanner = false;
-                      this.showLogoutBanner = false;
-                  }, 3000);
+    public loginService: LoginService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) {
+    this.showLoginBanner = true;
+    setTimeout(() => {
+      this.showLoginBanner = false;
+      this.showLogoutBanner = false;
+    }, 3000);
 
   }
 
@@ -69,9 +69,11 @@ export class HeaderComponent implements OnInit {
         this.totalCartCount = 0;
         this.totalCartCost = 0;
         this.cart = currentCart;
-        for (const product of this.cart.product) {
-          this.totalCartCount += 1;
-          this.totalCartCost += product.offerPrice;
+        if (this.cart !== null && this.cart.product !== null) {
+          for (const product of this.cart.product) {
+            this.totalCartCount += 1;
+            this.totalCartCost += product.offerPrice;
+          }
         }
       }
     );
@@ -115,10 +117,13 @@ export class HeaderComponent implements OnInit {
       response => {
         this.loggedIn = true;
         localStorage.removeItem('xAuthToken');
+        localStorage.removeItem('userType');
+        this.router.navigate(['/']);
       },
       error => {
         localStorage.removeItem('xAuthToken');
         this.loggedIn = false;
+        this.router.navigate(['/']);
       }
     );
   }
@@ -126,10 +131,11 @@ export class HeaderComponent implements OnInit {
   getUser() {
     this.userService.getUser().subscribe(
       response => {
+        localStorage.setItem('userType', btoa(response.role));
         this.user = response;
         this.userRole = this.user.role;
       },
-        error => {console.log('error ' + JSON.stringify(error)); }
+      error => {console.log('error ' + JSON.stringify(error));}
     );
   }
 

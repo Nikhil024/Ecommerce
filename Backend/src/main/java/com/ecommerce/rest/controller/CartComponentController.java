@@ -103,17 +103,17 @@ public class CartComponentController {
 		Optional<Cart> optionalCart = cartService.getCartById(cartId);
 		if (optionalCart.isPresent()) {
 			Cart cart = optionalCart.get();
-			int count = 0;
 			for (Product product : cart.getProduct()) {
-				count += 1;
-				if (productCode.equals(product.getCode())) {
-					LOG.info("Removed the ProductCode :::::: " + product.getCode());
-				} else {
+				if (!productCode.equals(product.getCode())) {
 					productList.add(product);
+				} else {
+					Long removedCount = cartService.deleteByProduct(product);
+					if (removedCount >= 1) {
+						LOG.info("Removed the ProductCode :::::: " + product.getCode());
+					}
 				}
 			}
 			cart.setProduct(productList);
-			cartService.saveCart(cart);
 			return cart;
 		}
 		return null;
